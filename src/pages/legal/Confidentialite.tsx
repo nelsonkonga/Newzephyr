@@ -18,9 +18,9 @@ export function Confidentialite() {
             Collecte des données
           </h2>
           <p>
-            Le parcours collecte votre email, le nom de l’hôtel ou de l’établissement si vous le
+            Le parcours collecte votre email, le nom de l’activité si vous le
             donnez, le téléphone si vous le donnez, la formule, l’option choisie, votre nom, la ville,
-            le nombre de chambres, les précisions du brief et, si vous la donnez, la référence du
+            l’activité, les précisions du brief et, si vous la donnez, la référence du
             transfert Mobile Money. Cela sert à préparer la demande et à rapprocher le paiement.
             Aucun numéro de carte n’est demandé. Aucune donnée n’est collectée à votre insu.
           </p>
@@ -31,7 +31,7 @@ export function Confidentialite() {
             Utilisation et Sécurité
           </h2>
           <p>
-            Vos données sont destinées exclusivement à Nelo. Elles ne sont ni cédées, ni vendues,
+            Vos données sont destinées exclusivement à Newzephyr. Elles ne sont ni cédées, ni vendues,
             ni transférées à des tiers.
           </p>
         </section>

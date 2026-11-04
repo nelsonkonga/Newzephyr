@@ -39,7 +39,7 @@
   --card-foreground: #040815;
   --popover: #ffffff;
   --popover-foreground: #040815;
-  --primary: #6d42f5;
+  --primary: #3b6cf6;
   --primary-foreground: #ffffff;
   --secondary: #f6f6f6;
   --secondary-foreground: #040815;
@@ -50,7 +50,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: #e4e4e7;
   --input: #e4e4e7;
-  --ring: #6d42f5;
+  --ring: #3b6cf6;
   --gold: oklch(0.72 0.14 76);
   --gold-foreground: oklch(0.12 0 0);
   --cyan-accent: oklch(0.72 0.12 200);
@@ -63,7 +63,7 @@
   --card-foreground: #f4f5f7;
   --popover: #12141c;
   --popover-foreground: #f4f5f7;
-  --primary: #8b6cf8;
+  --primary: #6b93f8;
   --primary-foreground: #ffffff;
   --secondary: #1c1f2a;
   --secondary-foreground: #f4f5f7;
@@ -74,7 +74,7 @@
   --destructive: oklch(0.65 0.22 25);
   --border: #2a2e3a;
   --input: #2a2e3a;
-  --ring: #8b6cf8;
+  --ring: #6b93f8;
   --gold: oklch(0.78 0.14 76);
   --gold-foreground: oklch(0.10 0 0);
   --cyan-accent: oklch(0.75 0.12 200);
@@ -129,4 +129,159 @@ body {
 .glass {
   backdrop-filter: blur(16px) saturate(1.5);
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
+}
+
+.zephyr-stage {
+  container-type: size;
+  background:
+    radial-gradient(ellipse 72% 62% at 74% 46%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 70%),
+    radial-gradient(ellipse 48% 42% at 16% 82%, color-mix(in srgb, var(--gold) 28%, transparent), transparent 72%),
+    color-mix(in srgb, var(--muted) 72%, var(--background));
+}
+
+.zephyr-wind path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 7 11;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.55;
+  animation: zephyr-dash 8s linear infinite;
+}
+
+.zephyr-wind path:nth-child(2) {
+  stroke: var(--gold);
+  stroke-width: 1.3;
+  opacity: 0.7;
+  animation-duration: 11s;
+}
+
+.zephyr-wind path:nth-child(3) {
+  opacity: 0.28;
+  animation-duration: 13s;
+  animation-direction: reverse;
+}
+
+.zephyr-stack {
+  animation: zephyr-float 6.5s ease-in-out infinite;
+}
+
+.zephyr-slip {
+  animation: zephyr-slip 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.zephyr-commission {
+  animation: zephyr-commission 9s ease-in-out infinite;
+}
+
+.zephyr-confirm {
+  animation: zephyr-confirm 9s ease-in-out infinite;
+}
+
+.zephyr-book {
+  animation: zephyr-press 9s ease-in-out infinite;
+}
+
+@keyframes zephyr-dash {
+  to { stroke-dashoffset: -180; }
+}
+
+@keyframes zephyr-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+@keyframes zephyr-slip {
+  0% { left: 1.5rem; opacity: 0; transform: translateY(calc(-50% + 12px)); }
+  12% { opacity: 1; transform: translateY(-50%); }
+  54% { left: calc(100% - 29rem); opacity: 1; transform: translateY(-50%); }
+  70% { left: calc(100% - 27.5rem); opacity: 0; transform: translateY(-46%) scale(0.96); }
+  100% { left: 1.5rem; opacity: 0; transform: translateY(calc(-50% + 12px)); }
+}
+
+@keyframes zephyr-slip-down {
+  0% { opacity: 0; transform: translate3d(-50%, 8px, 0); }
+  14% { opacity: 1; transform: translate3d(-50%, 0, 0); }
+  50% { opacity: 1; transform: translate3d(-50%, 8cqh, 0); }
+  68% { opacity: 0; transform: translate3d(-50%, 14cqh, 0) scale(0.96); }
+  100% { opacity: 0; transform: translate3d(-50%, 8px, 0); }
+}
+
+@keyframes zephyr-commission-aside {
+  0% { opacity: 0; transform: translateY(6px); }
+  16% { opacity: 1; transform: translateY(0); }
+  42% { opacity: 1; transform: translateX(10px); }
+  60% { opacity: 0; transform: translate(-12px, 42px) rotate(-12deg); }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 639px) {
+  .zephyr-stage {
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 1.35rem;
+  }
+
+  .zephyr-slip {
+    top: 1.15rem;
+    left: 50%;
+    animation-name: zephyr-slip-down;
+  }
+
+  .zephyr-commission {
+    top: 1rem;
+    left: 0.7rem;
+    animation-name: zephyr-commission-aside;
+  }
+}
+
+@keyframes zephyr-commission {
+  0% { transform: translate3d(0, 8px, 0); opacity: 0; }
+  14% { transform: translate3d(0, 0, 0); opacity: 1; }
+  36% { transform: translate3d(14cqw, -5cqh, 0); opacity: 1; }
+  52% { transform: translate3d(16cqw, 16cqh, 0) rotate(14deg); opacity: 0; }
+  100% { transform: translate3d(16cqw, 16cqh, 0) rotate(14deg); opacity: 0; }
+}
+
+@keyframes zephyr-confirm {
+  0%, 62% { opacity: 0; }
+  74%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes zephyr-press {
+  0%, 54% { transform: scale(1); }
+  62% { transform: scale(0.97); }
+  70%, 100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zephyr-wind path,
+  .zephyr-stack,
+  .zephyr-slip,
+  .zephyr-commission,
+  .zephyr-confirm,
+  .zephyr-book {
+    animation: none;
+  }
+
+  .zephyr-slip {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 639px) {
+    .zephyr-slip {
+      transform: translateX(-50%);
+    }
+  }
+
+  .zephyr-confirm {
+    opacity: 1;
+  }
+
+  .zephyr-commission {
+    opacity: 0;
+  }
 }

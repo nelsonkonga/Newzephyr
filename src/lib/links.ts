@@ -14,6 +14,6 @@ export function whatsappUrl(text: string) {
 
 export function bookCallMessage(lang: 'fr' | 'en') {
   return lang === 'fr'
-    ? 'Bonjour Nelo, je souhaite réserver un appel de 20 minutes pour le site de réservation de mon hôtel.'
-    : 'Hello Nelo, I would like to book a 20-minute call about a direct-booking website for my hotel.'
+    ? 'Bonjour Newzephyr, je souhaite réserver un appel de 20 minutes pour le site web de mon activité.'
+    : 'Hello Newzephyr, I would like to book a 20-minute call about a website for my business.'
 }

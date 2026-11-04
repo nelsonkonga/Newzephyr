@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, Sparkles, UtensilsCrossed } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { Button } from '@/components/ui/button'
 import { useLang } from '@/contexts/LangContext'
-import { PACKAGES, RESTAURANT_FORMULE, formatPackagePrice } from '@/data/packages'
+import { PACKAGES, formatPackagePrice } from '@/data/packages'
 
 export function Pricing() {
   const { t, lang } = useLang()
@@ -47,7 +47,7 @@ export function Pricing() {
 
                 <h3 className="text-2xl font-bold mb-2">{name}</h3>
                 <p className="text-4xl font-extrabold tracking-tight mb-1">{price}</p>
-                <p className="text-xs text-muted-foreground mb-4">{t('tarifs.rooms')}</p>
+                <p className="text-xs text-muted-foreground mb-4">{t('tarifs.withVisit').replace('{price}', formatPackagePrice(pkg.visitPrice, lang))}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6 min-h-[60px]">{t(pkg.taglineKey)}</p>
 
                 <Button
@@ -61,7 +61,6 @@ export function Pricing() {
                   </Link>
                 </Button>
 
-                <p className="text-sm font-semibold text-primary mb-4">{t('guarantee.title')}</p>
                 <p className="text-sm font-medium mb-1">{t('tarifs.delay').replace('{n}', String(pkg.days))}</p>
                 <p className="text-sm text-muted-foreground mb-6">{t('tarifs.revisions')}</p>
 
@@ -82,23 +81,10 @@ export function Pricing() {
           })}
         </div>
 
-        <div className="rounded-3xl border border-border bg-card p-5 mb-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{t('tarifs.rule.title')}</p>
-          <p className="text-sm">{t('tarifs.rule.text')}</p>
-          <p className="text-xs text-muted-foreground mt-2">{t('tarifs.domain.note')}</p>
-        </div>
-
-        <div className="rounded-3xl border border-border bg-card p-5 flex flex-col sm:flex-row sm:items-center gap-4">
-          <UtensilsCrossed className="h-5 w-5 text-primary shrink-0" />
-          <div className="flex-1">
-            <p className="font-semibold mb-1">{t('tarifs.resto.title')}</p>
-            <p className="text-sm text-muted-foreground">{t('tarifs.resto.desc')}</p>
-          </div>
-          <Button variant="outline" className="rounded-[10px] border-primary text-primary hover:bg-primary/5 hover:text-primary" asChild>
-            <Link to={`/options?formule=${RESTAURANT_FORMULE}`}>
-              {t('tarifs.resto.cta')}
-            </Link>
-          </Button>
+        <div className="rounded-3xl border border-border bg-card p-5 space-y-2">
+          <p className="text-sm">{t('tarifs.domain.note')}</p>
+          <p className="text-sm text-muted-foreground">{t('tarifs.visit.yaounde')}</p>
+          <p className="text-sm text-muted-foreground">{t('tarifs.visit.outside')}</p>
         </div>
 
       </div>

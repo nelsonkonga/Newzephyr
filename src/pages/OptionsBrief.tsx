@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useLang } from '@/contexts/LangContext'
 import { formatMomoAmount, momoAmountXaf, momoParts } from '@/data/momoAmounts'
-import { PACKAGES, RESTAURANT_FORMULE, formatPackagePrice } from '@/data/packages'
+import { PACKAGES, formatPackagePrice } from '@/data/packages'
 import { readLeadDraft, storeLead, updateLeadDraft } from '@/lib/lead'
 
 export function OptionsBrief() {
@@ -16,7 +16,6 @@ export function OptionsBrief() {
   const [params] = useSearchParams()
   const draft = readLeadDraft()
   const formule = params.get('formule') || draft?.formule
-  const restaurant = formule === RESTAURANT_FORMULE
   const pkg = PACKAGES.find((item) => item.id === formule)
   const [name, setName] = useState(draft?.brief?.name ?? '')
   const [rooms, setRooms] = useState(draft?.brief?.rooms ?? '')
@@ -25,7 +24,7 @@ export function OptionsBrief() {
   const [nameError, setNameError] = useState(false)
   const [status, setStatus] = useState<'idle' | 'loading' | 'saved' | 'local'>('idle')
 
-  if (!draft || !draft.paymentAttempted || draft.formule !== formule || (!restaurant && !pkg)) {
+  if (!draft || !draft.paymentAttempted || draft.formule !== formule || !pkg) {
     const fallback = draft?.optionsReady
       ? `/options/paiement?formule=${draft.formule}`
       : `/options?formule=${formule || 'essentiel'}`
@@ -33,16 +32,10 @@ export function OptionsBrief() {
   }
 
   const lead = draft
-  const formulaName = restaurant ? t('options.resto.name') : t(pkg!.nameKey)
-  const modeLabel = restaurant
-    ? t('options.pay.quote')
-    : lead.visit
-      ? t('options.mode.visit')
-      : t('options.mode.supplied')
-  const euro = restaurant
-    ? t('options.pay.quote')
-    : formatPackagePrice(lead.visit ? pkg!.visitPrice : pkg!.price, lang)
-  const xaf = restaurant ? null : momoAmountXaf(lead.formule, lead.visit)
+  const formulaName = t(pkg.nameKey)
+  const modeLabel = lead.visit ? t('options.mode.visit') : t('options.mode.supplied')
+  const euro = formatPackagePrice(lead.visit ? pkg.visitPrice : pkg.price, lang)
+  const xaf = momoAmountXaf(lead.formule, lead.visit)
   const parts = xaf == null ? [] : momoParts(xaf)
   const total = xaf == null ? euro : formatMomoAmount(xaf, lang)
   const momoLine = parts.length > 1
@@ -50,11 +43,7 @@ export function OptionsBrief() {
       ? `${total}. Acompte demandé : ${formatMomoAmount(parts[0], lang)}. Solde à la livraison : ${formatMomoAmount(xaf! - parts[0], lang)}`
       : `${total}. Deposit requested: ${formatMomoAmount(parts[0], lang)}. Balance on delivery: ${formatMomoAmount(xaf! - parts[0], lang)}`)
     : total
-  const hint = restaurant
-    ? t('options.brief.restaurant')
-    : lead.visit
-      ? t('options.brief.visit')
-      : t('options.brief.supplied')
+  const hint = lead.visit ? t('options.brief.visit') : t('options.brief.supplied')
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault()
@@ -67,8 +56,8 @@ export function OptionsBrief() {
     updateLeadDraft({ brief })
     const payLabel = lead.paymentMethod === 'orange' ? 'Orange Money' : 'MTN Mobile Money'
     const message = lang === 'fr'
-      ? `Brief. Formule : ${formulaName}. Mode : ${modeLabel}. Prix affiché : ${euro}. Mobile Money : ${momoLine}. Nom : ${brief.name}. Ville : ${brief.city || 'non précisée'}. Chambres : ${brief.rooms || 'non précisé'}. Hôtel : ${lead.hotel || 'non précisé'}. Email : ${lead.email}. Téléphone : ${lead.phone || 'non précisé'}. Paiement : ${payLabel}, transfert non confirmé sur ce site. Référence : ${lead.paymentReference || 'aucune'}. Notes : ${brief.notes || 'aucune'}.`
-      : `Brief. Package: ${formulaName}. Mode: ${modeLabel}. Listed price: ${euro}. Mobile Money: ${momoLine}. Name: ${brief.name}. City: ${brief.city || 'not given'}. Rooms: ${brief.rooms || 'not given'}. Hotel: ${lead.hotel || 'not given'}. Email: ${lead.email}. Phone: ${lead.phone || 'not given'}. Payment: ${payLabel}, transfer not confirmed on this site. Reference: ${lead.paymentReference || 'none'}. Notes: ${brief.notes || 'none'}.`
+      ? `Brief. Formule : ${formulaName}. Mode : ${modeLabel}. Prix affiché : ${euro}. Mobile Money : ${momoLine}. Nom : ${brief.name}. Ville : ${brief.city || 'non précisée'}. Activité : ${brief.rooms || 'non précisée'}. Nom de l’activité : ${lead.hotel || 'non précisé'}. Email : ${lead.email}. Téléphone : ${lead.phone || 'non précisé'}. Paiement : ${payLabel}, transfert non confirmé sur ce site. Référence : ${lead.paymentReference || 'aucune'}. Notes : ${brief.notes || 'aucune'}.`
+      : `Brief. Package: ${formulaName}. Mode: ${modeLabel}. Listed price: ${euro}. Mobile Money: ${momoLine}. Name: ${brief.name}. City: ${brief.city || 'not given'}. Activity: ${brief.rooms || 'not given'}. Activity name: ${lead.hotel || 'not given'}. Email: ${lead.email}. Phone: ${lead.phone || 'not given'}. Payment: ${payLabel}, transfer not confirmed on this site. Reference: ${lead.paymentReference || 'none'}. Notes: ${brief.notes || 'none'}.`
     const saved = await storeLead({
       hotel: lead.hotel || brief.name,
       email: lead.email,
@@ -112,15 +101,13 @@ export function OptionsBrief() {
               </Label>
               <Input id="brief-city" value={city} onChange={(event) => setCity(event.target.value)} placeholder={t('options.brief.city.placeholder')} disabled={status === 'loading' || status === 'saved'} />
             </div>
-            {!restaurant && (
-              <div className="space-y-1.5">
-                <Label htmlFor="brief-rooms">
-                  {t('options.brief.rooms')}
-                  <span className="text-muted-foreground font-normal"> · {t('options.optional')}</span>
-                </Label>
-                <Input id="brief-rooms" inputMode="numeric" value={rooms} onChange={(event) => setRooms(event.target.value)} disabled={status === 'loading' || status === 'saved'} />
-              </div>
-            )}
+            <div className="space-y-1.5">
+              <Label htmlFor="brief-rooms">
+                {t('options.brief.rooms')}
+                <span className="text-muted-foreground font-normal"> · {t('options.optional')}</span>
+              </Label>
+              <Input id="brief-rooms" value={rooms} onChange={(event) => setRooms(event.target.value)} placeholder={t('options.brief.rooms.placeholder')} disabled={status === 'loading' || status === 'saved'} />
+            </div>
             <div className="space-y-1.5">
               <Label htmlFor="brief-notes">
                 {t('options.brief.notes')}

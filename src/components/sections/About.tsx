@@ -12,7 +12,7 @@ export function About() {
           <div className="relative rounded-2xl overflow-hidden aspect-[4/5] max-w-md">
             <img
               src="/nelo-profile.jpg"
-              alt="Nelo"
+              alt="Nelson, Newzephyr"
               loading="lazy"
               className="w-full h-full object-cover object-center"
             />
