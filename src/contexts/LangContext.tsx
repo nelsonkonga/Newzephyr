@@ -9,7 +9,7 @@ interface LangContextValue {
 }
 
 const translations: Record<string, Record<Lang, string>> = {
-  'nav.offer': { fr: 'Offre', en: 'Offer' },
+  'nav.offer': { fr: 'Création de site web', en: 'Website creation' },
   'nav.examples': { fr: 'Parcours', en: 'Journeys' },
   'nav.method': { fr: 'Déroulement', en: 'Process' },
   'nav.pricing': { fr: 'Tarifs', en: 'Pricing' },
@@ -35,12 +35,12 @@ const translations: Record<string, Record<Lang, string>> = {
 
   'hero.badge': { fr: 'Toutes les activités', en: 'Every activity' },
   'hero.title': {
-    fr: 'Site web professionnel, {em}une semaine{/em} dès 449 €.',
-    en: 'A professional website, {em}in one week{/em} from €449.',
+    fr: 'Création de site web, {em}une semaine{/em} dès 449\u00A0€.',
+    en: 'Website creation, {em}in one week{/em} from €449.',
   },
   'hero.subtitle': {
-    fr: 'Pour toute activité qui veut un site. Découverte en 7 jours, Essentiel en 21 jours, Complet en 30 jours. Le prix et le délai sont sur cette page. Vous envoyez les textes et les photos, ou nous venons les faire sur place.',
-    en: 'For any activity that wants a website. Discovery in 7 days, Essential in 21 days, Complete in 30 days. The price and the deadline are on this page. You send the texts and photos, or we come on site to make them.',
+    fr: 'Création de site web pour toute activité. Découverte en 7 jours, Essentiel en 21 jours, Complet en 30 jours. Le prix et le délai sont sur cette page. Vous envoyez les textes et les photos, ou nous venons les faire sur place.',
+    en: 'Website creation for any activity. Discovery in 7 days, Essential in 21 days, Complete in 30 days. The price and the deadline are on this page. You send the texts and photos, or we come on site to make them.',
   },
   'hero.trust1': { fr: 'Un seul service', en: 'One service' },
   'hero.trust2': { fr: 'Délai écrit', en: 'A written deadline' },
@@ -100,10 +100,10 @@ const translations: Record<string, Record<Lang, string>> = {
   'compare.a4': { fr: 'Un formulaire reçoit la demande.', en: 'A form receives the request.' },
 
   'offer.eyebrow': { fr: 'L’offre', en: 'The offer' },
-  'offer.title': { fr: 'Un site web. Le prix et le délai sont écrits.', en: 'A website. The price and the deadline are written.' },
+  'offer.title': { fr: 'Création de site web. Le prix et le délai sont écrits.', en: 'Website creation. The price and the deadline are written.' },
   'offer.lead': {
-    fr: 'Pour toute activité qui veut un site. Le client peut écrire. La formule part dans le délai annoncé.',
-    en: 'For any activity that wants a website. The customer can write. The package starts on the announced deadline.',
+    fr: 'Salon, restaurant, hôtel ou boutique. Le client écrit sa demande sur le site. La formule part dans le délai annoncé.',
+    en: 'A salon, restaurant, hotel or shop. The customer writes the request on the site. The package starts on the announced deadline.',
   },
   'offer.forWho': { fr: 'Pour qui', en: 'For whom' },
   'offer.forWho.value': { fr: 'Toute activité qui veut un site web', en: 'Any activity that wants a website' },
@@ -280,8 +280,8 @@ const translations: Record<string, Record<Lang, string>> = {
   'faq.title': { fr: 'Avant {em}l’appel{/em}.', en: 'Before {em}the call{/em}.' },
   'faq.q1': { fr: 'Pour qui est cette offre ?', en: 'Who is this offer for?' },
   'faq.a1': {
-    fr: 'Toute activité qui veut un site web. Un hôtel, un restaurant ou un salon suivent la même formule.',
-    en: 'Any activity that wants a website. A hotel, a restaurant or a salon take the same package.',
+    fr: 'Toute activité qui veut une création de site web. Un hôtel, un restaurant, un salon ou une boutique suivent la même formule.',
+    en: 'Any activity that wants a website created. A hotel, a restaurant, a salon or a shop take the same package.',
   },
   'faq.q2': { fr: 'Le délai part quand ?', en: 'When does the deadline start?' },
   'faq.a2': {
@@ -311,11 +311,11 @@ const translations: Record<string, Record<Lang, string>> = {
 
   'about.eyebrow': { fr: 'À propos', en: 'About' },
   'about.title': { fr: 'Newzephyr', en: 'Newzephyr' },
-  'about.role': { fr: 'Sites web professionnels', en: 'Professional websites' },
+  'about.role': { fr: 'Création de site web', en: 'Website creation' },
   'about.location': { fr: 'Nelson, à Yaoundé', en: 'Nelson, in Yaoundé' },
   'about.bio': {
-    fr: 'Je livre un site web pour toute activité, en 7, 21 ou 30 jours. Une personne. Vous envoyez les textes et les photos, ou je viens sur place les faire. Ce qui est publié décrit ce qui a été vu ou reçu. L’appel de 20 minutes sert à choisir la formule.',
-    en: 'I deliver a website for any activity, in 7, 21 or 30 days. One person. You send the texts and photos, or I come on site to make them. What is published describes what was seen or received. The 20-minute call is for choosing the package.',
+    fr: 'Je fais la création de site web pour toute activité, en 7, 21 ou 30 jours. Une personne. Vous envoyez les textes et les photos, ou je viens sur place les faire. Ce qui est publié décrit ce qui a été vu ou reçu. L’appel de 20 minutes sert à choisir la formule.',
+    en: 'I create websites for any activity, in 7, 21 or 30 days. One person. You send the texts and photos, or I come on site to make them. What is published describes what was seen or received. The 20-minute call is for choosing the package.',
   },
   'about.h1': { fr: 'Une formule, un site', en: 'One package, one website' },
   'about.h2': { fr: 'Délai écrit', en: 'Written deadline' },
@@ -467,9 +467,10 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'options.brief.err.name': { fr: 'Indiquez votre nom.', en: 'Add your name.' },
 
+  'footer.link': { fr: 'Création de site web.', en: 'Website creation.' },
   'footer.desc': {
-    fr: 'Sites web professionnels pour toutes les activités. 7, 21 ou 30 jours selon la formule.',
-    en: 'Professional websites for every activity. 7, 21 or 30 days depending on the package.',
+    fr: 'Pour toutes les activités. 7, 21 ou 30 jours selon la formule.',
+    en: 'For every activity. 7, 21 or 30 days depending on the package.',
   },
   'footer.legal': { fr: 'Mentions légales', en: 'Legal notice' },
   'footer.privacy': { fr: 'Confidentialité', en: 'Privacy' },
