@@ -9,7 +9,7 @@ interface LangContextValue {
 }
 
 const translations: Record<string, Record<Lang, string>> = {
-  'nav.offer': { fr: 'Offre', en: 'Offer' },
+  'nav.offer': { fr: 'Création de site web', en: 'Website creation' },
   'nav.examples': { fr: 'Parcours', en: 'Journeys' },
   'nav.method': { fr: 'Déroulement', en: 'Process' },
   'nav.pricing': { fr: 'Tarifs', en: 'Pricing' },
@@ -35,8 +35,8 @@ const translations: Record<string, Record<Lang, string>> = {
 
   'hero.badge': { fr: 'Toutes les activités', en: 'Every activity' },
   'hero.title': {
-    fr: 'Site web professionnel, {em}une semaine{/em} dès 449 €.',
-    en: 'A professional website, {em}in one week{/em} from €449.',
+    fr: 'Création de site web, {em}une semaine{/em} dès 449\u00A0€.',
+    en: 'Website creation, {em}in one week{/em} from €449.',
   },
   'hero.subtitle': {
     fr: 'Création de site web pour toute activité. Découverte en 7 jours, Essentiel en 21 jours, Complet en 30 jours. Le prix et le délai sont sur cette page. Vous envoyez les textes et les photos, ou nous venons les faire sur place.',
@@ -467,9 +467,10 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'options.brief.err.name': { fr: 'Indiquez votre nom.', en: 'Add your name.' },
 
+  'footer.link': { fr: 'Création de site web.', en: 'Website creation.' },
   'footer.desc': {
-    fr: 'Sites web professionnels pour toutes les activités. 7, 21 ou 30 jours selon la formule.',
-    en: 'Professional websites for every activity. 7, 21 or 30 days depending on the package.',
+    fr: 'Pour toutes les activités. 7, 21 ou 30 jours selon la formule.',
+    en: 'For every activity. 7, 21 or 30 days depending on the package.',
   },
   'footer.legal': { fr: 'Mentions légales', en: 'Legal notice' },
   'footer.privacy': { fr: 'Confidentialité', en: 'Privacy' },

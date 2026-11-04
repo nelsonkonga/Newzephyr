@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { ArrowRight, Menu, Moon, Sun, X } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -16,7 +16,6 @@ export function Header() {
   const { theme, setTheme } = useTheme()
   const { lang, setLang, t } = useLang()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const navigate = useNavigate()
   const location = useLocation()
 
   useEffect(() => {
@@ -29,15 +28,6 @@ export function Header() {
     }
   }, [location.pathname, location.hash])
 
-  function handleNavClick(href: string) {
-    setMobileOpen(false)
-    if (location.pathname !== '/') {
-      navigate({ pathname: '/', hash: href })
-    } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
@@ -49,13 +39,13 @@ export function Header() {
 
           <nav className="hidden lg:flex items-center justify-center">
             {NAV_ITEMS.map((item) => (
-              <button
+              <Link
                 key={item.key}
-                onClick={() => handleNavClick(item.href)}
-                className="px-3 py-2 text-[16px] font-semibold text-foreground hover:text-primary transition-colors cursor-pointer"
+                to={`/${item.href}`}
+                className="px-3 py-2 text-[16px] font-semibold text-foreground hover:text-primary transition-colors"
               >
                 {t(item.key)}
-              </button>
+              </Link>
             ))}
           </nav>
 
@@ -74,13 +64,13 @@ export function Header() {
             >
               {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
-            <button
-              onClick={() => handleNavClick('#tarifs')}
-              className="ml-2 inline-flex items-center gap-2 appearance-none rounded-full bg-secondary px-4 py-2 text-[16px] font-medium cursor-pointer"
+            <Link
+              to="/#tarifs"
+              className="ml-2 inline-flex items-center gap-2 appearance-none rounded-full bg-secondary px-4 py-2 text-[16px] font-medium"
             >
               {t('nav.pricing')}
               <ArrowRight className="h-4 w-4" />
-            </button>
+            </Link>
           </div>
 
           <button className="lg:hidden justify-self-end p-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">
@@ -93,13 +83,14 @@ export function Header() {
         <div className="lg:hidden bg-background border-b border-border">
           <div className="px-4 pt-2 pb-6 space-y-1">
             {NAV_ITEMS.map((item) => (
-              <button
+              <Link
                 key={item.key}
-                onClick={() => handleNavClick(item.href)}
-                className="block w-full text-left px-3 py-2.5 text-base font-semibold cursor-pointer"
+                to={`/${item.href}`}
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-left px-3 py-2.5 text-base font-semibold"
               >
                 {t(item.key)}
-              </button>
+              </Link>
             ))}
             <div className="flex items-center gap-3 px-3 pt-3">
               <button
@@ -113,9 +104,13 @@ export function Header() {
               </button>
             </div>
             <div className="pt-2 px-3 flex flex-col gap-2">
-              <button onClick={() => handleNavClick('#tarifs')} className="rounded-full bg-secondary py-3 font-semibold cursor-pointer">
+              <Link
+                to="/#tarifs"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-full bg-secondary py-3 text-center font-semibold"
+              >
                 {t('nav.pricing')}
-              </button>
+              </Link>
               <Link
                 to="/appel"
                 onClick={() => setMobileOpen(false)}
