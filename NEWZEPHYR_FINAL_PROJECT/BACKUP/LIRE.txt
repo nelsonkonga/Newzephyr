@@ -1,0 +1,3 @@
+L'original Untitled.fcproj (FilmCraft 0.15.0, schéma 15, séquence 720×1280)
+reste dans le dossier Drive PROJECT. Il n'est pas recopié ici.
+Newzephyr_Final.fcproj est le montage à ouvrir.
