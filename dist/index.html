@@ -7,6 +7,8 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://calendly.com" />
+    <link rel="dns-prefetch" href="https://calendly.com" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Création de site web professionnel | Newzephyr</title>
@@ -111,8 +113,27 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-BtVSitXd.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-B7RfXUGW.css">
+    <script>
+(function () {
+  if (location.pathname !== '/appel') return
+  var base = new URL("https://calendly.com/nelsonkonga2-0/20min")
+  base.searchParams.set('embed_domain', location.hostname)
+  base.searchParams.set('embed_type', 'Inline')
+  base.searchParams.set('hide_gdpr_banner', '1')
+  base.searchParams.set('hide_event_type_details', '1')
+  base.searchParams.set('primary_color', '3b6cf6')
+  var frame = document.createElement('iframe')
+  frame.id = 'calendly-early'
+  frame.title = 'Réserver un appel de 20 minutes'
+  frame.loading = 'eager'
+  frame.setAttribute('fetchpriority', 'high')
+  frame.src = base.toString()
+  frame.style.cssText = 'position:absolute;width:100%;height:760px;top:0;left:0;visibility:hidden;border:0'
+  document.body.appendChild(frame)
+})()
+</script>
+    <script type="module" crossorigin src="/assets/index-DVlxinun.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BA3-xx-L.css">
   </head>
   <body>
     <div id="root">
