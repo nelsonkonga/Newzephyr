@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { LangProvider } from '@/contexts/LangContext'
 import { Header } from '@/components/layout/Header'
@@ -23,7 +24,20 @@ import { OptionsPayment } from '@/pages/OptionsPayment'
 import { OptionsBrief } from '@/pages/OptionsBrief'
 import { BookCall } from '@/pages/BookCall'
 import { Octobre } from '@/pages/Octobre'
+import { warmCalendly } from '@/lib/calendly'
 import './index.css'
+
+function WarmCalendly() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname === '/appel') return
+    const id = window.requestIdleCallback(() => warmCalendly(), { timeout: 1500 })
+    return () => window.cancelIdleCallback(id)
+  }, [pathname])
+
+  return null
+}
 
 function HomePage() {
   return (
@@ -47,6 +61,7 @@ function App() {
       <LangProvider>
         <BrowserRouter>
           <DocumentMeta />
+          <WarmCalendly />
           <div className="min-h-screen bg-background text-foreground flex flex-col">
             <Header />
             <div className="flex-1">

@@ -4,6 +4,7 @@ import { ArrowRight, Menu, Moon, Sun, X } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useLang } from '@/contexts/LangContext'
+import { warmCalendly } from '@/lib/calendly'
 
 const NAV_ITEMS = [
   { key: 'nav.examples', href: '#exemples' },
@@ -114,6 +115,7 @@ export function Header() {
               <Link
                 to="/appel"
                 onClick={() => setMobileOpen(false)}
+                onPointerDown={warmCalendly}
                 className="rounded-full bg-primary text-primary-foreground py-3 text-center font-semibold"
               >
                 {t('nav.cta')}

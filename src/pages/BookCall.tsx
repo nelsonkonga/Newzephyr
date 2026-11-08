@@ -1,51 +1,29 @@
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '@/contexts/LangContext'
-import { calendlyUrl } from '@/lib/calendly'
+import { calendlyEmbedUrl } from '@/lib/calendly'
 
-type CalendlyWidget = {
-  initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void
-}
+const FRAME_CLASS = 'h-[760px] w-full border-0 bg-card'
 
 export function BookCall() {
   const { t } = useLang()
-  const url = calendlyUrl()
-  const frame = useRef<HTMLDivElement>(null)
+  const slot = useRef<HTMLDivElement>(null)
+  const hostname = typeof window === 'undefined' ? 'www.newzephyr.co' : window.location.hostname
+  const url = calendlyEmbedUrl(hostname)
+  const [reuseEarly] = useState(
+    () => typeof document !== 'undefined' && document.getElementById('calendly-early') instanceof HTMLIFrameElement,
+  )
 
-  useEffect(() => {
-    if (!url || !frame.current) return
-    const parent = frame.current
-    let cancelled = false
-
-    function mount() {
-      if (cancelled) return
-      const widget = (window as Window & { Calendly?: CalendlyWidget }).Calendly
-      if (!widget) return
-      parent.innerHTML = ''
-      widget.initInlineWidget({ url: url as string, parentElement: parent })
-      const iframe = parent.querySelector('iframe')
-      if (iframe) iframe.style.height = '760px'
-    }
-
-    const src = 'https://assets.calendly.com/assets/external/widget.js'
-    const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`)
-    if (existing && (window as Window & { Calendly?: CalendlyWidget }).Calendly) {
-      mount()
-      return () => {
-        cancelled = true
-      }
-    }
-
-    const script = existing ?? document.createElement('script')
-    script.src = src
-    script.async = true
-    script.addEventListener('load', mount)
-    if (!existing) document.body.appendChild(script)
-    return () => {
-      cancelled = true
-      script.removeEventListener('load', mount)
-    }
-  }, [url])
+  useLayoutEffect(() => {
+    const frame = document.getElementById('calendly-early')
+    const parent = slot.current
+    if (!(frame instanceof HTMLIFrameElement) || !parent) return
+    frame.id = ''
+    frame.style.cssText = ''
+    frame.className = FRAME_CLASS
+    frame.title = t('call.title')
+    if (frame.parentElement !== parent) parent.replaceChildren(frame)
+  }, [t])
 
   return (
     <main className="pt-24 pb-16 bg-background min-h-screen">
@@ -53,7 +31,11 @@ export function BookCall() {
         <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4">{t('call.title')}</h1>
         <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl">{t('call.lead')}</p>
         {url ? (
-          <div ref={frame} className="h-[760px] w-full" />
+          <div ref={slot} className="h-[760px] w-full">
+            {reuseEarly ? null : (
+              <iframe title={t('call.title')} src={url} className={FRAME_CLASS} loading="eager" />
+            )}
+          </div>
         ) : (
           <p className="text-sm text-muted-foreground">{t('call.missing')}</p>
         )}
