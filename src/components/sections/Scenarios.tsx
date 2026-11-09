@@ -1,3 +1,4 @@
+import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { useLang } from '@/contexts/LangContext'
 
@@ -18,7 +19,9 @@ export function Scenarios() {
         <div className="mt-16 space-y-20 sm:space-y-28">
           {SCENARIOS.map(([kicker, title, body], index) => (
             <article key={title} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              <Scene index={index} className={index % 2 === 1 ? 'lg:order-2' : ''} />
+              <Rise className={index % 2 === 1 ? 'lg:order-2' : ''}>
+                <Scene index={index} />
+              </Rise>
               <div>
                 <p className="text-sm font-medium text-primary mb-3">{t(kicker)}</p>
                 <h3 className="text-3xl sm:text-4xl font-semibold tracking-tight leading-tight mb-4">{t(title)}</h3>
@@ -32,9 +35,10 @@ export function Scenarios() {
   )
 }
 
-function Scene({ index, className }: { index: number; className?: string }) {
+function Scene({ index }: { index: number }) {
   return (
-    <div className={`zephyr-scene ${className ?? ''}`} aria-hidden="true">
+    <div className={`zephyr-device ${index % 2 === 1 ? 'zephyr-device-right' : ''}`}>
+    <div className="zephyr-scene" aria-hidden="true">
       <div className="flex items-center gap-1.5 px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full bg-border" />
         <span className="h-2.5 w-2.5 rounded-full bg-border" />
@@ -44,6 +48,7 @@ function Scene({ index, className }: { index: number; className?: string }) {
       {index === 0 && <Gallery />}
       {index === 1 && <Request />}
       {index === 2 && <Payment />}
+    </div>
     </div>
   )
 }

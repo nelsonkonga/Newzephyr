@@ -1,3 +1,4 @@
+import { Rise } from '@/components/motion/Rise'
 import { CalendarClock, Globe, PenLine, Wallet } from 'lucide-react'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { useLang } from '@/contexts/LangContext'
@@ -21,6 +22,7 @@ export function Offer() {
         <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] max-w-4xl"><Emphasis text={t('offer.title')} /></h2>
         <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">{t('offer.lead')}</p>
 
+        <Rise>
         <dl className="mt-14 grid gap-10 sm:grid-cols-3">
           {FACTS.map((key) => (
             <div key={key}>
@@ -29,6 +31,7 @@ export function Offer() {
             </div>
           ))}
         </dl>
+        </Rise>
 
         <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {BENEFITS.map(([Icon, title, desc]) => (

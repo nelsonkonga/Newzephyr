@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { useLang } from '@/contexts/LangContext'
 
@@ -88,6 +89,7 @@ export function Methodology() {
         <div className="zephyr-method-track mt-10 mb-12" aria-hidden="true">
           <span ref={fillRef} className="zephyr-method-fill" />
         </div>
+        <Rise>
         <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map(([number, title, desc]) => (
             <li key={number}>
@@ -97,6 +99,7 @@ export function Methodology() {
             </li>
           ))}
         </ol>
+        </Rise>
       </div>
     </section>
   )
