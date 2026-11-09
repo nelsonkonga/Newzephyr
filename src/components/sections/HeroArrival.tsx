@@ -8,7 +8,7 @@ export function HeroArrival() {
   return (
     <div className="relative h-[500px] w-full sm:h-[520px] lg:h-full lg:min-h-[520px]">
       <p className="sr-only">{t('hero.visual.aria')}</p>
-      <div className="zephyr-stage absolute inset-0 flex items-center justify-end overflow-hidden rounded-[28px] border border-border px-3 sm:px-6" aria-hidden="true">
+      <div className="zephyr-stage absolute inset-0 flex items-center justify-end overflow-hidden px-3 sm:px-6" aria-hidden="true">
         <WindField />
         <svg className="zephyr-wind zephyr-wind-static pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path d="M-4 62 C 18 54, 34 42, 52 48 S 78 40, 106 34" />

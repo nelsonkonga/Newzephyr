@@ -12,7 +12,7 @@ export function Hero() {
   }
 
   return (
-    <section id="hero" className="overflow-x-hidden pt-[72px] pb-16 sm:pb-24 bg-background">
+    <section id="hero" className="zephyr-hero overflow-x-hidden pt-[72px] pb-16 sm:pb-24">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-10 sm:pt-16 lg:pt-20">
         <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-8 xl:gap-10">
           <div className="min-w-0">
