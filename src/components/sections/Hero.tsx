@@ -21,7 +21,7 @@ export function Hero() {
               {t('hero.badge')}
             </span>
 
-            <h1 className="text-[2rem] sm:text-5xl xl:text-6xl font-semibold tracking-tight leading-[1.08] mb-5 sm:mb-6">
+            <h1 className="zephyr-settle text-[2rem] sm:text-5xl xl:text-6xl font-semibold tracking-tight leading-[1.08] mb-5 sm:mb-6">
               <Emphasis text={t('hero.title')} />
             </h1>
 

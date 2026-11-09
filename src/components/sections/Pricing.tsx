@@ -22,17 +22,18 @@ export function Pricing() {
           <p className="text-sm leading-relaxed">{t('guarantee.supplied')}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch mb-8">
-          {PACKAGES.map((pkg) => {
+        <div className="zephyr-fan grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-5 items-stretch mb-8 pt-4 lg:px-3 lg:pt-12 lg:pb-14">
+          {PACKAGES.map((pkg, index) => {
             const name = t(pkg.nameKey)
             const price = formatPackagePrice(pkg.price, lang)
             const optionsUrl = `/options?formule=${pkg.id}`
+            const fan = index === 0 ? 'zephyr-fan-left' : index === PACKAGES.length - 1 ? 'zephyr-fan-right' : 'zephyr-fan-center'
             return (
               <article
                 key={pkg.id}
-                className={`relative rounded-3xl flex flex-col bg-card p-6 sm:p-8 ${
+                className={`zephyr-fan-card ${fan} relative rounded-3xl flex flex-col bg-card p-6 sm:p-8 ${
                   pkg.popular
-                    ? 'border-2 border-primary shadow-xl lg:-translate-y-2'
+                    ? 'border-2 border-primary shadow-xl'
                     : 'border border-border'
                 }`}
               >

@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react'
+import { WindField } from '@/components/sections/WindField'
 import { useLang } from '@/contexts/LangContext'
 
 export function HeroArrival() {
@@ -8,7 +9,8 @@ export function HeroArrival() {
     <div className="relative h-[500px] w-full sm:h-[520px] lg:h-full lg:min-h-[520px]">
       <p className="sr-only">{t('hero.visual.aria')}</p>
       <div className="zephyr-stage absolute inset-0 flex items-center justify-end overflow-hidden rounded-[28px] border border-border px-3 sm:px-6" aria-hidden="true">
-        <svg className="zephyr-wind pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <WindField />
+        <svg className="zephyr-wind zephyr-wind-static pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path d="M-4 62 C 18 54, 34 42, 52 48 S 78 40, 106 34" />
           <path d="M-4 74 C 22 80, 40 58, 58 64 S 84 72, 108 56" />
           <path d="M-6 50 C 16 38, 36 46, 54 34 S 80 26, 108 32" />
