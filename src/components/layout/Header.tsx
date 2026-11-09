@@ -32,7 +32,7 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-[auto_1fr_auto] items-center h-[72px] gap-4">
-          <Link to="/" className="flex items-center gap-2 font-semibold text-[17px] tracking-tight shrink-0">
+          <Link to="/" className="zephyr-mark flex items-center gap-2 font-semibold text-[17px] tracking-tight shrink-0">
             <Logo className="h-7 w-auto text-foreground" />
             <span className="whitespace-nowrap">Newzephyr</span>
           </Link>

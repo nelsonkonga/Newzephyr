@@ -285,3 +285,128 @@ body {
     opacity: 0;
   }
 }
+
+.zephyr-wind-static {
+  display: none;
+}
+
+.zephyr-wind-field[data-failed='true'] {
+  display: none;
+}
+
+.zephyr-wind-field[data-failed='true'] ~ .zephyr-wind-static {
+  display: block;
+}
+
+@keyframes zephyr-settle {
+  from { transform: translateY(8px); }
+  to { transform: translateY(0); }
+}
+
+.zephyr-settle {
+  animation: zephyr-settle 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.zephyr-mark {
+  perspective: 480px;
+}
+
+.zephyr-mark svg {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.zephyr-mark:hover svg,
+.zephyr-mark:focus-visible svg {
+  transform: rotateX(6deg) rotateY(-8deg);
+}
+
+@media (min-width: 1024px) {
+  .zephyr-fan {
+    perspective: 1100px;
+  }
+
+  .zephyr-fan-card {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+
+  .zephyr-fan-left {
+    transform: rotateY(16deg) translateY(22px) scale(0.98);
+    transform-origin: right center;
+  }
+
+  .zephyr-fan-right {
+    transform: rotateY(-16deg) translateY(22px) scale(0.98);
+    transform-origin: left center;
+  }
+
+  .zephyr-fan-center {
+    z-index: 2;
+    transform: translateY(-18px) scale(1.03);
+  }
+
+  .zephyr-fan-card:hover,
+  .zephyr-fan-card:focus-within {
+    z-index: 3;
+    transform: translateY(-26px) rotateY(0deg) scale(1.03);
+    box-shadow: 0 22px 48px color-mix(in srgb, var(--primary) 16%, transparent);
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  .zephyr-fan-left,
+  .zephyr-fan-right,
+  .zephyr-fan-left:hover,
+  .zephyr-fan-right:hover,
+  .zephyr-fan-left:focus-within,
+  .zephyr-fan-right:focus-within {
+    transform: none;
+    transition: none;
+  }
+
+  .zephyr-fan-center,
+  .zephyr-fan-center:hover,
+  .zephyr-fan-center:focus-within {
+    transform: translateY(-8px);
+    transition: none;
+  }
+}
+
+.zephyr-method-track {
+  height: 3px;
+  width: min(100%, 22rem);
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.zephyr-method-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zephyr-wind-field {
+    display: none;
+  }
+
+  .zephyr-wind-static {
+    display: block;
+  }
+
+  .zephyr-settle,
+  .zephyr-mark svg,
+  .zephyr-mark:hover svg,
+  .zephyr-mark:focus-visible svg {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+
+  .zephyr-method-fill {
+    transform: scaleX(1);
+  }
+}
