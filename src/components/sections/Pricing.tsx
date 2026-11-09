@@ -9,18 +9,18 @@ export function Pricing() {
   const { t, lang } = useLang()
 
   return (
-    <section id="tarifs" className="py-20 sm:py-28 bg-muted/40">
+    <section id="tarifs" className="py-20 sm:py-28">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         <div className="max-w-3xl mb-8">
           <p className="text-sm font-medium text-muted-foreground mb-3">{t('tarifs.eyebrow')}</p>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4"><Emphasis text={t('tarifs.title')} /></h2>
+          <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-4"><Emphasis text={t('tarifs.title')} /></h2>
           <p className="text-muted-foreground leading-relaxed">{t('tarifs.subtitle')}</p>
         </div>
 
-        <div className="rounded-3xl border border-primary/20 bg-primary/5 p-5 mb-8">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{t('guarantee.title')}</p>
-          <p className="text-sm leading-relaxed">{t('guarantee.supplied')}</p>
-        </div>
+        <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground mb-4">
+          <span className="font-semibold text-foreground">{t('guarantee.title')}. </span>
+          {t('guarantee.supplied')}
+        </p>
 
         <div className="zephyr-fan grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-5 items-stretch mb-8 pt-4 lg:px-3 lg:pt-12 lg:pb-14">
           {PACKAGES.map((pkg, index) => {

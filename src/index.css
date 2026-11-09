@@ -131,12 +131,15 @@ body {
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
 }
 
+.zephyr-hero {
+  background:
+    radial-gradient(ellipse 48% 70% at 82% 42%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 68%),
+    radial-gradient(ellipse 36% 42% at 8% 100%, color-mix(in srgb, var(--gold) 22%, transparent), transparent 70%),
+    var(--background);
+}
+
 .zephyr-stage {
   container-type: size;
-  background:
-    radial-gradient(ellipse 72% 62% at 74% 46%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 70%),
-    radial-gradient(ellipse 48% 42% at 16% 82%, color-mix(in srgb, var(--gold) 28%, transparent), transparent 72%),
-    color-mix(in srgb, var(--muted) 72%, var(--background));
 }
 
 .zephyr-wind path {
@@ -312,17 +315,24 @@ body {
 }
 
 .zephyr-mark svg {
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+  animation: zephyr-mark-yaw 5s ease-in-out infinite;
 }
 
 .zephyr-mark:hover svg,
 .zephyr-mark:focus-visible svg {
-  transform: rotateX(6deg) rotateY(-8deg);
+  animation-play-state: paused;
+  transform: rotateX(16deg) rotateY(-22deg);
+}
+
+@keyframes zephyr-mark-yaw {
+  0%, 100% { transform: rotateX(8deg) rotateY(-16deg); }
+  50% { transform: rotateX(2deg) rotateY(16deg); }
 }
 
 @media (min-width: 1024px) {
   .zephyr-fan {
-    perspective: 1100px;
+    perspective: 700px;
   }
 
   .zephyr-fan-card {
@@ -330,12 +340,12 @@ body {
   }
 
   .zephyr-fan-left {
-    transform: rotateY(16deg) translateY(22px) scale(0.98);
+    transform: rotateY(28deg) translateY(28px) scale(0.96);
     transform-origin: right center;
   }
 
   .zephyr-fan-right {
-    transform: rotateY(-16deg) translateY(22px) scale(0.98);
+    transform: rotateY(-28deg) translateY(28px) scale(0.96);
     transform-origin: left center;
   }
 
@@ -371,9 +381,138 @@ body {
   }
 }
 
+.zephyr-device {
+  perspective: 800px;
+}
+
+.zephyr-scene {
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--card);
+  box-shadow: 0 30px 70px color-mix(in srgb, var(--foreground) 12%, transparent);
+  transform: rotateX(10deg) rotateY(-26deg);
+  transform-origin: center center;
+  animation: zephyr-device-yaw 7s ease-in-out infinite;
+}
+
+.zephyr-device-right .zephyr-scene {
+  transform: rotateX(10deg) rotateY(26deg);
+  animation-name: zephyr-device-yaw-right;
+}
+
+@keyframes zephyr-device-yaw {
+  0%, 100% { transform: rotateX(12deg) rotateY(-30deg); }
+  50% { transform: rotateX(6deg) rotateY(-12deg); }
+}
+
+@keyframes zephyr-device-yaw-right {
+  0%, 100% { transform: rotateX(12deg) rotateY(30deg); }
+  50% { transform: rotateX(6deg) rotateY(12deg); }
+}
+
+.zephyr-rig {
+  perspective: 760px;
+  perspective-origin: 72% 46%;
+}
+
+.zephyr-world {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6%;
+  transform-style: preserve-3d;
+}
+
+.zephyr-world .zephyr-stack,
+.zephyr-world .zephyr-slip,
+.zephyr-world .zephyr-commission {
+  animation: none;
+}
+
+.zephyr-sheet {
+  position: absolute;
+  right: 4%;
+  width: min(78%, 300px);
+  height: 68%;
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--primary) 18%, var(--card));
+  transform: translateZ(-120px) rotateY(18deg);
+  box-shadow: 0 20px 40px color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.zephyr-world .zephyr-stack {
+  position: relative;
+  z-index: 2;
+  width: min(78%, 250px);
+  transform: translateZ(30px);
+}
+
+.zephyr-world .zephyr-slip {
+  position: absolute;
+  z-index: 4;
+  top: 16%;
+  left: 8%;
+  width: 168px;
+  opacity: 1;
+  transform: translateZ(130px);
+}
+
+.zephyr-world .zephyr-commission {
+  position: absolute;
+  z-index: 5;
+  top: 8%;
+  right: 8%;
+  left: auto;
+  opacity: 1;
+  transform: translateZ(180px) rotateZ(-8deg);
+}
+
+.zephyr-floor {
+  position: absolute;
+  right: 10%;
+  bottom: 8%;
+  width: 240px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--foreground) 28%, transparent), transparent 70%);
+  transform: translateZ(-70px) rotateX(72deg);
+}
+
+html.js .zephyr-rise {
+  opacity: 0;
+  transform: perspective(900px) translateY(48px) rotateX(18deg);
+  transform-origin: 50% 0;
+  transition: opacity 0.7s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.js .zephyr-rise.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 639px) {
+  .zephyr-world {
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .zephyr-sheet {
+    right: auto;
+    width: min(86%, 260px);
+  }
+
+  .zephyr-world .zephyr-slip {
+    top: 6%;
+    left: 4%;
+    width: 140px;
+  }
+}
+
 .zephyr-method-track {
   height: 3px;
-  width: min(100%, 22rem);
+  width: 100%;
   overflow: hidden;
   border-radius: 999px;
   background: color-mix(in srgb, var(--primary) 18%, transparent);
@@ -408,5 +547,25 @@ body {
 
   .zephyr-method-fill {
     transform: scaleX(1);
+  }
+
+  .zephyr-mark svg,
+  .zephyr-scene,
+  .zephyr-device-right .zephyr-scene,
+  .zephyr-world,
+  .zephyr-sheet,
+  .zephyr-world .zephyr-stack,
+  .zephyr-world .zephyr-slip,
+  .zephyr-world .zephyr-commission,
+  .zephyr-floor {
+    animation: none;
+    transform: none;
+  }
+
+  html.js .zephyr-rise,
+  html.js .zephyr-rise.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
