@@ -131,12 +131,15 @@ body {
   -webkit-backdrop-filter: blur(16px) saturate(1.5);
 }
 
+.zephyr-hero {
+  background:
+    radial-gradient(ellipse 48% 70% at 82% 42%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 68%),
+    radial-gradient(ellipse 36% 42% at 8% 100%, color-mix(in srgb, var(--gold) 22%, transparent), transparent 70%),
+    var(--background);
+}
+
 .zephyr-stage {
   container-type: size;
-  background:
-    radial-gradient(ellipse 72% 62% at 74% 46%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 70%),
-    radial-gradient(ellipse 48% 42% at 16% 82%, color-mix(in srgb, var(--gold) 28%, transparent), transparent 72%),
-    color-mix(in srgb, var(--muted) 72%, var(--background));
 }
 
 .zephyr-wind path {
@@ -371,9 +374,16 @@ body {
   }
 }
 
+.zephyr-scene {
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--card);
+  box-shadow: 0 30px 70px color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
 .zephyr-method-track {
   height: 3px;
-  width: min(100%, 22rem);
+  width: 100%;
   overflow: hidden;
   border-radius: 999px;
   background: color-mix(in srgb, var(--primary) 18%, transparent);
