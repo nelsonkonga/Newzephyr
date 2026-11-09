@@ -1,6 +1,7 @@
 import { Facebook, Github, Instagram, Linkedin, Twitter } from 'lucide-react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Separator } from '@/components/ui/separator'
+import { Logo } from '@/components/brand/Logo'
 import { useLang } from '@/contexts/LangContext'
 import { SOCIAL } from '@/lib/links'
 
@@ -28,16 +29,6 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   const { t } = useLang()
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  function scrollTo(href: string) {
-    if (location.pathname !== '/') {
-      navigate({ pathname: '/', hash: href })
-    } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   return (
     <footer className="bg-background border-t border-border">
@@ -45,10 +36,15 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-3 font-bold text-xl">
-              <img src="/NeloLogo3.png" alt="Nelo" className="h-10 w-10 rounded-lg object-cover border border-border/60" />
-              Nelo
+              <Logo className="h-9 w-auto text-foreground" />
+              Newzephyr
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">{t('footer.desc')}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+              <Link to="/" className="font-semibold text-foreground hover:text-primary">
+                {t('footer.link')}
+              </Link>{' '}
+              {t('footer.desc')}
+            </p>
             <div className="flex items-center flex-wrap gap-3 mt-5">
               {SOCIAL_LINKS.map((social) => {
                 const Icon = social.icon
@@ -73,9 +69,9 @@ export function Footer() {
             <ul className="space-y-2">
               {NAV_ITEMS.map((item) => (
                 <li key={item.key}>
-                  <button onClick={() => scrollTo(item.href)} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">
+                  <Link to={`/${item.href}`} className="text-sm text-muted-foreground hover:text-foreground">
                     {t(item.key)}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

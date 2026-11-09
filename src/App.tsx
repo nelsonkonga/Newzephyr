@@ -1,7 +1,9 @@
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { LangProvider } from '@/contexts/LangContext'
 import { Header } from '@/components/layout/Header'
+import { DocumentMeta } from '@/components/seo/DocumentMeta'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { Problem } from '@/components/sections/Problem'
@@ -21,7 +23,21 @@ import { OptionsChoice } from '@/pages/OptionsChoice'
 import { OptionsPayment } from '@/pages/OptionsPayment'
 import { OptionsBrief } from '@/pages/OptionsBrief'
 import { BookCall } from '@/pages/BookCall'
+import { Octobre } from '@/pages/Octobre'
+import { warmCalendly } from '@/lib/calendly'
 import './index.css'
+
+function WarmCalendly() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname === '/appel') return
+    const id = window.requestIdleCallback(() => warmCalendly(), { timeout: 1500 })
+    return () => window.cancelIdleCallback(id)
+  }, [pathname])
+
+  return null
+}
 
 function HomePage() {
   return (
@@ -44,6 +60,8 @@ function App() {
     <ThemeProvider>
       <LangProvider>
         <BrowserRouter>
+          <DocumentMeta />
+          <WarmCalendly />
           <div className="min-h-screen bg-background text-foreground flex flex-col">
             <Header />
             <div className="flex-1">
@@ -59,6 +77,7 @@ function App() {
                 <Route path="/mentions-legales" element={<MentionsLegales />} />
                 <Route path="/confidentialite" element={<Confidentialite />} />
                 <Route path="/conditions-generales" element={<ConditionsGenerales />} />
+                <Route path="/octobre" element={<Octobre />} />
               </Routes>
             </div>
             <Footer />

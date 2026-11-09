@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { useLang } from '@/contexts/LangContext'
+import { warmCalendly } from '@/lib/calendly'
 import { cn } from '@/lib/utils'
 
 interface BookCallButtonProps {
@@ -26,13 +27,13 @@ export function BookCallButton({
       size={size}
       className={cn(
         'h-16 rounded-full pl-7 pr-2 text-lg font-semibold',
-        primary && 'shadow-[0_8px_20px_rgba(109,66,245,0.18)]',
+        primary && 'shadow-[0_8px_20px_rgba(59,108,246,0.18)]',
         fullWidth && 'w-full',
         className,
       )}
       asChild
     >
-      <Link to="/appel">
+      <Link to="/appel" onPointerDown={warmCalendly} onFocus={warmCalendly}>
         {t('cta.book')}
         <span className={cn(
           'ml-3 inline-flex h-12 w-12 items-center justify-center rounded-full',

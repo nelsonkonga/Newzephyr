@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useLang } from '@/contexts/LangContext'
-import { PACKAGES, RESTAURANT_FORMULE, formatPackagePrice } from '@/data/packages'
+import { PACKAGES, formatPackagePrice } from '@/data/packages'
 import { readLeadDraft, saveLeadDraft, storeLead } from '@/lib/lead'
 
 function validEmail(value: string) {
@@ -18,14 +18,13 @@ export function Options() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const formule = params.get('formule')
-  const restaurant = formule === RESTAURANT_FORMULE
-  const pkg = restaurant ? null : (PACKAGES.find((item) => item.id === formule) ?? PACKAGES[1])
-  const activeId = restaurant ? RESTAURANT_FORMULE : pkg!.id
+  const pkg = PACKAGES.find((item) => item.id === formule) ?? PACKAGES[1]
+  const activeId = pkg.id
   const existing = readLeadDraft()
   const same = existing?.formule === activeId
 
-  const name = restaurant ? t('options.resto.name') : t(pkg!.nameKey)
-  const fromPrice = pkg ? formatPackagePrice(pkg.price, lang) : ''
+  const name = t(pkg.nameKey)
+  const fromPrice = formatPackagePrice(pkg.price, lang)
 
   const [hotel, setHotel] = useState(same && existing ? existing.hotel : '')
   const [email, setEmail] = useState(same && existing ? existing.email : '')
@@ -54,13 +53,9 @@ export function Options() {
       paymentAttempted: false,
     }
     saveLeadDraft(draft)
-    const message = restaurant
-      ? (lang === 'fr'
-        ? `Informations pour un devis restaurant. Email : ${draft.email}. Établissement : ${draft.hotel || 'non précisé'}. Téléphone : ${draft.phone || 'non précisé'}.`
-        : `Details for a restaurant quote. Email: ${draft.email}. Place: ${draft.hotel || 'not given'}. Phone: ${draft.phone || 'not given'}.`)
-      : (lang === 'fr'
-        ? `Informations pour la formule ${name}, à partir de ${fromPrice}. Email : ${draft.email}. Hôtel : ${draft.hotel || 'non précisé'}. Téléphone : ${draft.phone || 'non précisé'}. L’option n’est pas encore choisie.`
-        : `Details for the ${name} package, from ${fromPrice}. Email: ${draft.email}. Hotel: ${draft.hotel || 'not given'}. Phone: ${draft.phone || 'not given'}. The option is not chosen yet.`)
+    const message = lang === 'fr'
+      ? `Informations pour la formule ${name}, à partir de ${fromPrice}. Email : ${draft.email}. Activité : ${draft.hotel || 'non précisée'}. Téléphone : ${draft.phone || 'non précisé'}. L’option n’est pas encore choisie.`
+      : `Details for the ${name} package, from ${fromPrice}. Email: ${draft.email}. Activity: ${draft.hotel || 'not given'}. Phone: ${draft.phone || 'not given'}. The option is not chosen yet.`
     await storeLead({ ...draft, message })
     navigate(`/options/choix?formule=${activeId}`)
   }
@@ -73,7 +68,7 @@ export function Options() {
             <div>
               <p className="text-xs text-muted-foreground">{t('options.package')}</p>
               <p className="text-sm font-semibold">
-                {restaurant ? `${name} · ${t('options.pay.quote')}` : `${name} · ${t('options.from')} ${fromPrice}`}
+                {`${name} · ${t('options.from')} ${fromPrice}`}
               </p>
             </div>
             <button type="button" className="text-sm font-semibold text-primary" onClick={() => setChanging((open) => !open)}>
@@ -92,28 +87,21 @@ export function Options() {
                   {t(item.nameKey)} · {t('options.from')} {formatPackagePrice(item.price, lang)}
                 </Link>
               ))}
-              <Link
-                to={`/options?formule=${RESTAURANT_FORMULE}`}
-                className={`rounded-xl border px-3 py-2 text-sm ${restaurant ? 'border-primary text-primary' : 'border-border'}`}
-                onClick={() => setChanging(false)}
-              >
-                {t('options.resto.name')} · {t('options.pay.quote')}
-              </Link>
             </div>
           )}
 
           <h1 className="text-3xl font-semibold tracking-tight leading-tight mb-3">
-            <Emphasis text={restaurant ? t('options.title.resto') : t('options.title')} />
+            <Emphasis text={t('options.title')} />
           </h1>
           <p className="text-sm text-muted-foreground mb-6">{t('options.lead')}</p>
 
           <div className="space-y-4">
             <div className="space-y-1.5">
               <Label htmlFor="hotel">
-                {restaurant ? t('options.place') : t('options.hotel')}
+                {t('options.hotel')}
                 <span className="text-muted-foreground font-normal"> · {t('options.optional')}</span>
               </Label>
-              <Input id="hotel" value={hotel} onChange={(event) => setHotel(event.target.value)} placeholder={restaurant ? t('options.place.placeholder') : t('options.hotel.placeholder')} disabled={busy} />
+              <Input id="hotel" value={hotel} onChange={(event) => setHotel(event.target.value)} placeholder={t('options.hotel.placeholder')} disabled={busy} />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="email">{t('options.email')}</Label>

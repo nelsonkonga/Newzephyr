@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useLang } from '@/contexts/LangContext'
 import { formatMomoAmount, momoAmountXaf, momoParts } from '@/data/momoAmounts'
-import { PACKAGES, RESTAURANT_FORMULE, formatPackagePrice } from '@/data/packages'
+import { PACKAGES, formatPackagePrice } from '@/data/packages'
 import { momoNumber, openCheckout, personalMomoMethods } from '@/lib/checkout'
 import { readLeadDraft, updateLeadDraft, type PaymentMethod } from '@/lib/lead'
 
@@ -16,7 +16,6 @@ export function OptionsPayment() {
   const [params] = useSearchParams()
   const draft = readLeadDraft()
   const formule = params.get('formule') || draft?.formule
-  const restaurant = formule === RESTAURANT_FORMULE
   const pkg = PACKAGES.find((item) => item.id === formule)
   const personalMethods = personalMomoMethods()
   const methods: PaymentMethod[] = personalMethods.length > 0 ? personalMethods : ['mtn', 'orange']
@@ -26,7 +25,7 @@ export function OptionsPayment() {
   const [reference, setReference] = useState(draft?.paymentReference ?? '')
   const [status, setStatus] = useState<'idle' | 'loading' | 'manual' | 'unavailable' | 'formule' | 'url' | 'email' | 'method'>('idle')
 
-  if (!draft || draft.formule !== formule || (!restaurant && !pkg)) {
+  if (!draft || draft.formule !== formule || !pkg) {
     return <Navigate to={`/options?formule=${formule || 'essentiel'}`} replace />
   }
   if (!draft.optionsReady) {
@@ -34,16 +33,10 @@ export function OptionsPayment() {
   }
 
   const lead = draft
-  const name = restaurant ? t('options.resto.name') : t(pkg!.nameKey)
-  const modeLabel = restaurant
-    ? t('options.pay.quote')
-    : lead.visit
-      ? t('options.mode.visit')
-      : t('options.mode.supplied')
-  const euro = restaurant
-    ? t('options.pay.quote')
-    : formatPackagePrice(lead.visit ? pkg!.visitPrice : pkg!.price, lang)
-  const xaf = restaurant ? null : momoAmountXaf(lead.formule, lead.visit)
+  const name = t(pkg.nameKey)
+  const modeLabel = lead.visit ? t('options.mode.visit') : t('options.mode.supplied')
+  const euro = formatPackagePrice(lead.visit ? pkg.visitPrice : pkg.price, lang)
+  const xaf = momoAmountXaf(lead.formule, lead.visit)
   const parts = xaf == null ? [] : momoParts(xaf)
   const due = parts[0] ?? null
   const total = xaf == null ? euro : formatMomoAmount(xaf, lang)
@@ -72,7 +65,7 @@ export function OptionsPayment() {
       successUrl: `${window.location.origin}/options/brief?formule=${lead.formule}`,
       cancelUrl: window.location.href,
     })
-    if (result === 'manual' && !restaurant) setStatus('manual')
+    if (result === 'manual') setStatus('manual')
     else if (result !== 'redirect') setStatus(result)
   }
 
@@ -106,7 +99,7 @@ export function OptionsPayment() {
                     role="radio"
                     aria-checked={active}
                     onClick={() => choose(value)}
-                    className={`w-full text-left rounded-2xl border bg-card p-5 ${active ? 'border-primary shadow-[0_0_0_3px_rgba(109,66,245,0.15)]' : 'border-border'}`}
+                    className={`w-full text-left rounded-2xl border bg-card p-5 ${active ? 'border-primary shadow-[0_0_0_3px_rgba(59,108,246,0.15)]' : 'border-border'}`}
                   >
                     <span className="block font-semibold">{label}</span>
                     <span className="block text-sm text-muted-foreground mt-1">{hint}</span>

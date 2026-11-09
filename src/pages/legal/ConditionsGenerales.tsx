@@ -12,26 +12,23 @@ export function ConditionsGenerales() {
         <section className="space-y-3">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Objet</h2>
           <p>
-            Les présentes conditions régissent la création d’un site de réservation pour un hôtel
-            indépendant, vendu par Nelo sous l’une des trois formules. Si l’hôtel envoie les textes
-            et les photos : Découverte (449 €, 14 jours), Essentiel (990 €, 21 jours), Complet
-            (2 990 €, 30 jours). Si Nelo vient sur place photographier et écrire : Découverte
-            (649 €), Essentiel (1 490 €), Complet (3 990 €), aux mêmes délais. Ces prix couvrent
-            jusqu’à 15 chambres. Chaque chambre au-dessus ajoute 15 €. À Yaoundé, la venue est
+            Les présentes conditions régissent la création d’un site web pour une activité,
+            vendu par Newzephyr sous l’une des trois formules. Si le client envoie les textes
+            et les photos : Découverte (449 €, 7 jours), Essentiel (990 €, 21 jours), Complet
+            (2 990 €, 30 jours). Si Newzephyr vient sur place photographier et écrire : Découverte
+            (649 €), Essentiel (1 490 €), Complet (3 990 €), aux mêmes délais. À Yaoundé, la venue est
             dans le prix. Hors Yaoundé, le déplacement se chiffre à part, avant l’acompte.
-          </p>
-          <p>
-            Un restaurant, une gelateria ou toute autre prestation fait l’objet d’un devis séparé.
+            Un hôtel, un restaurant ou un salon suivent la même formule.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Délai</h2>
           <p>
-            Si l’hôtel envoie les textes et les photos, le délai commence le jour où l’acompte,
+            Si le client envoie les textes et les photos, le délai commence le jour où l’acompte,
             les textes et les photos sont reçus. Un retard du client sur ces éléments décale le
-            délai d’autant. Si Nelo vient sur place, le délai commence le lendemain de la visite,
-            une fois l’acompte payé. Si l’hôtel reporte la visite, le délai se décale d’autant.
+            délai d’autant. Si Newzephyr vient sur place, le délai commence le lendemain de la visite,
+            une fois l’acompte payé. Si le client reporte la visite, le délai se décale d’autant.
             Les textes et les photos publiés dans ce cas décrivent ce qui a été vu sur place.
           </p>
         </section>
@@ -39,9 +36,9 @@ export function ConditionsGenerales() {
         <section className="space-y-3">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Garantie de délai</h2>
           <p>
-            Si le délai est dépassé du fait de Nelo, le mois d’hébergement suivant la première année
-            est offert. Chaque formule inclut deux séries de modifications. Cette garantie ne porte
-            pas sur un nombre de réservations, de nuitées ou de chiffre d’affaires.
+            Chaque formule inclut deux retouches. Il n’y a pas de remboursement. Si le délai est
+            dépassé du fait de Newzephyr, le mois d’hébergement suivant la première année est offert.
+            Cette règle ne porte pas sur un nombre de demandes ou un chiffre d’affaires.
           </p>
         </section>
 
@@ -64,7 +61,7 @@ export function ConditionsGenerales() {
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Propriété</h2>
           <p>
             Le transfert des droits sur le site livré s’effectue après paiement total. Jusqu’à
-            complet paiement, les livrables restent la propriété de Nelo.
+            complet paiement, les livrables restent la propriété de Newzephyr.
           </p>
         </section>
       </div>

@@ -16,9 +16,9 @@ export function Faq() {
   return (
     <section id="faq" className="py-20 sm:py-28">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-        <p className="text-sm font-medium text-muted-foreground mb-3">{t('faq.eyebrow')}</p>
-        <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-8 max-w-3xl"><Emphasis text={t('faq.title')} /></h2>
-        <div className="divide-y divide-border border border-border rounded-3xl bg-card max-w-3xl">
+        <p className="text-sm font-medium text-primary mb-4">{t('faq.eyebrow')}</p>
+        <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-10 max-w-3xl"><Emphasis text={t('faq.title')} /></h2>
+        <div className="divide-y divide-border max-w-3xl">
           {ITEMS.map(([q, a]) => (
             <details key={q} className="group px-5 py-4">
               <summary className="cursor-pointer font-medium list-none flex items-center justify-between gap-4">

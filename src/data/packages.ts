@@ -1,7 +1,5 @@
 export type PackageId = 'decouverte' | 'essentiel' | 'complet'
 
-export const RESTAURANT_FORMULE = 'restaurant'
-
 export interface PackageDef {
   id: PackageId
   price: string
@@ -20,7 +18,7 @@ export const PACKAGES: PackageDef[] = [
     id: 'decouverte',
     price: '449 €',
     visitPrice: '649 €',
-    days: 14,
+    days: 7,
     nameKey: 'tarifs.pkg.decouverte.name',
     taglineKey: 'tarifs.pkg.decouverte.tagline',
     featureKeys: [
@@ -38,7 +36,6 @@ export const PACKAGES: PackageDef[] = [
     popular: true,
     nameKey: 'tarifs.pkg.essentiel.name',
     taglineKey: 'tarifs.pkg.essentiel.tagline',
-    popularBadgeKey: 'tarifs.pkg.essentiel.popularBadge',
     includedHeaderKey: 'tarifs.pkg.essentiel.includedHeader',
     featureKeys: [
       'tarifs.pkg.essentiel.f1',
@@ -57,7 +54,6 @@ export const PACKAGES: PackageDef[] = [
     featureKeys: [
       'tarifs.pkg.complet.f1',
       'tarifs.pkg.complet.f2',
-      'tarifs.pkg.complet.f3',
     ],
   },
 ]
@@ -73,11 +69,11 @@ export function packageWhatsappMessage(lang: 'fr' | 'en', name: string, price: s
   if (lang === 'fr') {
     const mode = visit
       ? 'avec venue sur place pour les photos et les textes'
-      : 'avec textes et photos envoyés par l’hôtel'
-    return `Bonjour Nelo, je souhaite réserver un appel de 20 minutes au sujet de la formule ${name} (${price}, ${mode}) pour mon hôtel.`
+      : 'avec textes et photos envoyés par l’activité'
+    return `Bonjour Newzephyr, je souhaite réserver un appel de 20 minutes au sujet de la formule ${name} (${price}, ${mode}) pour mon activité.`
   }
   const mode = visit
     ? 'with an on-site visit for the photos and the texts'
-    : 'with texts and photos sent by the hotel'
-  return `Hello Nelo, I would like to book a 20-minute call about the ${name} package (${price}, ${mode}) for my hotel.`
+    : 'with texts and photos sent by the business'
+  return `Hello Newzephyr, I would like to book a 20-minute call about the ${name} package (${price}, ${mode}) for my business.`
 }
