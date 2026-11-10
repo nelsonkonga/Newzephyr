@@ -38,9 +38,11 @@ export function Parallax({
       cx += (tx - cx) * 0.06
       cy += (ty - cy) * 0.06
       const turn = dx === 0 ? 0 : (cx / dx) * rot
-      const introY = (1 - ease) * 80
+      const intro = 1 - ease
+      const introY = intro * 120
+      const introX = intro * 34
       el.style.opacity = String(ease)
-      el.style.transform = `translate3d(${cx}px, ${cy + introY}px, 0) rotate(${turn}deg)`
+      el.style.transform = `perspective(800px) translate3d(${cx}px, ${cy + introY}px, 0) rotateX(${introX}deg) rotate(${turn}deg)`
       if (t >= 1 && !fine) return
       raf = requestAnimationFrame(tick)
     }

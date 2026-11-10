@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FitText } from '@/components/motion/FitText'
+import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
 import { SOCIAL } from '@/lib/links'
 
@@ -30,6 +31,7 @@ export function Footer() {
 
   return (
     <footer className="nd-foot">
+      <Rise>
       <div className="nd-foot-links">
         <nav>
           {NAV_ITEMS.map((item) => (
@@ -47,7 +49,10 @@ export function Footer() {
           <span>{t('about.location')}</span>
         </div>
       </div>
-      <FitText text="Newzephyr" className="nd-wordmark" />
+      </Rise>
+      <Rise delay={140}>
+        <FitText text="Newzephyr" className="nd-wordmark" />
+      </Rise>
     </footer>
   )
 }

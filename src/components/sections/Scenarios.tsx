@@ -17,15 +17,20 @@ export function Scenarios() {
       <div className="nc-wrap">
         <Rise>
           <p className="nc-kicker">(02) — {t('tarifs.eyebrow')}</p>
+        </Rise>
+        <Rise delay={90}>
           <h2 id="exemples" className="nc-display">{t('tarifs.eyebrow')}</h2>
+        </Rise>
+        <Rise delay={160}>
           <p className="nc-lead">{t('studio.examplesNote')}</p>
         </Rise>
         <div className="nc-fan" id="tarifs">
           {PACKAGES.map((pkg, index) => {
             const row = ROWS.find((item) => item.id === pkg.id)!
             const fan = index === 0 ? 'is-left' : index === PACKAGES.length - 1 ? 'is-right' : 'is-center'
+            const from = index === 0 ? 'left' : index === PACKAGES.length - 1 ? 'right' : 'up'
             return (
-              <Rise key={pkg.id} className={`nc-fan-card ${fan} ${pkg.popular ? 'is-pop' : ''}`}>
+              <Rise key={pkg.id} className={`nc-fan-card ${fan} ${pkg.popular ? 'is-pop' : ''}`} delay={index * 150} from={from}>
                 <article>
                   <img src={row.image} alt={`${t('studio.example')}, ${t(pkg.nameKey)}`} />
                   <p className="nc-meta">{t('studio.example')} — {pkg.days} {lang === 'fr' ? 'jours' : 'days'}</p>
@@ -41,10 +46,12 @@ export function Scenarios() {
             )
           })}
         </div>
-        <div className="nc-notes">
-          <p><strong>{t('guarantee.title')}. </strong>{t('guarantee.supplied')}</p>
-          <p>{t('tarifs.domain.note')}</p>
-        </div>
+        <Rise>
+          <div className="nc-notes">
+            <p><strong>{t('guarantee.title')}. </strong>{t('guarantee.supplied')}</p>
+            <p>{t('tarifs.domain.note')}</p>
+          </div>
+        </Rise>
       </div>
     </section>
   )

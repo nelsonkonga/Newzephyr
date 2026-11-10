@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
 
 export function LegalLayout({ children }: { children: React.ReactNode }) {
@@ -15,7 +16,9 @@ export function LegalLayout({ children }: { children: React.ReactNode }) {
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           {lang === 'fr' ? 'Retour à l\'accueil' : 'Back to home'}
         </Link>
-        <div className="space-y-8">{children}</div>
+        <Rise>
+          <div className="space-y-8">{children}</div>
+        </Rise>
       </div>
     </div>
   )

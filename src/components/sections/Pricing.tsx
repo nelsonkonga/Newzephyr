@@ -29,8 +29,9 @@ export function Pricing() {
             const price = formatPackagePrice(pkg.price, lang)
             const optionsUrl = `/options?formule=${pkg.id}`
             const fan = index === 0 ? 'zephyr-fan-left' : index === PACKAGES.length - 1 ? 'zephyr-fan-right' : 'zephyr-fan-center'
+            const from = index === 0 ? 'left' : index === PACKAGES.length - 1 ? 'right' : 'up'
             return (
-              <Rise key={pkg.id} className="h-full">
+              <Rise key={pkg.id} className="h-full" delay={index * 160} from={from}>
               <article
                 className={`zephyr-fan-card ${fan} relative rounded-3xl flex flex-col h-full bg-card p-6 sm:p-8 ${
                   pkg.popular
@@ -83,9 +84,11 @@ export function Pricing() {
           })}
         </div>
 
-        <div className="rounded-3xl border border-border bg-card p-5">
-          <p className="text-sm">{t('tarifs.domain.note')}</p>
-        </div>
+        <Rise delay={180}>
+          <div className="rounded-3xl border border-border bg-card p-5">
+            <p className="text-sm">{t('tarifs.domain.note')}</p>
+          </div>
+        </Rise>
 
       </div>
     </section>

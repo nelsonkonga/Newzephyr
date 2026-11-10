@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button'
+import { Rise } from '@/components/motion/Rise'
 
 export function Octobre() {
   return (
     <main className="px-4 pb-24 pt-28">
+      <Rise>
       <div className="mx-auto max-w-xl">
         <h1 className="text-4xl font-semibold tracking-tight">Dossier octobre</h1>
         <p className="mt-4 text-lg text-muted-foreground">
@@ -14,6 +16,7 @@ export function Octobre() {
           </a>
         </Button>
       </div>
+      </Rise>
     </main>
   )
 }

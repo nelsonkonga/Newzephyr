@@ -18,7 +18,9 @@ export function Hero() {
           <Parallax dx={-22} dy={-6} delay={400}><FitText text={t('studio.line2')} /></Parallax>
           <Parallax dx={30} dy={9} delay={600}><FitText text={t('studio.line3')} stroke /></Parallax>
         </h1>
-        <p className="nc-lead">{t('hero.subtitle')}</p>
+        <Parallax dx={8} dy={6} delay={820}>
+          <p className="nc-lead">{t('hero.subtitle')}</p>
+        </Parallax>
       </div>
     </section>
   )

@@ -18,11 +18,17 @@ export function Methodology() {
   return (
     <section id="methode" className="nc-steps">
       <div className="nc-wrap">
-        <p className="nc-kicker">(03) — {t('method.eyebrow')}</p>
-        <h2 className="nc-display">{t('method.eyebrow')}</h2>
-        <p className="nc-lead" style={{ textAlign: 'left', margin: '14px 0 8px' }}>{t('method.subtitle')}</p>
-        {STEPS.map(([n, title, desc, image]) => (
-          <Rise key={n}>
+        <Rise>
+          <p className="nc-kicker">(03) — {t('method.eyebrow')}</p>
+        </Rise>
+        <Rise delay={80}>
+          <h2 className="nc-display">{t('method.eyebrow')}</h2>
+        </Rise>
+        <Rise delay={150}>
+          <p className="nc-lead" style={{ textAlign: 'left', margin: '14px 0 8px' }}>{t('method.subtitle')}</p>
+        </Rise>
+        {STEPS.map(([n, title, desc, image], index) => (
+          <Rise key={n} delay={index * 120}>
             <article className="nc-step">
               <b>{n}</b>
               <h3>{t(title)}</h3>
@@ -31,7 +37,9 @@ export function Methodology() {
             </article>
           </Rise>
         ))}
-        <p className="nc-kicker" style={{ marginTop: 36 }}>{t('offer.forWho.value')}</p>
+        <Rise delay={80}>
+          <p className="nc-kicker" style={{ marginTop: 36 }}>{t('offer.forWho.value')}</p>
+        </Rise>
         <div className="nc-marquee" aria-hidden="true">
           <div className="nc-marquee-track">
             {line.map((item, index) => <span key={`${item}-${index}`}>{item}</span>)}

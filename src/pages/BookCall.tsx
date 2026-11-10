@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
 import { calendlyEmbedUrl } from '@/lib/calendly'
 
@@ -28,8 +29,12 @@ export function BookCall() {
   return (
     <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4">{t('call.title')}</h1>
-        <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl">{t('call.lead')}</p>
+        <Rise>
+          <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4">{t('call.title')}</h1>
+        </Rise>
+        <Rise delay={120}>
+          <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl">{t('call.lead')}</p>
+        </Rise>
         {url ? (
           <div ref={slot} className="h-[760px] w-full">
             {reuseEarly ? null : (

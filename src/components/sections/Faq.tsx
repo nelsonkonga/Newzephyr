@@ -28,20 +28,22 @@ export function Faq() {
           {t('cta.book')}
         </Link>
       </Rise>
-      <Rise>
+      <div>
         {ITEMS.map(([question, answer], index) => {
           const shown = open === index
           return (
-            <div key={question} className="nc-faq-row">
+            <Rise key={question} delay={index * 70}>
+            <div className="nc-faq-row">
               <button type="button" aria-expanded={shown} onClick={() => setOpen(shown ? -1 : index)}>
                 <span>0{index + 1} — {t(question)}</span>
                 <span>{shown ? '–' : '+'}</span>
               </button>
               <p hidden={!shown}>{t(answer)}</p>
             </div>
+            </Rise>
           )
         })}
-      </Rise>
+      </div>
     </section>
   )
 }

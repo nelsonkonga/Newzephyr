@@ -10,22 +10,34 @@ export function Problem() {
   return (
     <section id="probleme" className="nc-statement">
       <div className="nc-wrap">
-        <p className="nc-kicker">(01) — {t('problem.eyebrow')}</p>
+        <Rise>
+          <p className="nc-kicker">(01) — {t('problem.eyebrow')}</p>
+        </Rise>
         <ScrollWordReveal text={t('problem.title')} />
-        <p className="nc-lead" style={{ textAlign: 'left', marginTop: 18 }}>{t('problem.lead')}</p>
+        <Rise delay={120}>
+          <p className="nc-lead" style={{ textAlign: 'left', marginTop: 18 }}>{t('problem.lead')}</p>
+        </Rise>
         <div className="nc-compare">
-          <Rise>
           <article>
-            <h3>{t('compare.before')}</h3>
-            {before.map((key) => <p key={key}>{t(key)}</p>)}
+            <Rise delay={40}>
+              <h3>{t('compare.before')}</h3>
+            </Rise>
+            {before.map((key, index) => (
+              <Rise key={key} delay={110 + index * 70}>
+                <p>{t(key)}</p>
+              </Rise>
+            ))}
           </article>
-          </Rise>
-          <Rise>
           <article>
-            <h3>{t('compare.after')}</h3>
-            {after.map((key) => <p key={key}>{t(key)}</p>)}
+            <Rise delay={90}>
+              <h3>{t('compare.after')}</h3>
+            </Rise>
+            {after.map((key, index) => (
+              <Rise key={key} delay={150 + index * 70}>
+                <p>{t(key)}</p>
+              </Rise>
+            ))}
           </article>
-          </Rise>
         </div>
       </div>
     </section>

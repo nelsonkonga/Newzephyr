@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { ArrowRight, Loader2 } from 'lucide-react'
+import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -63,6 +64,7 @@ export function Options() {
   return (
     <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-lg mx-auto px-4">
+        <Rise>
         <form onSubmit={onSubmit} className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-sm">
           <div className="rounded-2xl bg-primary/10 px-4 py-3 mb-6 flex items-center justify-between gap-3">
             <div>
@@ -140,6 +142,7 @@ export function Options() {
             . {t('options.legal.nospam')}
           </p>
         </form>
+        </Rise>
       </div>
     </main>
   )
