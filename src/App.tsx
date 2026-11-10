@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { LangProvider } from '@/contexts/LangContext'
@@ -7,11 +7,8 @@ import { DocumentMeta } from '@/components/seo/DocumentMeta'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { Problem } from '@/components/sections/Problem'
-import { BeforeAfter } from '@/components/sections/BeforeAfter'
-import { Offer } from '@/components/sections/Offer'
 import { Methodology } from '@/components/sections/Methodology'
 import { Scenarios } from '@/components/sections/Scenarios'
-import { HomePricing } from '@/components/sections/HomePricing'
 import { Faq } from '@/components/sections/Faq'
 import { About } from '@/components/sections/About'
 import { MentionsLegales } from '@/pages/legal/MentionsLegales'
@@ -39,16 +36,22 @@ function WarmCalendly() {
   return null
 }
 
+function Frame({ children }: { children: ReactNode }) {
+  const home = useLocation().pathname === '/'
+  return (
+    <div className={home ? 'nc-shell min-h-screen flex flex-col' : 'min-h-screen bg-background text-foreground flex flex-col'}>
+      {children}
+    </div>
+  )
+}
+
 function HomePage() {
   return (
-    <main className="nd">
+    <main className="nc">
       <Hero />
       <Problem />
       <Scenarios />
-      <BeforeAfter />
       <Methodology />
-      <Offer />
-      <HomePricing />
       <Faq />
       <About />
     </main>
@@ -62,7 +65,7 @@ function App() {
         <BrowserRouter>
           <DocumentMeta />
           <WarmCalendly />
-          <div className="min-h-screen bg-background text-foreground flex flex-col">
+          <Frame>
             <Header />
             <div className="flex-1">
               <Routes>
@@ -81,7 +84,7 @@ function App() {
               </Routes>
             </div>
             <Footer />
-          </div>
+          </Frame>
         </BrowserRouter>
       </LangProvider>
     </ThemeProvider>

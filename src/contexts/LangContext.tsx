@@ -489,6 +489,16 @@ const translations: Record<string, Record<Lang, string>> = {
   'studio.menu': { fr: 'Menu', en: 'Menu' },
   'studio.close': { fr: 'Fermer', en: 'Close' },
   'studio.mail': { fr: 'nelo.engineering@hotmail.com', en: 'nelo.engineering@hotmail.com' },
+  'studio.line1': { fr: 'Création', en: 'Website' },
+  'studio.line2': { fr: 'de site web', en: 'creation' },
+  'studio.line3': { fr: 'dès 449 €', en: 'from €449' },
+  'studio.scroll': { fr: 'Défiler', en: 'Scroll' },
+  'studio.examples': { fr: 'Trois situations', en: 'Three situations' },
+  'studio.examplesNote': {
+    fr: 'Images d’exemple pour chaque formule. Ce ne sont pas des clients, ni des avis.',
+    en: 'Example images for each package. These are not clients, and not reviews.',
+  },
+  'studio.example': { fr: 'Exemple', en: 'Example' },
 }
 
 const LangContext = createContext<LangContextValue>({

@@ -54,7 +54,7 @@ export function Header() {
   if (home) {
     return (
       <>
-        <header className={`nd-top ${compact ? 'is-away' : ''}`}>
+        <header className={`nd-top ${compact ? 'is-solid' : ''}`}>
           <div className="nd-top-row">
             <Link to="/" className="nd-brand">
               <Logo className="h-7 w-auto" />
@@ -72,20 +72,21 @@ export function Header() {
               <button type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={theme === 'dark' ? 'Thème clair' : 'Thème sombre'}>
                 {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </button>
+              <Link to="/appel" className="nc-pill" onPointerDown={warmCalendly} onFocus={warmCalendly}>
+                <i />
+                {t('nav.cta')}
+              </Link>
             </div>
           </div>
         </header>
         <button
           type="button"
-          className={`nd-burger ${compact ? 'is-on' : ''}`}
+          className="nd-burger"
           aria-label={t('studio.menu')}
           onClick={() => setMenuOpen(true)}
         >
           <span />
         </button>
-        {compact && !menuOpen && (
-          <Link to="/#tarifs" className="nd-dock">{t('studio.dock')}</Link>
-        )}
         {menuOpen && (
           <div className="nd-menu" role="dialog" aria-label={t('studio.menu')}>
             <button type="button" className="nd-menu-x" aria-label={t('studio.close')} onClick={() => setMenuOpen(false)}>×</button>
