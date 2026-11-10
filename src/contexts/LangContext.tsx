@@ -499,6 +499,8 @@ const translations: Record<string, Record<Lang, string>> = {
     en: 'Example images for each package. These are not clients, and not reviews.',
   },
   'studio.example': { fr: 'Exemple', en: 'Example' },
+  'studio.view': { fr: 'Voir', en: 'View' },
+  'studio.explore': { fr: 'Explorer', en: 'Explore' },
 }
 
 const LangContext = createContext<LangContextValue>({

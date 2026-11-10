@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LiquidImage } from '@/components/motion/LiquidImage'
 import { useLang } from '@/contexts/LangContext'
 import { PACKAGES, formatPackagePrice } from '@/data/packages'
 
@@ -34,7 +35,7 @@ export function Scenarios() {
           const otherLabel = visit ? t('tarifs.mode.supplied') : t('tarifs.mode.visit')
           return (
             <article key={row.id} id={row.id === 'decouverte' ? 'tarifs' : undefined} className={`nc-row ${index % 2 ? 'is-flip' : ''}`}>
-              <img src={row.image} alt={`${t('studio.example')}, ${t(pkg.nameKey)}`} />
+              <LiquidImage src={row.image} alt={`${t('studio.example')}, ${t(pkg.nameKey)}`} />
               <div>
                 <p className="nc-meta">{t('studio.example')} — {t(pkg.nameKey)} — {pkg.days} {lang === 'fr' ? 'jours' : 'days'}</p>
                 <h3>{t(row.title)}</h3>

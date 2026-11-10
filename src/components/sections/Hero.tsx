@@ -1,4 +1,6 @@
 import { useLang } from '@/contexts/LangContext'
+import { FitText } from '@/components/motion/FitText'
+import { Parallax } from '@/components/motion/Parallax'
 
 export function Hero() {
   const { t } = useLang()
@@ -9,12 +11,16 @@ export function Hero() {
 
   return (
     <section id="hero" className="nc-hero">
-      <img className="nc-orb" src="/studio/hero-orb.png" alt="" />
+      <div className="nc-orb" data-cursor="explore">
+        <Parallax dx={-70} dy={-50} rot={6}>
+          <img src="/studio/hero-orb.png" alt="" />
+        </Parallax>
+      </div>
       <div className="nc-hero-inner">
         <h1>
-          <span>{t('studio.line1')}</span>
-          <span>{t('studio.line2')}</span>
-          <span className="nc-outline">{t('studio.line3')}</span>
+          <Parallax dx={14} dy={4}><FitText text={t('studio.line1')} /></Parallax>
+          <Parallax dx={-22} dy={-6}><FitText text={t('studio.line2')} /></Parallax>
+          <Parallax dx={30} dy={9}><FitText text={t('studio.line3')} stroke /></Parallax>
         </h1>
         <div className="nc-hero-foot">
           <button type="button" className="nc-scroll" onClick={scrollNext}>

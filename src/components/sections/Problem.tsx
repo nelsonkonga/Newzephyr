@@ -1,4 +1,4 @@
-import { Emphasis } from '@/components/ui/Emphasis'
+import { ScrollWordReveal } from '@/components/motion/ScrollWordReveal'
 import { useLang } from '@/contexts/LangContext'
 
 export function Problem() {
@@ -10,7 +10,7 @@ export function Problem() {
     <section id="probleme" className="nc-statement">
       <div className="nc-wrap">
         <p className="nc-kicker">(01) — {t('problem.eyebrow')}</p>
-        <h2><Emphasis text={t('problem.title')} /></h2>
+        <ScrollWordReveal text={t('problem.title')} />
         <p className="nc-lead" style={{ textAlign: 'left', marginTop: 18 }}>{t('problem.lead')}</p>
         <div className="nc-compare">
           <article>

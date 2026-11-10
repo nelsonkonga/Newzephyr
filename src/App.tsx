@@ -21,6 +21,8 @@ import { OptionsPayment } from '@/pages/OptionsPayment'
 import { OptionsBrief } from '@/pages/OptionsBrief'
 import { BookCall } from '@/pages/BookCall'
 import { Octobre } from '@/pages/Octobre'
+import { ReliefBackground } from '@/components/motion/ReliefBackground'
+import { CustomCursor } from '@/components/motion/CustomCursor'
 import { warmCalendly } from '@/lib/calendly'
 import './index.css'
 
@@ -40,7 +42,9 @@ function Frame({ children }: { children: ReactNode }) {
   const home = useLocation().pathname === '/'
   return (
     <div className={home ? 'nc-shell min-h-screen flex flex-col' : 'min-h-screen bg-background text-foreground flex flex-col'}>
-      {children}
+      {home && <ReliefBackground />}
+      {home && <CustomCursor />}
+      {home ? <div className="nc-page">{children}</div> : children}
     </div>
   )
 }

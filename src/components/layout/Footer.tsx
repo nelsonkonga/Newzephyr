@@ -2,6 +2,7 @@ import { Facebook, Github, Instagram, Linkedin, Twitter } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { Separator } from '@/components/ui/separator'
 import { Logo } from '@/components/brand/Logo'
+import { FitText } from '@/components/motion/FitText'
 import { useLang } from '@/contexts/LangContext'
 import { SOCIAL } from '@/lib/links'
 
@@ -34,7 +35,7 @@ export function Footer() {
   if (home) {
     return (
       <footer className="nd-foot">
-        <div className="nd-foot-grid">
+        <div className="nd-foot-links">
           <nav>
             {NAV_ITEMS.map((item) => (
               <Link key={item.key} to={`/${item.href}`}>{t(item.key)}</Link>
@@ -43,12 +44,12 @@ export function Footer() {
               <Link key={item.key} to={item.path}>{t(item.key)}</Link>
             ))}
           </nav>
-          <p className="nd-wordmark">Newzephyr</p>
+          <div className="nd-legal">
+            <span>{t('footer.copyright')}</span>
+            <span>{t('about.location')}</span>
+          </div>
         </div>
-        <div className="nd-legal">
-          <span>{t('footer.copyright')}</span>
-          <span>{t('about.location')}</span>
-        </div>
+        <FitText text="Newzephyr" className="nd-wordmark" color="#1c1c21" />
       </footer>
     )
   }

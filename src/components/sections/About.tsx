@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Magnetic } from '@/components/motion/Magnetic'
 import { useLang } from '@/contexts/LangContext'
 import { warmCalendly } from '@/lib/calendly'
 import { SOCIAL, whatsappUrl, bookCallMessage } from '@/lib/links'
@@ -16,9 +17,11 @@ export function About() {
         </h2>
         <p className="nc-lead">{t('about.bio')}</p>
         <div className="nc-close-actions">
-          <Link to="/appel" className="nc-pill is-solid" onPointerDown={warmCalendly} onFocus={warmCalendly}>
-            {t('cta.book')}
-          </Link>
+          <Magnetic>
+            <Link to="/appel" className="nc-pill is-solid" onPointerDown={warmCalendly} onFocus={warmCalendly}>
+              {t('cta.book')}
+            </Link>
+          </Magnetic>
           <a className="nc-pill" href={`mailto:${t('studio.mail')}`}>{t('studio.mail')}</a>
           <a className="nc-pill" href={whatsappUrl(bookCallMessage(lang))}>WhatsApp</a>
           <a className="nc-pill" href={SOCIAL.instagram}>Instagram</a>
