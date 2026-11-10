@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Eyebrow, PlusLink } from '@/components/home/chrome'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { useLang } from '@/contexts/LangContext'
 
@@ -12,23 +14,35 @@ const ITEMS = [
 
 export function Faq() {
   const { t } = useLang()
+  const [open, setOpen] = useState(0)
 
   return (
-    <section id="faq" className="py-20 sm:py-28">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-        <p className="text-sm font-medium text-primary mb-4">{t('faq.eyebrow')}</p>
-        <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-10 max-w-3xl"><Emphasis text={t('faq.title')} /></h2>
-        <div className="divide-y divide-border max-w-3xl">
-          {ITEMS.map(([q, a]) => (
-            <details key={q} className="group px-5 py-4">
-              <summary className="cursor-pointer font-medium list-none flex items-center justify-between gap-4">
-                {t(q)}
-                <span className="text-primary text-lg leading-none group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <p className="text-sm text-muted-foreground leading-relaxed pt-3">{t(a)}</p>
-            </details>
-          ))}
-        </div>
+    <section id="faq" className="nd-faq">
+      <div className="nd-faq-side">
+        <Eyebrow>{t('faq.eyebrow')}</Eyebrow>
+        <h2><Emphasis text={t('faq.title')} /></h2>
+        <p className="nd-index" style={{ marginTop: 28 }}>{t('studio.still')}</p>
+        <p>{t('studio.stillLead')}</p>
+        <PlusLink to="/appel">{t('cta.book')}</PlusLink>
+      </div>
+      <div>
+        {ITEMS.map(([question, answer], index) => {
+          const shown = open === index
+          return (
+            <div key={question} className="nd-faq-row">
+              <button
+                type="button"
+                aria-expanded={shown}
+                onClick={() => setOpen(shown ? -1 : index)}
+              >
+                <span>0{index + 1}</span>
+                {t(question)}
+                <span>{shown ? '–' : '+'}</span>
+              </button>
+              <p hidden={!shown}>{t(answer)}</p>
+            </div>
+          )
+        })}
       </div>
     </section>
   )

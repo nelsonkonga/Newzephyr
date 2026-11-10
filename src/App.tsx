@@ -11,7 +11,7 @@ import { BeforeAfter } from '@/components/sections/BeforeAfter'
 import { Offer } from '@/components/sections/Offer'
 import { Methodology } from '@/components/sections/Methodology'
 import { Scenarios } from '@/components/sections/Scenarios'
-import { Pricing } from '@/components/sections/Pricing'
+import { HomePricing } from '@/components/sections/HomePricing'
 import { Faq } from '@/components/sections/Faq'
 import { About } from '@/components/sections/About'
 import { MentionsLegales } from '@/pages/legal/MentionsLegales'
@@ -41,16 +41,16 @@ function WarmCalendly() {
 
 function HomePage() {
   return (
-    <main>
+    <main className="nd">
       <Hero />
       <Problem />
-      <BeforeAfter />
-      <Offer />
-      <Pricing />
       <Scenarios />
+      <BeforeAfter />
       <Methodology />
-      <About />
+      <Offer />
+      <HomePricing />
       <Faq />
+      <About />
     </main>
   )
 }
