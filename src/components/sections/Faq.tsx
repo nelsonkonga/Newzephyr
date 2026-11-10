@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Eyebrow, PlusLink } from '@/components/home/chrome'
+import { Link } from 'react-router-dom'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { useLang } from '@/contexts/LangContext'
+import { warmCalendly } from '@/lib/calendly'
 
 const ITEMS = [
   ['faq.q1', 'faq.a1'],
@@ -17,26 +18,22 @@ export function Faq() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section id="faq" className="nd-faq">
-      <div className="nd-faq-side">
-        <Eyebrow>{t('faq.eyebrow')}</Eyebrow>
+    <section id="faq" className="nc-faq nc-wrap">
+      <div>
+        <p className="nc-kicker">{t('faq.eyebrow')}</p>
         <h2><Emphasis text={t('faq.title')} /></h2>
-        <p className="nd-index" style={{ marginTop: 28 }}>{t('studio.still')}</p>
-        <p>{t('studio.stillLead')}</p>
-        <PlusLink to="/appel">{t('cta.book')}</PlusLink>
+        <p className="nc-lead" style={{ textAlign: 'left', marginTop: 16 }}>{t('studio.stillLead')}</p>
+        <Link to="/appel" className="nc-pill is-solid" style={{ marginTop: 18 }} onPointerDown={warmCalendly}>
+          {t('cta.book')}
+        </Link>
       </div>
       <div>
         {ITEMS.map(([question, answer], index) => {
           const shown = open === index
           return (
-            <div key={question} className="nd-faq-row">
-              <button
-                type="button"
-                aria-expanded={shown}
-                onClick={() => setOpen(shown ? -1 : index)}
-              >
-                <span>0{index + 1}</span>
-                {t(question)}
+            <div key={question} className="nc-faq-row">
+              <button type="button" aria-expanded={shown} onClick={() => setOpen(shown ? -1 : index)}>
+                <span>0{index + 1} — {t(question)}</span>
                 <span>{shown ? '–' : '+'}</span>
               </button>
               <p hidden={!shown}>{t(answer)}</p>
