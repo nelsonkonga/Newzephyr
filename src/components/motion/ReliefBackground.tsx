@@ -53,6 +53,7 @@ void main(){
   col+=uLight*0.05*pow(max(dot(reflect(-K,n),vec3(0,0,1)),0.),24.)*cav;
   float rim=pow(max(dot(n,normalize(vec3(-0.8,-0.6,0.25))),0.),3.);
   col+=uAccent*rim*0.035*(0.3+att);
+  float dust=0.;
   if(uParticles>0.5){
     vec2 gp=s*38.;
     gp.y-=uScroll*0.02*uParallax+t*0.12;
@@ -63,18 +64,29 @@ void main(){
       vec2 q=f-o;q.y/=1.+abs(uVel)*7.;
       float sp=exp(-dot(q,q)*420.);
       float tw=0.5+0.5*sin(t*2.+rnd*60.);
-      col+=mix(uLight,uAccent,step(0.04,rnd))*sp*tw*(0.12+att*2.2);
+      float spark=sp*tw*(0.12+att*2.2);
+      col+=mix(uLight,uAccent,step(0.04,rnd))*spark;
+      dust+=spark;
     }
   }
   col*=uIntensity;
   vec3 mapped=pow(aces(col*1.6),vec3(1./2.2));
   vec3 base=pow(uBase,vec3(1./2.2));
-  vec3 lit=base+(1.-base)*mapped;
-  float shade=clamp(dot(mapped,vec3(.299,.587,.114))*2.1,0.,1.);
-  vec3 paper=mix(base*vec3(.90,.89,.86),base,shade);
-  paper=mix(paper,lit,.2);
-  vec3 outc=mix(lit,paper,uPaper);
-  outc+=(h2(gl_FragCoord.xy+fract(t)*91.)-0.5)*uGrain*0.04;
+  vec3 outc;
+  if(uPaper>0.5){
+    float keyN=clamp(dot(n,normalize(vec3(-0.35,0.65,0.7))),0.,1.);
+    float groove=1.-cav;
+    float edge=pow(clamp(1.-n.z,0.,1.),1.3);
+    float formInk=clamp(groove*0.22+(1.-keyN)*0.055+edge*0.045,0.,0.18);
+    float d2=length(s-uMouse/uRef);
+    float near=exp(-d2*d2*34.);
+    float cursorInk=clamp(near*0.9,0.,0.9);
+    float ink=clamp(formInk+cursorInk+dust*0.28,0.,0.96);
+    outc=mix(base,vec3(0.05,0.045,0.04),ink);
+  }else{
+    outc=base+(1.-base)*mapped;
+  }
+  outc+=(h2(gl_FragCoord.xy+fract(t)*91.)-0.5)*uGrain*0.035;
   gl_FragColor=vec4(outc,1.);
 }`
 
@@ -91,9 +103,9 @@ const PALETTE = {
     intensity: 1,
   },
   light: {
-    base: toLinear('#f3f1ea'),
-    light: toLinear('#7f8aab'),
-    accent: toLinear('#3b6cf6'),
+    base: toLinear('#f4f2ec'),
+    light: toLinear('#16171c'),
+    accent: toLinear('#16171c'),
     intensity: 1,
   },
 }
