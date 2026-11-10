@@ -1,16 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useLang } from '@/contexts/LangContext'
 
 const EASE = 'cubic-bezier(.77,0,.175,1)'
 
 export function CustomCursor() {
-  const { t } = useLang()
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const labelRef = useRef<HTMLSpanElement>(null)
-  const labels = useRef({ view: t('studio.view'), explore: t('studio.explore') })
-  labels.current = { view: t('studio.view'), explore: t('studio.explore') }
 
   useEffect(() => {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
@@ -31,24 +27,23 @@ export function CustomCursor() {
     const setMode = (next: string) => {
       if (next === mode) return
       mode = next
-      const big = next === 'view' || next === 'explore'
-      const size = big ? 108 : next === 'link' ? 64 : 36
+      const accent = document.documentElement.classList.contains('dark') ? '#6b93f8' : '#3b6cf6'
+      const size = next === 'link' ? 64 : 36
       ring.style.width = `${size}px`
       ring.style.height = `${size}px`
-      ring.style.background = big ? '#6b93f8' : 'transparent'
-      ring.style.borderColor = big || next === 'link' ? '#6b93f8' : 'rgba(237, 235, 230, 0.55)'
-      label.textContent = next === 'view' ? labels.current.view : next === 'explore' ? labels.current.explore : ''
-      dot.style.opacity = big ? '0' : '1'
+      ring.style.background = 'transparent'
+      ring.style.borderColor = next === 'link' ? accent : 'rgba(120, 124, 132, 0.55)'
+      label.textContent = ''
+      dot.style.opacity = '1'
+      dot.style.background = accent
     }
     const show = (v: boolean) => {
       if (v === visible) return
       visible = v
-      dot.style.opacity = v && mode !== 'view' && mode !== 'explore' ? '1' : '0'
+      dot.style.opacity = v ? '1' : '0'
       ring.style.opacity = v ? '1' : '0'
     }
     const zoneOf = (el: Element | null) => {
-      const zone = el?.closest('[data-cursor]')?.getAttribute('data-cursor')
-      if (zone === 'view' || zone === 'explore') return zone
       if (el?.closest('a, button, [role="button"], input, textarea, select, label')) return 'link'
       return ''
     }
@@ -60,6 +55,9 @@ export function CustomCursor() {
         ringPos.y = pos.y
       }
       show(true)
+      const accent = document.documentElement.classList.contains('dark') ? '#6b93f8' : '#3b6cf6'
+      dot.style.background = accent
+      if (mode === 'link') ring.style.borderColor = accent
       dot.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`
     }
     const onOver = (e: PointerEvent) => setMode(zoneOf(e.target as Element))

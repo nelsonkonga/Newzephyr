@@ -14,7 +14,6 @@ export function OptionsChoice() {
   const draft = readLeadDraft()
   const formule = params.get('formule') || draft?.formule
   const pkg = PACKAGES.find((item) => item.id === formule)
-  const [visit, setVisit] = useState(draft?.visit ?? false)
   const [status, setStatus] = useState<'idle' | 'loading'>('idle')
 
   if (!draft || draft.formule !== formule || !pkg) {
@@ -24,12 +23,12 @@ export function OptionsChoice() {
   const lead = draft
   const selected = pkg
   const name = t(selected.nameKey)
-  const price = formatPackagePrice(visit ? selected.visitPrice : selected.price, lang)
-  const modeLabel = visit ? t('options.mode.visit') : t('options.mode.supplied')
+  const price = formatPackagePrice(selected.price, lang)
+  const modeLabel = t('options.mode.supplied')
 
   async function continueToPay() {
     setStatus('loading')
-    updateLeadDraft({ visit, optionsReady: true, paymentAttempted: false })
+    updateLeadDraft({ visit: false, optionsReady: true, paymentAttempted: false })
     const message = lang === 'fr'
       ? `Option choisie : ${name}, ${price}, ${modeLabel}. Email : ${lead.email}. Activité : ${lead.hotel || 'non précisée'}. Téléphone : ${lead.phone || 'non précisé'}.`
       : `Chosen option: ${name}, ${price}, ${modeLabel}. Email: ${lead.email}. Activity: ${lead.hotel || 'not given'}. Phone: ${lead.phone || 'not given'}.`
@@ -44,7 +43,7 @@ export function OptionsChoice() {
   }
 
   return (
-    <main className="pt-24 pb-16 bg-muted/40 min-h-screen">
+    <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-5xl mx-auto px-4">
         <FunnelStepper current={2} />
         <Link to={`/options?formule=${lead.formule}`} className="inline-flex items-center gap-2 text-sm text-muted-foreground mb-6">
@@ -55,34 +54,15 @@ export function OptionsChoice() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start">
           <div className="space-y-3">
-            {([false, true] as const).map((isVisit) => {
-                const active = visit === isVisit
-                const amount = formatPackagePrice(isVisit ? selected.visitPrice : selected.price, lang)
-                return (
-                  <button
-                    key={String(isVisit)}
-                    type="button"
-                    onClick={() => setVisit(isVisit)}
-                    className={`w-full text-left rounded-2xl border bg-card p-5 ${active ? 'border-primary shadow-[0_0_0_3px_rgba(59,108,246,0.15)]' : 'border-border'}`}
-                  >
-                    <span className="flex items-start justify-between gap-4">
-                      <span>
-                        <span className="block font-semibold">{isVisit ? t('options.mode.visit') : t('options.mode.supplied')}</span>
-                        <span className="block text-sm text-muted-foreground mt-1">{isVisit ? t('options.mode.visit.desc') : t('options.mode.supplied.desc')}</span>
-                      </span>
-                      <span className="font-semibold shrink-0">{amount}</span>
-                    </span>
-                  </button>
-                )
-              })}
-
-            {visit && (
-              <div className="text-sm text-muted-foreground space-y-1 px-1">
-                <p>{t('tarifs.visit.note')}</p>
-                <p>{t('tarifs.visit.yaounde')}</p>
-                <p>{t('tarifs.visit.outside')}</p>
-              </div>
-            )}
+            <div className="w-full text-left rounded-2xl border border-primary bg-card p-5 shadow-[0_0_0_3px_rgba(59,108,246,0.15)]">
+              <span className="flex items-start justify-between gap-4">
+                <span>
+                  <span className="block font-semibold">{t('options.mode.supplied')}</span>
+                  <span className="block text-sm text-muted-foreground mt-1">{t('options.mode.supplied.desc')}</span>
+                </span>
+                <span className="font-semibold shrink-0">{price}</span>
+              </span>
+            </div>
 
             <ul className="rounded-2xl border border-border bg-card p-5 space-y-3">
                 {selected.featureKeys.map((key) => (

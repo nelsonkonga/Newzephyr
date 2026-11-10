@@ -1,3 +1,4 @@
+import { Rise } from '@/components/motion/Rise'
 import { ScrollWordReveal } from '@/components/motion/ScrollWordReveal'
 import { useLang } from '@/contexts/LangContext'
 
@@ -13,14 +14,18 @@ export function Problem() {
         <ScrollWordReveal text={t('problem.title')} />
         <p className="nc-lead" style={{ textAlign: 'left', marginTop: 18 }}>{t('problem.lead')}</p>
         <div className="nc-compare">
+          <Rise>
           <article>
             <h3>{t('compare.before')}</h3>
             {before.map((key) => <p key={key}>{t(key)}</p>)}
           </article>
+          </Rise>
+          <Rise>
           <article>
             <h3>{t('compare.after')}</h3>
             {after.map((key) => <p key={key}>{t(key)}</p>)}
           </article>
+          </Rise>
         </div>
       </div>
     </section>

@@ -43,7 +43,7 @@ export function FitText({
         style={{
           fontSize: size,
           color: stroke ? 'transparent' : color,
-          WebkitTextStroke: stroke ? `${Math.max(1, size * 0.012)}px rgba(237, 235, 230, 0.92)` : undefined,
+          WebkitTextStroke: stroke ? `${Math.max(1, size * 0.012)}px var(--nc-ink)` : undefined,
         }}
       >
         {text}

@@ -13,23 +13,18 @@ export function ConditionsGenerales() {
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Objet</h2>
           <p>
             Les présentes conditions régissent la création d’un site web pour une activité,
-            vendu par Newzephyr sous l’une des trois formules. Si le client envoie les textes
+            vendu par Newzephyr sous l’une des trois formules. Le client envoie les textes
             et les photos : Découverte (449 €, 7 jours), Essentiel (990 €, 21 jours), Complet
-            (2 990 €, 30 jours). Si Newzephyr vient sur place photographier et écrire : Découverte
-            (649 €), Essentiel (1 490 €), Complet (3 990 €), aux mêmes délais. À Yaoundé, la venue est
-            dans le prix. Hors Yaoundé, le déplacement se chiffre à part, avant l’acompte.
-            Un hôtel, un restaurant ou un salon suivent la même formule.
+            (2 990 €, 30 jours). Un hôtel, un restaurant ou un salon suivent la même formule.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Délai</h2>
           <p>
-            Si le client envoie les textes et les photos, le délai commence le jour où l’acompte,
-            les textes et les photos sont reçus. Un retard du client sur ces éléments décale le
-            délai d’autant. Si Newzephyr vient sur place, le délai commence le lendemain de la visite,
-            une fois l’acompte payé. Si le client reporte la visite, le délai se décale d’autant.
-            Les textes et les photos publiés dans ce cas décrivent ce qui a été vu sur place.
+            Le délai commence le jour où l’acompte, les textes et les photos sont reçus.
+            Un retard du client sur ces éléments décale le délai d’autant.
+            Les textes et les photos publiés décrivent ce qui a été reçu.
           </p>
         </section>
 

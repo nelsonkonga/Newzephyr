@@ -230,7 +230,7 @@ export function LiquidImage({ src, alt }: { src: string; alt: string }) {
   }, [src])
 
   return (
-    <div ref={wrapRef} className="nc-shot" data-cursor="view">
+    <div ref={wrapRef} className="nc-shot">
       <div ref={innerRef} className="nc-shot-inner">
         <img src={src} alt={alt} />
         <canvas ref={canvasRef} aria-hidden="true" />

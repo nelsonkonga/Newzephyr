@@ -5,7 +5,7 @@ const ORIGIN = 'https://www.newzephyr.co'
 
 const HOME_TITLE = 'Création de site web professionnel | Newzephyr'
 const HOME_DESCRIPTION =
-  'Prix écrit avant l’appel. Création de site web dès 449 €, livrée en 7, 21 ou 30 jours. Deux retouches. Vous envoyez les contenus, ou nous venons sur place.'
+  'Le site qui reçoit la demande. Prix écrit plus bas : création de site web dès 449 €, livrée en 7, 21 ou 30 jours. Deux retouches. Vous envoyez les textes et les photos.'
 
 type PageMeta = {
   title: string

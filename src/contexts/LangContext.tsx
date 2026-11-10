@@ -39,8 +39,8 @@ const translations: Record<string, Record<Lang, string>> = {
     en: 'Website creation, {em}in one week{/em} from €449.',
   },
   'hero.subtitle': {
-    fr: 'Création de site web pour toute activité. Découverte en 7 jours, Essentiel en 21 jours, Complet en 30 jours. Le prix et le délai sont sur cette page. Vous envoyez les textes et les photos, ou nous venons les faire sur place.',
-    en: 'Website creation for any activity. Discovery in 7 days, Essential in 21 days, Complete in 30 days. The price and the deadline are on this page. You send the texts and photos, or we come on site to make them.',
+    fr: 'Un site pour toute activité qui reçoit des clients. Le prix et le délai sont écrits plus bas. Vous envoyez les textes et les photos.',
+    en: 'A website for any activity that receives customers. The price and the deadline are written further down. You send the texts and the photos.',
   },
   'hero.trust1': { fr: 'Un seul service', en: 'One service' },
   'hero.trust2': { fr: 'Délai écrit', en: 'A written deadline' },
@@ -118,8 +118,8 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'offer.b2.title': { fr: 'Le délai est écrit avant l’appel', en: 'The deadline is written before the call' },
   'offer.b2.desc': {
-    fr: '7, 21 ou 30 jours selon la formule. Le délai part à la réception de vos contenus, ou le lendemain de la venue sur place.',
-    en: '7, 21 or 30 days depending on the package. The deadline starts when your content arrives, or the day after the on-site visit.',
+    fr: '7, 21 ou 30 jours selon la formule. Le délai part à la réception de vos textes et de vos photos.',
+    en: '7, 21 or 30 days depending on the package. The deadline starts when your texts and photos arrive.',
   },
   'offer.b3.title': { fr: 'Deux retouches', en: 'Two revisions' },
   'offer.b3.desc': {
@@ -128,8 +128,8 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'offer.b4.title': { fr: 'Le prix est sur cette page', en: 'The price is on this page' },
   'offer.b4.desc': {
-    fr: '449 €, 990 € ou 2 990 € si vous envoyez les contenus. 649 €, 1 490 € ou 3 990 € si nous venons sur place.',
-    en: '€449, €990 or €2,990 if you send the content. €649, €1,490 or €3,990 if we come on site.',
+    fr: '449 €, 990 € ou 2 990 €. Le prix est écrit avant l’appel.',
+    en: '€449, €990 or €2,990. The price is written before the call.',
   },
 
   'method.eyebrow': { fr: 'Déroulement', en: 'Process' },
@@ -140,13 +140,13 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'method.s1.title': { fr: 'Appel de 20 minutes', en: '20-minute call' },
   'method.s1.desc': {
-    fr: 'On choisit la formule, et si vous envoyez les contenus ou si nous venons sur place.',
-    en: 'We choose the package, and whether you send the content or we come on site.',
+    fr: 'On choisit la formule. Vous envoyez ensuite les textes et les photos.',
+    en: 'We choose the package. You then send the texts and the photos.',
   },
   'method.s2.title': { fr: 'Acompte', en: 'Deposit' },
   'method.s2.desc': {
-    fr: 'Si vous envoyez les contenus, le délai part le jour où l’acompte, les textes et les photos sont reçus. Si nous venons sur place, il part le lendemain de la visite, une fois l’acompte payé.',
-    en: 'If you send the content, the deadline starts the day the deposit, texts and photos arrive. If we come on site, it starts the day after the visit, once the deposit is paid.',
+    fr: 'Le délai part le jour où l’acompte, les textes et les photos sont reçus.',
+    en: 'The deadline starts the day the deposit, the texts and the photos arrive.',
   },
   'method.s3.title': { fr: 'Livraison', en: 'Delivery' },
   'method.s3.desc': {
@@ -269,8 +269,8 @@ const translations: Record<string, Record<Lang, string>> = {
 
   'guarantee.title': { fr: 'Deux retouches', en: 'Two revisions' },
   'guarantee.supplied': {
-    fr: 'Deux retouches sont incluses. Il n’y a pas de remboursement. Si le délai de la formule est dépassé de notre fait, le mois d’hébergement suivant est offert. Le délai part le jour où l’acompte, les textes et les photos sont reçus. S’il y a une venue, il part le lendemain de la visite, une fois l’acompte payé. Si vous reportez la venue, le délai se décale d’autant.',
-    en: 'Two revisions are included. There is no refund. If we miss the package deadline, the following month of hosting is free. The deadline starts the day the deposit, the texts and the photos are received. If there is a visit, it starts the day after the visit, once the deposit is paid. If you postpone the visit, the deadline moves by the same amount.',
+    fr: 'Deux retouches sont incluses. Il n’y a pas de remboursement. Si le délai de la formule est dépassé de notre fait, le mois d’hébergement suivant est offert. Le délai part le jour où l’acompte, les textes et les photos sont reçus. Un retard sur ces éléments décale le délai d’autant.',
+    en: 'Two revisions are included. There is no refund. If we miss the package deadline, the following month of hosting is free. The deadline starts the day the deposit, the texts and the photos are received. A delay on those items moves the deadline by the same amount.',
   },
   'tarifs.domain.note': {
     fr: 'Le nom de domaine .com et l’hébergement de la première année sont dans chaque formule. Une extension locale (.cm) se chiffre à part, au tarif du registrar.',
@@ -285,18 +285,18 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'faq.q2': { fr: 'Le délai part quand ?', en: 'When does the deadline start?' },
   'faq.a2': {
-    fr: 'Si vous envoyez les contenus, le jour où l’acompte, les textes et les photos sont reçus. Si nous venons sur place, le lendemain de la visite, une fois l’acompte payé. Découverte : 7 jours. Essentiel : 21 jours. Complet : 30 jours.',
-    en: 'If you send the content, the day the deposit, texts and photos arrive. If we come on site, the day after the visit, once the deposit is paid. Discovery: 7 days. Essential: 21 days. Complete: 30 days.',
+    fr: 'Le jour où l’acompte, les textes et les photos sont reçus. Découverte : 7 jours. Essentiel : 21 jours. Complet : 30 jours.',
+    en: 'The day the deposit, the texts and the photos arrive. Discovery: 7 days. Essential: 21 days. Complete: 30 days.',
   },
   'faq.q3': { fr: 'Qui fournit les textes et les photos ?', en: 'Who provides the texts and the photos?' },
   'faq.a3': {
-    fr: 'Vous, ou nous. Si vous les envoyez, le délai attend leur réception avec l’acompte. Si nous venons sur place, nous photographions et nous écrivons d’après ce que nous avons vu. Ce qui n’a pas été vu n’est pas publié. À Yaoundé, la venue est dans le prix. Hors Yaoundé, le déplacement se chiffre à part.',
-    en: 'You, or us. If you send them, the deadline waits for them together with the deposit. If we come on site, we photograph and write from what we saw. What was not seen is not published. In Yaoundé, the visit is included in the price. Outside Yaoundé, travel is quoted separately.',
+    fr: 'Vous. Le délai attend leur réception avec l’acompte. Ce qui est publié décrit ce qui a été reçu.',
+    en: 'You do. The deadline waits for them together with the deposit. What is published describes what was received.',
   },
   'faq.q4': { fr: 'Que se passe-t-il si le délai n’est pas tenu ?', en: 'What if the deadline is missed?' },
   'faq.a4': {
-    fr: 'S’il est dépassé de notre fait, le mois d’hébergement suivant est offert. Un retard de votre côté sur les contenus, ou un report de la visite, décale le délai d’autant.',
-    en: 'If we miss it, the following month of hosting is free. A delay on your side for the content, or a postponed visit, moves the deadline by the same amount.',
+    fr: 'S’il est dépassé de notre fait, le mois d’hébergement suivant est offert. Un retard de votre côté sur les textes ou les photos décale le délai d’autant.',
+    en: 'If we miss it, the following month of hosting is free. A delay on your side for the texts or the photos moves the deadline by the same amount.',
   },
   'faq.q6': { fr: 'Comment se paie le site ?', en: 'How is the website paid for?' },
   'faq.a6': {
@@ -314,8 +314,8 @@ const translations: Record<string, Record<Lang, string>> = {
   'about.role': { fr: 'Création de site web', en: 'Website creation' },
   'about.location': { fr: 'Nelson, à Yaoundé', en: 'Nelson, in Yaoundé' },
   'about.bio': {
-    fr: 'Je fais la création de site web pour toute activité, en 7, 21 ou 30 jours. Une personne. Vous envoyez les textes et les photos, ou je viens sur place les faire. Ce qui est publié décrit ce qui a été vu ou reçu. L’appel de 20 minutes sert à choisir la formule.',
-    en: 'I create websites for any activity, in 7, 21 or 30 days. One person. You send the texts and photos, or I come on site to make them. What is published describes what was seen or received. The 20-minute call is for choosing the package.',
+    fr: 'Je fais la création de site web pour toute activité, en 7, 21 ou 30 jours. Une personne. Vous envoyez les textes et les photos. Ce qui est publié décrit ce qui a été reçu. L’appel de 20 minutes sert à choisir la formule.',
+    en: 'I create websites for any activity, in 7, 21 or 30 days. One person. You send the texts and the photos. What is published describes what was received. The 20-minute call is for choosing the package.',
   },
   'about.h1': { fr: 'Une formule, un site', en: 'One package, one website' },
   'about.h2': { fr: 'Délai écrit', en: 'Written deadline' },
@@ -489,9 +489,9 @@ const translations: Record<string, Record<Lang, string>> = {
   'studio.menu': { fr: 'Menu', en: 'Menu' },
   'studio.close': { fr: 'Fermer', en: 'Close' },
   'studio.mail': { fr: 'nelo.engineering@hotmail.com', en: 'nelo.engineering@hotmail.com' },
-  'studio.line1': { fr: 'Création', en: 'Website' },
-  'studio.line2': { fr: 'de site web', en: 'creation' },
-  'studio.line3': { fr: 'dès 449 €', en: 'from €449' },
+  'studio.line1': { fr: 'Le site qui', en: 'The site that' },
+  'studio.line2': { fr: 'reçoit', en: 'receives' },
+  'studio.line3': { fr: 'la demande', en: 'the request' },
   'studio.scroll': { fr: 'Défiler', en: 'Scroll' },
   'studio.examples': { fr: 'Trois situations', en: 'Three situations' },
   'studio.examplesNote': {

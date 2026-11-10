@@ -61,7 +61,7 @@ export function Options() {
   }
 
   return (
-    <main className="pt-24 pb-16 bg-muted/40 min-h-screen">
+    <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-lg mx-auto px-4">
         <form onSubmit={onSubmit} className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-sm">
           <div className="rounded-2xl bg-primary/10 px-4 py-3 mb-6 flex items-center justify-between gap-3">

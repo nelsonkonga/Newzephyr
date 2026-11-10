@@ -39,12 +39,11 @@ function WarmCalendly() {
 }
 
 function Frame({ children }: { children: ReactNode }) {
-  const home = useLocation().pathname === '/'
   return (
-    <div className={home ? 'nc-shell min-h-screen flex flex-col' : 'min-h-screen bg-background text-foreground flex flex-col'}>
-      {home && <ReliefBackground />}
-      {home && <CustomCursor />}
-      {home ? <div className="nc-page">{children}</div> : children}
+    <div className="nc-shell min-h-screen flex flex-col">
+      <ReliefBackground />
+      <CustomCursor />
+      <div className="nc-page">{children}</div>
     </div>
   )
 }

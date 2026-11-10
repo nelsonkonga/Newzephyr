@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 
-export function Rise({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+export function Rise({ children, className = '' }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -14,13 +14,13 @@ export function Rise({ children, className = '' }: { children: React.ReactNode; 
       if (!entry?.isIntersecting) return
       node.classList.add('is-in')
       observer.disconnect()
-    }, { threshold: 0.2 })
+    }, { threshold: 0.18 })
     observer.observe(node)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <div ref={ref} className={`zephyr-rise ${className}`}>
+    <div ref={ref} className={`nc-rise ${className}`}>
       {children}
     </div>
   )

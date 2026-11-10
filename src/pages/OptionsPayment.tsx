@@ -34,9 +34,9 @@ export function OptionsPayment() {
 
   const lead = draft
   const name = t(pkg.nameKey)
-  const modeLabel = lead.visit ? t('options.mode.visit') : t('options.mode.supplied')
-  const euro = formatPackagePrice(lead.visit ? pkg.visitPrice : pkg.price, lang)
-  const xaf = momoAmountXaf(lead.formule, lead.visit)
+  const modeLabel = t('options.mode.supplied')
+  const euro = formatPackagePrice(pkg.price, lang)
+  const xaf = momoAmountXaf(lead.formule, false)
   const parts = xaf == null ? [] : momoParts(xaf)
   const due = parts[0] ?? null
   const total = xaf == null ? euro : formatMomoAmount(xaf, lang)
@@ -59,7 +59,7 @@ export function OptionsPayment() {
       phone: lead.phone,
       hotel: lead.hotel,
       formule: lead.formule,
-      visit: lead.visit,
+      visit: false,
       method,
       amountLabel: dueLabel,
       successUrl: `${window.location.origin}/options/brief?formule=${lead.formule}`,
@@ -74,7 +74,7 @@ export function OptionsPayment() {
   }
 
   return (
-    <main className="pt-24 pb-16 bg-muted/40 min-h-screen">
+    <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-5xl mx-auto px-4">
         <FunnelStepper current={3} />
         <Link to={`/options/choix?formule=${lead.formule}`} className="inline-flex items-center gap-2 text-sm text-muted-foreground mb-6">

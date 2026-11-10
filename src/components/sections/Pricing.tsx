@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react'
+import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { Button } from '@/components/ui/button'
 import { useLang } from '@/contexts/LangContext'
@@ -11,11 +12,11 @@ export function Pricing() {
   return (
     <section id="tarifs" className="py-20 sm:py-28">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-        <div className="max-w-3xl mb-8">
+        <Rise className="max-w-3xl mb-8">
           <p className="text-sm font-medium text-muted-foreground mb-3">{t('tarifs.eyebrow')}</p>
           <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-4"><Emphasis text={t('tarifs.title')} /></h2>
           <p className="text-muted-foreground leading-relaxed">{t('tarifs.subtitle')}</p>
-        </div>
+        </Rise>
 
         <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground mb-4">
           <span className="font-semibold text-foreground">{t('guarantee.title')}. </span>
@@ -29,9 +30,9 @@ export function Pricing() {
             const optionsUrl = `/options?formule=${pkg.id}`
             const fan = index === 0 ? 'zephyr-fan-left' : index === PACKAGES.length - 1 ? 'zephyr-fan-right' : 'zephyr-fan-center'
             return (
+              <Rise key={pkg.id} className="h-full">
               <article
-                key={pkg.id}
-                className={`zephyr-fan-card ${fan} relative rounded-3xl flex flex-col bg-card p-6 sm:p-8 ${
+                className={`zephyr-fan-card ${fan} relative rounded-3xl flex flex-col h-full bg-card p-6 sm:p-8 ${
                   pkg.popular
                     ? 'border-2 border-primary shadow-xl'
                     : 'border border-border'
@@ -47,8 +48,7 @@ export function Pricing() {
                 )}
 
                 <h3 className="text-2xl font-bold mb-2">{name}</h3>
-                <p className="text-4xl font-extrabold tracking-tight mb-1">{price}</p>
-                <p className="text-xs text-muted-foreground mb-4">{t('tarifs.withVisit').replace('{price}', formatPackagePrice(pkg.visitPrice, lang))}</p>
+                <p className="text-4xl font-extrabold tracking-tight mb-4">{price}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6 min-h-[60px]">{t(pkg.taglineKey)}</p>
 
                 <Button
@@ -78,14 +78,13 @@ export function Pricing() {
                   ))}
                 </ul>
               </article>
+              </Rise>
             )
           })}
         </div>
 
-        <div className="rounded-3xl border border-border bg-card p-5 space-y-2">
+        <div className="rounded-3xl border border-border bg-card p-5">
           <p className="text-sm">{t('tarifs.domain.note')}</p>
-          <p className="text-sm text-muted-foreground">{t('tarifs.visit.yaounde')}</p>
-          <p className="text-sm text-muted-foreground">{t('tarifs.visit.outside')}</p>
         </div>
 
       </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
 import { useLang } from '@/contexts/LangContext'
 import { warmCalendly } from '@/lib/calendly'
@@ -19,15 +20,15 @@ export function Faq() {
 
   return (
     <section id="faq" className="nc-faq nc-wrap">
-      <div>
+      <Rise>
         <p className="nc-kicker">{t('faq.eyebrow')}</p>
         <h2><Emphasis text={t('faq.title')} /></h2>
         <p className="nc-lead" style={{ textAlign: 'left', marginTop: 16 }}>{t('studio.stillLead')}</p>
         <Link to="/appel" className="nc-pill is-solid" style={{ marginTop: 18 }} onPointerDown={warmCalendly}>
           {t('cta.book')}
         </Link>
-      </div>
-      <div>
+      </Rise>
+      <Rise>
         {ITEMS.map(([question, answer], index) => {
           const shown = open === index
           return (
@@ -40,7 +41,7 @@ export function Faq() {
             </div>
           )
         })}
-      </div>
+      </Rise>
     </section>
   )
 }

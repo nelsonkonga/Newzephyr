@@ -33,9 +33,9 @@ export function OptionsBrief() {
 
   const lead = draft
   const formulaName = t(pkg.nameKey)
-  const modeLabel = lead.visit ? t('options.mode.visit') : t('options.mode.supplied')
-  const euro = formatPackagePrice(lead.visit ? pkg.visitPrice : pkg.price, lang)
-  const xaf = momoAmountXaf(lead.formule, lead.visit)
+  const modeLabel = t('options.mode.supplied')
+  const euro = formatPackagePrice(pkg.price, lang)
+  const xaf = momoAmountXaf(lead.formule, false)
   const parts = xaf == null ? [] : momoParts(xaf)
   const total = xaf == null ? euro : formatMomoAmount(xaf, lang)
   const momoLine = parts.length > 1
@@ -43,7 +43,7 @@ export function OptionsBrief() {
       ? `${total}. Acompte demandé : ${formatMomoAmount(parts[0], lang)}. Solde à la livraison : ${formatMomoAmount(xaf! - parts[0], lang)}`
       : `${total}. Deposit requested: ${formatMomoAmount(parts[0], lang)}. Balance on delivery: ${formatMomoAmount(xaf! - parts[0], lang)}`)
     : total
-  const hint = lead.visit ? t('options.brief.visit') : t('options.brief.supplied')
+  const hint = t('options.brief.supplied')
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault()
@@ -69,7 +69,7 @@ export function OptionsBrief() {
   }
 
   return (
-    <main className="pt-24 pb-16 bg-muted/40 min-h-screen">
+    <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-3xl mx-auto px-4">
         <FunnelStepper current={4} />
       </div>

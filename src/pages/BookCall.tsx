@@ -26,7 +26,7 @@ export function BookCall() {
   }, [t])
 
   return (
-    <main className="pt-24 pb-16 bg-background min-h-screen">
+    <main className="pt-24 pb-16 min-h-screen">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4">{t('call.title')}</h1>
         <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl">{t('call.lead')}</p>

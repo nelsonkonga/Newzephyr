@@ -1,3 +1,4 @@
+import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
 
 const STEPS = [
@@ -21,12 +22,14 @@ export function Methodology() {
         <h2 className="nc-display">{t('method.eyebrow')}</h2>
         <p className="nc-lead" style={{ textAlign: 'left', margin: '14px 0 8px' }}>{t('method.subtitle')}</p>
         {STEPS.map(([n, title, desc, image]) => (
-          <article key={n} className="nc-step">
-            <b>{n}</b>
-            <h3>{t(title)}</h3>
-            <p>{t(desc)}</p>
-            <img src={image} alt="" />
-          </article>
+          <Rise key={n}>
+            <article className="nc-step">
+              <b>{n}</b>
+              <h3>{t(title)}</h3>
+              <p>{t(desc)}</p>
+              <img src={image} alt="" />
+            </article>
+          </Rise>
         ))}
         <p className="nc-kicker" style={{ marginTop: 36 }}>{t('offer.forWho.value')}</p>
         <div className="nc-marquee" aria-hidden="true">

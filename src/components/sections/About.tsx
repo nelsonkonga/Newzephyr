@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Magnetic } from '@/components/motion/Magnetic'
+import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
 import { warmCalendly } from '@/lib/calendly'
 import { SOCIAL, whatsappUrl, bookCallMessage } from '@/lib/links'
@@ -9,6 +10,7 @@ export function About() {
 
   return (
     <section id="about" className="nc-close">
+      <Rise>
       <div className="nc-wrap">
         <p className="nc-kicker">(04) — {t('about.eyebrow')}</p>
         <h2>
@@ -27,6 +29,7 @@ export function About() {
           <a className="nc-pill" href={SOCIAL.instagram}>Instagram</a>
         </div>
       </div>
+      </Rise>
     </section>
   )
 }

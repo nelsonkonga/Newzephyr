@@ -7,7 +7,7 @@ precision highp float;
 uniform vec2 uMouse;
 uniform float uRef;
 uniform float uPxScale;
-uniform float uTime, uScroll, uVel, uIntensity, uRadius, uScale, uParallax, uRipple, uParticles, uGrain;
+uniform float uTime, uScroll, uVel, uIntensity, uRadius, uScale, uParallax, uRipple, uParticles, uGrain, uPaper;
 uniform vec3 uBase, uLight, uAccent;
 
 float h2(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
@@ -69,7 +69,11 @@ void main(){
   col*=uIntensity;
   vec3 mapped=pow(aces(col*1.6),vec3(1./2.2));
   vec3 base=pow(uBase,vec3(1./2.2));
-  vec3 outc=base+(1.-base)*mapped;
+  vec3 lit=base+(1.-base)*mapped;
+  float shade=clamp(dot(mapped,vec3(.299,.587,.114))*2.1,0.,1.);
+  vec3 paper=mix(base*vec3(.90,.89,.86),base,shade);
+  paper=mix(paper,lit,.2);
+  vec3 outc=mix(lit,paper,uPaper);
   outc+=(h2(gl_FragCoord.xy+fract(t)*91.)-0.5)*uGrain*0.04;
   gl_FragColor=vec4(outc,1.);
 }`
@@ -79,9 +83,20 @@ function toLinear(hex: string): [number, number, number] {
   return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255].map((c) => c ** 2.2) as [number, number, number]
 }
 
-const BASE = toLinear('#070910')
-const LIGHT = toLinear('#d5d8ff')
-const ACCENT = toLinear('#6b93f8')
+const PALETTE = {
+  dark: {
+    base: toLinear('#070910'),
+    light: toLinear('#d5d8ff'),
+    accent: toLinear('#6b93f8'),
+    intensity: 1,
+  },
+  light: {
+    base: toLinear('#f3f1ea'),
+    light: toLinear('#7f8aab'),
+    accent: toLinear('#3b6cf6'),
+    intensity: 1,
+  },
+}
 
 export function ReliefBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -115,7 +130,7 @@ export function ReliefBackground() {
     gl.enableVertexAttribArray(loc)
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
     const U: Record<string, WebGLUniformLocation | null> = {}
-    for (const name of ['uMouse', 'uRef', 'uPxScale', 'uTime', 'uScroll', 'uVel', 'uIntensity', 'uRadius', 'uScale', 'uParallax', 'uRipple', 'uParticles', 'uGrain', 'uBase', 'uLight', 'uAccent']) {
+    for (const name of ['uMouse', 'uRef', 'uPxScale', 'uTime', 'uScroll', 'uVel', 'uIntensity', 'uRadius', 'uScale', 'uParallax', 'uRipple', 'uParticles', 'uGrain', 'uPaper', 'uBase', 'uLight', 'uAccent']) {
       U[name] = gl.getUniformLocation(prog, name)
     }
 
@@ -166,16 +181,19 @@ export function ReliefBackground() {
       gl.uniform1f(U.uTime, time)
       gl.uniform1f(U.uScroll, scroll)
       gl.uniform1f(U.uVel, vel)
-      gl.uniform1f(U.uIntensity, 1)
+      const dark = document.documentElement.classList.contains('dark')
+      const tone = dark ? PALETTE.dark : PALETTE.light
+      gl.uniform1f(U.uIntensity, tone.intensity)
+      gl.uniform1f(U.uPaper, dark ? 0 : 1)
       gl.uniform1f(U.uRadius, 1)
       gl.uniform1f(U.uScale, 1)
       gl.uniform1f(U.uParallax, 1)
       gl.uniform1f(U.uRipple, 1)
       gl.uniform1f(U.uParticles, 1)
       gl.uniform1f(U.uGrain, 0.5)
-      gl.uniform3f(U.uBase, BASE[0], BASE[1], BASE[2])
-      gl.uniform3f(U.uLight, LIGHT[0], LIGHT[1], LIGHT[2])
-      gl.uniform3f(U.uAccent, ACCENT[0], ACCENT[1], ACCENT[2])
+      gl.uniform3f(U.uBase, tone.base[0], tone.base[1], tone.base[2])
+      gl.uniform3f(U.uLight, tone.light[0], tone.light[1], tone.light[2])
+      gl.uniform3f(U.uAccent, tone.accent[0], tone.accent[1], tone.accent[2])
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       if (canvas.style.opacity !== '1') canvas.style.opacity = '1'
     }
