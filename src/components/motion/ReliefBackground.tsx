@@ -46,14 +46,14 @@ void main(){
   float spec=pow(max(dot(reflect(-ld,n),vec3(0,0,1)),0.),48.);
   spec*=0.12+0.88*smoothstep(0.01,0.2,1.-n.z);
   float cav=0.55+0.45*smoothstep(0.2,0.8,h);
-  vec3 col=uLight*(dif*0.28+spec*2.4)*att*cav;
-  col+=uLight*0.025*exp(-d*d*40./(uRadius*uRadius));
+  vec3 cursorL=uLight*(dif*0.28+spec*2.4)*att*cav;
+  cursorL+=uLight*0.025*exp(-d*d*40./(uRadius*uRadius));
   vec3 K=normalize(vec3(-0.4,0.7,0.6));
-  col+=uLight*0.16*max(dot(n,K)-K.z,0.)*cav;
-  col+=uLight*0.05*pow(max(dot(reflect(-K,n),vec3(0,0,1)),0.),24.)*cav;
+  vec3 formL=uLight*0.16*max(dot(n,K)-K.z,0.)*cav;
+  formL+=uLight*0.05*pow(max(dot(reflect(-K,n),vec3(0,0,1)),0.),24.)*cav;
   float rim=pow(max(dot(n,normalize(vec3(-0.8,-0.6,0.25))),0.),3.);
-  col+=uAccent*rim*0.035*(0.3+att);
-  float dust=0.;
+  formL+=uAccent*rim*0.035*0.3;
+  cursorL+=uAccent*rim*0.035*att;
   if(uParticles>0.5){
     vec2 gp=s*38.;
     gp.y-=uScroll*0.02*uParallax+t*0.12;
@@ -64,25 +64,22 @@ void main(){
       vec2 q=f-o;q.y/=1.+abs(uVel)*7.;
       float sp=exp(-dot(q,q)*420.);
       float tw=0.5+0.5*sin(t*2.+rnd*60.);
-      float spark=sp*tw*(0.12+att*2.2);
-      col+=mix(uLight,uAccent,step(0.04,rnd))*spark;
-      dust+=spark;
+      vec3 spark=mix(uLight,uAccent,step(0.04,rnd))*sp*tw;
+      formL+=spark*0.12;
+      cursorL+=spark*att*2.2;
     }
   }
-  col*=uIntensity;
+  vec3 col=(formL+cursorL)*uIntensity;
   vec3 mapped=pow(aces(col*1.6),vec3(1./2.2));
   vec3 base=pow(uBase,vec3(1./2.2));
   vec3 outc;
   if(uPaper>0.5){
-    float keyN=clamp(dot(n,normalize(vec3(-0.35,0.65,0.7))),0.,1.);
-    float groove=1.-cav;
-    float edge=pow(clamp(1.-n.z,0.,1.),1.3);
-    float formInk=clamp(groove*0.22+(1.-keyN)*0.055+edge*0.045,0.,0.18);
-    float d2=length(s-uMouse/uRef);
-    float near=exp(-d2*d2*34.);
-    float cursorInk=clamp(near*0.9,0.,0.9);
-    float ink=clamp(formInk+cursorInk+dust*0.28,0.,0.96);
-    outc=mix(base,vec3(0.05,0.045,0.04),ink);
+    vec3 formMapped=pow(aces(formL*uIntensity*1.6),vec3(1./2.2));
+    vec3 cursorMapped=pow(aces(cursorL*uIntensity*(1./3.)*1.6),vec3(1./2.2));
+    float f=dot(formMapped,vec3(.299,.587,.114));
+    float c=dot(cursorMapped,vec3(.299,.587,.114));
+    float ink=smoothstep(0.012,0.2,f)*0.82+c*0.3;
+    outc=mix(base,vec3(0.06,0.055,0.05),clamp(ink,0.,0.86));
   }else{
     outc=base+(1.-base)*mapped;
   }
@@ -104,8 +101,8 @@ const PALETTE = {
   },
   light: {
     base: toLinear('#f4f2ec'),
-    light: toLinear('#16171c'),
-    accent: toLinear('#16171c'),
+    light: toLinear('#d5d8ff'),
+    accent: toLinear('#c5cbe8'),
     intensity: 1,
   },
 }

@@ -339,26 +339,17 @@ body {
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
   }
 
-  .zephyr-fan-left {
-    transform: rotateY(28deg) translateY(28px) scale(0.96);
-    transform-origin: right center;
-  }
-
-  .zephyr-fan-right {
-    transform: rotateY(-28deg) translateY(28px) scale(0.96);
-    transform-origin: left center;
-  }
-
+  .zephyr-fan-left,
+  .zephyr-fan-right,
   .zephyr-fan-center {
-    z-index: 2;
-    transform: translateY(-18px) scale(1.03);
+    transform: none;
   }
 
   .zephyr-fan-card:hover,
   .zephyr-fan-card:focus-within {
-    z-index: 3;
-    transform: translateY(-26px) rotateY(0deg) scale(1.03);
-    box-shadow: 0 22px 48px color-mix(in srgb, var(--primary) 16%, transparent);
+    z-index: 2;
+    transform: translateY(-8px);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--foreground) 5%, transparent);
   }
 }
 
