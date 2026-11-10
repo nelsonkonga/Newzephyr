@@ -476,6 +476,19 @@ const translations: Record<string, Record<Lang, string>> = {
   'footer.privacy': { fr: 'Confidentialité', en: 'Privacy' },
   'footer.cgu': { fr: 'Conditions générales', en: 'Terms' },
   'footer.copyright': { fr: '© 2026 Newzephyr. Tous droits réservés.', en: '© 2026 Newzephyr. All rights reserved.' },
+
+  'studio.script': { fr: 'Le prix est écrit.', en: 'The price is written.' },
+  'studio.booking': { fr: 'Formules ouvertes', en: 'Packages open' },
+  'studio.talk': { fr: 'Parlons-en.', en: 'Let’s talk.' },
+  'studio.still': { fr: 'Encore une question', en: 'Still a question' },
+  'studio.stillLead': {
+    fr: 'L’appel de 20 minutes sert à choisir la formule.',
+    en: 'The 20-minute call is for choosing the package.',
+  },
+  'studio.dock': { fr: 'Dès 449 €', en: 'From €449' },
+  'studio.menu': { fr: 'Menu', en: 'Menu' },
+  'studio.close': { fr: 'Fermer', en: 'Close' },
+  'studio.mail': { fr: 'nelo.engineering@hotmail.com', en: 'nelo.engineering@hotmail.com' },
 }
 
 const LangContext = createContext<LangContextValue>({

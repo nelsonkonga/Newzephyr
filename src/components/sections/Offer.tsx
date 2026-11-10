@@ -1,48 +1,43 @@
-import { Rise } from '@/components/motion/Rise'
-import { CalendarClock, Globe, PenLine, Wallet } from 'lucide-react'
-import { Emphasis } from '@/components/ui/Emphasis'
+import { Count, useInView } from '@/components/home/chrome'
 import { useLang } from '@/contexts/LangContext'
 
 const BENEFITS = [
-  [Globe, 'offer.b1.title', 'offer.b1.desc'],
-  [CalendarClock, 'offer.b2.title', 'offer.b2.desc'],
-  [PenLine, 'offer.b3.title', 'offer.b3.desc'],
-  [Wallet, 'offer.b4.title', 'offer.b4.desc'],
+  ['offer.b1.title', 'offer.b1.desc'],
+  ['offer.b2.title', 'offer.b2.desc'],
+  ['offer.b3.title', 'offer.b3.desc'],
+  ['offer.b4.title', 'offer.b4.desc'],
 ] as const
-
-const FACTS = ['offer.forWho', 'offer.result', 'offer.how'] as const
 
 export function Offer() {
   const { t } = useLang()
+  const [ref, seen] = useInView<HTMLElement>()
 
   return (
-    <section id="offre" className="py-20 sm:py-28 bg-muted/40">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-        <p className="text-sm font-medium text-primary mb-4">{t('offer.eyebrow')}</p>
-        <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] max-w-4xl"><Emphasis text={t('offer.title')} /></h2>
-        <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">{t('offer.lead')}</p>
-
-        <Rise>
-        <dl className="mt-14 grid gap-10 sm:grid-cols-3">
-          {FACTS.map((key) => (
-            <div key={key}>
-              <dt className="text-sm font-medium text-primary mb-2">{t(key)}</dt>
-              <dd className="text-2xl sm:text-3xl font-semibold tracking-tight leading-tight">{t(`${key}.value`)}</dd>
-            </div>
-          ))}
-        </dl>
-        </Rise>
-
-        <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {BENEFITS.map(([Icon, title, desc]) => (
-            <div key={title}>
-              <Icon className="h-6 w-6 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">{t(title)}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t(desc)}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <section className="nd-facts" ref={ref} aria-labelledby="facts-title">
+      <article className="nd-fact">
+        <h3 id="facts-title">{t(BENEFITS[0][0])}</h3>
+        <p>{t(BENEFITS[0][1])}</p>
+      </article>
+      <article className="nd-fact is-ink">
+        <strong><Count to={449} on={seen} /> €</strong>
+        <p>{t('hero.visual.from')}</p>
+      </article>
+      <article className="nd-fact is-blue">
+        <strong><Count to={2} on={seen} /></strong>
+        <p>{t('tarifs.revisions')}</p>
+      </article>
+      <article className="nd-fact">
+        <h3>{t(BENEFITS[1][0])}</h3>
+        <p>{t(BENEFITS[1][1])}</p>
+      </article>
+      <article className="nd-fact">
+        <strong><Count to={21} on={seen} /></strong>
+        <p>{t('tarifs.delay').replace('{n}', '21')}</p>
+      </article>
+      <article className="nd-fact">
+        <h3>{t(BENEFITS[3][0])}</h3>
+        <p>{t(BENEFITS[3][1])}</p>
+      </article>
     </section>
   )
 }

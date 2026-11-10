@@ -1,5 +1,5 @@
 import { Facebook, Github, Instagram, Linkedin, Twitter } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Separator } from '@/components/ui/separator'
 import { Logo } from '@/components/brand/Logo'
 import { useLang } from '@/contexts/LangContext'
@@ -29,6 +29,29 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   const { t } = useLang()
+  const home = useLocation().pathname === '/'
+
+  if (home) {
+    return (
+      <footer className="nd-foot">
+        <div className="nd-foot-grid">
+          <nav>
+            {NAV_ITEMS.map((item) => (
+              <Link key={item.key} to={`/${item.href}`}>{t(item.key)}</Link>
+            ))}
+            {LEGAL_LINKS.map((item) => (
+              <Link key={item.key} to={item.path}>{t(item.key)}</Link>
+            ))}
+          </nav>
+          <p className="nd-wordmark">Newzephyr</p>
+        </div>
+        <div className="nd-legal">
+          <span>{t('footer.copyright')}</span>
+          <span>{t('about.location')}</span>
+        </div>
+      </footer>
+    )
+  }
 
   return (
     <footer className="bg-background border-t border-border">
