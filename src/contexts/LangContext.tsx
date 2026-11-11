@@ -133,6 +133,7 @@ const translations: Record<string, Record<Lang, string>> = {
   },
 
   'method.eyebrow': { fr: 'Déroulement', en: 'Process' },
+  'method.step': { fr: 'Étape', en: 'Step' },
   'method.title': { fr: 'Quatre étapes. {em}Le délai{/em} commence quand vous êtes prêt.', en: 'Four steps. {em}The deadline{/em} starts when you are ready.' },
   'method.subtitle': {
     fr: 'Appel de 20 minutes, acompte, livraison, mise en ligne.',

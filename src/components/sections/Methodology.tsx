@@ -11,7 +11,7 @@ export function Methodology() {
 
   return (
     <section id="methode" className="nc-steps">
-      <div className="nc-wrap">
+      <div className="nc-wrap nc-tunnel-intro">
         <Rise>
           <p className="nc-kicker">(03) — {t('method.eyebrow')}</p>
         </Rise>
@@ -19,9 +19,11 @@ export function Methodology() {
           <h2 className="nc-display">{t('method.eyebrow')}</h2>
         </Rise>
         <Rise delay={150}>
-          <p className="nc-lead" style={{ textAlign: 'left', margin: '14px 0 8px' }}>{t('method.subtitle')}</p>
+          <p className="nc-lead" style={{ textAlign: 'left', margin: '14px 0 0' }}>{t('method.subtitle')}</p>
         </Rise>
-        <MethodTunnel />
+      </div>
+      <MethodTunnel />
+      <div className="nc-wrap">
         <Rise delay={80}>
           <p className="nc-kicker" style={{ marginTop: 28 }}>{t('offer.forWho.value')}</p>
         </Rise>

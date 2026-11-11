@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
@@ -14,33 +14,94 @@ const ITEMS = [
   ['faq.q7', 'faq.a7'],
 ] as const
 
+function Plus() {
+  return (
+    <svg viewBox="0 0 14 14" aria-hidden="true">
+      <path d="M7 1v12M1 7h12" />
+    </svg>
+  )
+}
+
 export function Faq() {
   const { t } = useLang()
   const [open, setOpen] = useState(0)
+  const listRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const coarse = window.matchMedia('(pointer: coarse)').matches
+    if (reduced || coarse) return
+    const move = (event: PointerEvent) => {
+      const slab = (event.target as HTMLElement | null)?.closest<HTMLElement>('.nc-faq-slab')
+      if (!slab || event.pointerType === 'touch') return
+      const box = slab.getBoundingClientRect()
+      const px = (event.clientX - box.left) / box.width - 0.5
+      const py = (event.clientY - box.top) / box.height - 0.5
+      slab.style.setProperty('--ry', `${(px * 10).toFixed(1)}deg`)
+      slab.style.setProperty('--rx', `${(-py * 7).toFixed(1)}deg`)
+    }
+    const leave = (event: PointerEvent) => {
+      const slab = (event.target as HTMLElement | null)?.closest<HTMLElement>('.nc-faq-slab')
+      if (!slab) return
+      slab.style.setProperty('--ry', '0deg')
+      slab.style.setProperty('--rx', '0deg')
+    }
+    list.addEventListener('pointermove', move)
+    list.addEventListener('pointerout', leave)
+    return () => {
+      list.removeEventListener('pointermove', move)
+      list.removeEventListener('pointerout', leave)
+    }
+  }, [])
 
   return (
-    <section id="faq" className="nc-ask nc-wrap">
-      <div className="nc-ask-grid">
+    <section id="faq" className="nc-faq">
+      <i className="nc-faq-orb is-a" />
+      <i className="nc-faq-orb is-b" />
+      <i className="nc-faq-orb is-c" />
+      <div className="nc-faq-page">
         <Rise>
-          <p className="nc-kicker">{t('faq.eyebrow')}</p>
-          <h2><Emphasis text={t('faq.title')} /></h2>
-          <p className="nc-lead" style={{ textAlign: 'left', marginTop: 16 }}>{t('studio.stillLead')}</p>
-          <Link to="/appel" className="nc-pill is-solid" style={{ marginTop: 18 }} onPointerDown={warmCalendly}>
-            {t('cta.book')}
-          </Link>
+          <header className="nc-faq-head">
+            <p className="nc-kicker">{t('faq.eyebrow')}</p>
+            <h2><Emphasis text={t('faq.title')} /></h2>
+            <p>{t('studio.stillLead')}</p>
+            <Link to="/appel" className="nc-pill is-solid" onPointerDown={warmCalendly}>
+              {t('cta.book')}
+            </Link>
+          </header>
         </Rise>
-        <div className="nc-ask-list">
+        <div ref={listRef}>
           {ITEMS.map(([question, answer], index) => {
             const shown = open === index
+            const right = index % 2 === 1
             return (
-              <Rise key={question} delay={index * 70}>
-                <article className={`nc-ask-card ${shown ? 'is-open' : ''}`}>
-                  <button type="button" aria-expanded={shown} onClick={() => setOpen(shown ? -1 : index)}>
-                    <b>0{index + 1}</b>
-                    <span>{t(question)}</span>
-                    <i>{shown ? '–' : '+'}</i>
-                  </button>
-                  <p hidden={!shown}>{t(answer)}</p>
+              <Rise key={question} delay={index * 60}>
+                <article className={`nc-faq-item${right ? ' is-right' : ''}${shown ? ' is-open' : ''}`}>
+                  <div className="nc-faq-col nc-faq-float" style={{ animationDelay: `${(index % 4) * 0.5}s` }}>
+                    <button
+                      type="button"
+                      className="nc-faq-slab"
+                      aria-expanded={shown}
+                      onClick={() => setOpen(shown ? -1 : index)}
+                    >
+                      <span className="nc-faq-q">
+                        <span>{t(question)}</span>
+                        <i className="nc-faq-ico"><Plus /></i>
+                      </span>
+                    </button>
+                    <i className="nc-faq-tail" />
+                  </div>
+                  <div className="nc-faq-ans">
+                    <div>
+                      <div className="nc-faq-ans-pad">
+                        <div className="nc-faq-slab">
+                          <p>{t(answer)}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </article>
               </Rise>
             )
