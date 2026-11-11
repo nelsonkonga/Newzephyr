@@ -68,12 +68,14 @@ export function MethodTunnel() {
     const paint = document.createElement('canvas')
     paint.width = 256
     paint.height = 256
+    const light = theme === 'light'
     const ink = paint.getContext('2d')
     if (ink) {
-      ink.fillStyle = '#070910'
+      ink.fillStyle = light ? '#f4f2ec' : '#070910'
       ink.fillRect(0, 0, 256, 256)
-      ink.strokeStyle = '#3b6cf6'
-      ink.lineWidth = 2
+      ink.strokeStyle = light ? '#3b6cf6' : '#6b93f8'
+      ink.globalAlpha = light ? 0.85 : 1
+      ink.lineWidth = light ? 2.5 : 2
       for (let i = 0; i <= 256; i += 32) {
         ink.beginPath()
         ink.moveTo(i, 0)
@@ -94,7 +96,8 @@ export function MethodTunnel() {
       map: texture,
       side: THREE.BackSide,
       transparent: true,
-      blending: THREE.AdditiveBlending,
+      blending: light ? THREE.NormalBlending : THREE.AdditiveBlending,
+      opacity: light ? 0.92 : 1,
     })
     const tube = new THREE.Mesh(geometry, material)
     scene.add(tube)

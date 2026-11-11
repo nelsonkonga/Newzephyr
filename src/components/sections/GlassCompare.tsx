@@ -71,23 +71,33 @@ export function GlassCompare() {
     let last = 0
     let frame = 0
     let idle = 0
-    let returning = false
+    let mode: 'follow' | 'return' = 'follow'
+    let returnFrom = 50
+    let returnAt = 0
     let lastX = -1
     let lastY = -1
     const tiltOn = () => !reduced.matches && !coarse.matches
 
-    const setSplit = (value: number) => {
-      splitTarget = clamp(value, 0, 100)
-      returning = false
+    const startReturn = () => {
+      if (mode === 'return') return
+      mode = 'return'
+      returnFrom = split
+      returnAt = performance.now()
+    }
+    const armIdle = () => {
       window.clearTimeout(idle)
       idle = window.setTimeout(() => {
         if (drag) {
-          setSplit(splitTarget)
+          armIdle()
           return
         }
-        returning = true
-        splitTarget = 50
+        startReturn()
       }, 5000)
+    }
+    const setSplit = (value: number) => {
+      mode = 'follow'
+      splitTarget = clamp(value, 0, 100)
+      armIdle()
     }
 
     const aim = (event: PointerEvent, force = false) => {
@@ -105,7 +115,9 @@ export function GlassCompare() {
     }
 
     const leave = () => {
-      if (!drag) target = { ...rest }
+      if (drag) return
+      target = { ...rest }
+      startReturn()
     }
     const down = (event: PointerEvent) => {
       if (event.pointerType === 'mouse' || event.button !== 0) return
@@ -116,9 +128,9 @@ export function GlassCompare() {
     const end = (event: PointerEvent) => {
       if (!drag) return
       drag = false
-      setSplit(splitTarget)
       try { stage.releasePointerCapture(event.pointerId) } catch { /* already released */ }
       target = { ...rest }
+      startReturn()
     }
     const key = (event: KeyboardEvent) => {
       const step = event.shiftKey ? 10 : 2
@@ -171,7 +183,13 @@ export function GlassCompare() {
       card.style.transform = `perspective(900px) rotateX(${current.rx.toFixed(3)}deg) rotateY(${current.ry.toFixed(3)}deg)`
       card.style.setProperty('--glare-x', `${current.gx.toFixed(1)}%`)
       card.style.setProperty('--glare-y', `${current.gy.toFixed(1)}%`)
-      split += (splitTarget - split) * (returning ? 0.05 : 0.22)
+      if (mode === 'return') {
+        const elapsed = clamp((now - returnAt) / 5000, 0, 1)
+        const eased = elapsed * elapsed * (3 - 2 * elapsed)
+        split = reduced.matches ? 50 : returnFrom + (50 - returnFrom) * eased
+      } else {
+        split += (splitTarget - split) * (reduced.matches ? 1 : 0.22)
+      }
       bw.style.clipPath = `inset(0 ${100 - split}% 0 0)`
       dv.style.left = `${split}%`
       hd.style.left = `${split}%`
