@@ -55,13 +55,16 @@ export function GlassCompare() {
     const bw = beforeRef.current
     const dv = divRef.current
     const hd = handleRef.current
-    if (!root || !wrap || !card || !stage || !bw || !dv || !hd) return
+    const grad = gradRef.current
+    if (!root || !wrap || !card || !stage || !bw || !dv || !hd || !grad) return
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     let split = 50
     let splitTarget = 50
     let drag = false
     let shown = 50
+    let time = 1.4
+    let last = 0
     let frame = 0
     let idle = 0
     let mode: 'follow' | 'return' = 'follow'
@@ -137,7 +140,29 @@ export function GlassCompare() {
     stage.addEventListener('pointercancel', end)
     dv.addEventListener('keydown', key)
 
+    const paint = () => {
+      root.style.setProperty('--orb-phase', `${time * 46 - 85}deg`)
+      root.style.setProperty('--orb-counter', `${-time * 31 + 75}deg`)
+      root.style.setProperty('--orb-pool-x', `${50 + Math.sin(time * 0.73) * 12}%`)
+      root.style.setProperty('--orb-pool-y', `${50 + Math.cos(time * 0.57) * 16.5}%`)
+      root.style.setProperty('--orb-light-x', `${50 + Math.cos(time * 0.91) * 48}%`)
+      root.style.setProperty('--orb-light-y', `${50 + Math.sin(time * 0.91) * 48}%`)
+      ;(['top', 'right', 'bottom', 'left'] as const).forEach((name, index) => {
+        root.style.setProperty(
+          `--orb-edge-${name}`,
+          `${2.5 * (1 + Math.sin(time * 1.13 + (index * Math.PI) / 2) * 0.21)}px`,
+        )
+      })
+      grad.setAttribute('gradientTransform', `rotate(${45 + Math.sin(time * 0.8) * 15.75} 12 12)`)
+    }
+
     const tick = (now: number) => {
+      const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60
+      last = now
+      if (!reduced.matches) {
+        time += dt * 0.8
+        paint()
+      }
       if (mode === 'return') {
         const elapsed = clamp((now - returnAt) / 5000, 0, 1)
         const eased = elapsed * elapsed * (3 - 2 * elapsed)

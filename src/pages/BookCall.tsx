@@ -33,7 +33,7 @@ export function BookCall() {
           <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4">{t('call.title')}</h1>
         </Rise>
         <Rise delay={120}>
-          <p className="text-[2rem] leading-snug text-muted-foreground mb-8 max-w-3xl">{t('call.lead')}</p>
+          <p className="text-xl leading-relaxed text-muted-foreground mb-8 max-w-3xl">{t('call.lead')}</p>
         </Rise>
         {url ? (
           <div ref={slot} className="h-[760px] w-full">
@@ -42,7 +42,7 @@ export function BookCall() {
             )}
           </div>
         ) : (
-          <p className="break-words text-[1.75rem] leading-snug text-muted-foreground">{t('call.missing')}</p>
+          <p className="break-words text-xl leading-relaxed text-muted-foreground">{t('call.missing')}</p>
         )}
         <p className="mt-8">
           <Link to="/#tarifs" className="text-sm font-semibold text-primary">
