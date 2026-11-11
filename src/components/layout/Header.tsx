@@ -78,16 +78,20 @@ export function Header() {
               <Link key={item.key} to={`/${item.href}`} onMouseEnter={showHighlight}>{t(item.key)}</Link>
             ))}
           </nav>
-          <div className="nc-nav-acts">
-            <button type="button" onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}>
-              {lang === 'fr' ? 'EN' : 'FR'}
-            </button>
-            <button type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={theme === 'dark' ? 'Thème clair' : 'Thème sombre'}>
-              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </button>
-            <Link to="/appel" className="nc-pill is-solid" onPointerDown={warmCalendly} onFocus={warmCalendly}>
-              {t('nav.cta')}
-            </Link>
+          <div className="nc-nav-end">
+            <div className="nc-nav-tools">
+              <button type="button" onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')} aria-label={lang === 'fr' ? 'English' : 'Français'}>
+                {lang === 'fr' ? 'EN' : 'FR'}
+              </button>
+              <button type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={theme === 'dark' ? 'Thème clair' : 'Thème sombre'}>
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
+            </div>
+            <div className="nc-nav-acts">
+              <Link to="/appel" className="nc-pill is-solid nc-cta" onPointerDown={warmCalendly} onFocus={warmCalendly}>
+                {t('nav.cta')}
+              </Link>
+            </div>
           </div>
           <button
             type="button"
@@ -115,7 +119,7 @@ export function Header() {
             <button type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
               {theme === 'dark' ? 'Thème clair' : 'Thème sombre'}
             </button>
-            <Link to="/appel" className="nc-pill is-solid" onClick={() => setMenuOpen(false)} onPointerDown={warmCalendly}>
+            <Link to="/appel" className="nc-pill is-solid nc-cta" onClick={() => setMenuOpen(false)} onPointerDown={warmCalendly}>
               {t('nav.cta')}
             </Link>
           </div>

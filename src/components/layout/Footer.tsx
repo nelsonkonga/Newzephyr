@@ -37,7 +37,6 @@ export function Footer() {
               <Logo className="h-7 w-auto" />
               Newzephyr
             </Link>
-            <p>{t('about.location')}</p>
           </div>
           <nav>
             <b>{lang === 'fr' ? 'Pages' : 'Pages'}</b>

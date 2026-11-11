@@ -1,12 +1,48 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Check } from 'lucide-react'
 import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
-import { PACKAGES, formatPackagePrice } from '@/data/packages'
+import { PACKAGES, formatAmount, packageAmount, type Currency, type PackageDef } from '@/data/packages'
 
-function WireGem({ active }: { active: boolean }) {
+function useSpringNumber(target: number) {
+  const [value, setValue] = useState(target)
+  const valueRef = useRef(target)
+
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      valueRef.current = target
+      setValue(target)
+      return
+    }
+    const from = valueRef.current
+    const started = performance.now()
+    let frame = 0
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - started) / 700)
+      const eased = 1 - (1 - t) ** 3
+      const next = from + (target - from) * eased
+      if (t >= 1) {
+        valueRef.current = target
+        setValue(target)
+        return
+      }
+      valueRef.current = next
+      setValue(Math.round(next))
+      frame = requestAnimationFrame(tick)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [target])
+
+  return value
+}
+
+function WireGem({ active, hovered }: { active: boolean; hovered: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null)
+  const hoveredRef = useRef(hovered)
+  hoveredRef.current = hovered
 
   useEffect(() => {
     const canvas = ref.current
@@ -28,8 +64,10 @@ function WireGem({ active }: { active: boolean }) {
       [2, 11], [2, 10], [2, 6], [2, 4], [2, 3], [3, 8], [3, 9], [3, 4], [3, 6],
       [4, 5], [4, 9], [5, 11], [6, 7], [6, 10], [7, 8], [8, 9], [10, 11],
     ]
-    const rx = active ? 0.7 : 0.6
-    const ry = 0.4
+    let rx = active ? 0.7 : 0.6
+    let ry = 0.4
+    let frame = 0
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const draw = () => {
       ctx.clearRect(0, 0, 168, 168)
       ctx.strokeStyle = getComputedStyle(canvas).color
@@ -46,6 +84,10 @@ function WireGem({ active }: { active: boolean }) {
         const z2 = y * sX + z1 * cX
         return { x: 84 + x1 * 58, y: 84 + y1 * 58, z: z2 }
       })
+      ctx.beginPath()
+      ctx.ellipse(84, 118, 46, 12, ry * 0.25, 0, Math.PI * 2)
+      ctx.globalAlpha = 0.18
+      ctx.stroke()
       edges.forEach(([a, b]) => {
         ctx.globalAlpha = Math.max(0.18, ((points[a].z + points[b].z) / 2 + 1.2) / 2.4 * 0.85)
         ctx.beginPath()
@@ -61,45 +103,137 @@ function WireGem({ active }: { active: boolean }) {
       })
     }
     draw()
+    if (reduced) return
+    const loop = () => {
+      const speed = hoveredRef.current ? 2.2 : 1
+      ry += (active ? 0.012 : 0.008) * speed
+      rx += (active ? 0.007 : 0.004) * speed
+      draw()
+      frame = requestAnimationFrame(loop)
+    }
+    frame = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(frame)
   }, [active])
 
   return <canvas ref={ref} className="nc-plan-gem" width={168} height={168} aria-hidden="true" />
 }
 
-export function GlassPlans() {
-  const { t, lang } = useLang()
+function PlanPrice({ amount, currency, lang }: { amount: number; currency: Currency; lang: 'fr' | 'en' }) {
+  const shown = useSpringNumber(amount)
+  return <p className="nc-plan-price">{formatAmount(shown, currency, lang)}</p>
+}
+
+function PlanCard({
+  pkg,
+  index,
+  currency,
+  lang,
+  name,
+  tagline,
+  included,
+  features,
+  cta,
+  badge,
+}: {
+  pkg: PackageDef
+  index: number
+  currency: Currency
+  lang: 'fr' | 'en'
+  name: string
+  tagline: string
+  included: string
+  features: string[]
+  cta: string
+  badge?: string
+}) {
+  const cardRef = useRef<HTMLElement>(null)
+  const [hovered, setHovered] = useState(false)
+  const from = index === 0 ? 'left' : index === PACKAGES.length - 1 ? 'right' : 'up'
+
+  const tilt = (event: PointerEvent<HTMLElement>) => {
+    const el = cardRef.current
+    if (!el || event.pointerType !== 'mouse') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const box = el.getBoundingClientRect()
+    const px = (event.clientX - box.left) / box.width - 0.5
+    const py = (event.clientY - box.top) / box.height - 0.5
+    el.style.setProperty('--ry', `${(px * 4.5).toFixed(2)}deg`)
+    el.style.setProperty('--rx', `${(-py * 3.2).toFixed(2)}deg`)
+  }
+  const reset = () => {
+    setHovered(false)
+    cardRef.current?.style.setProperty('--rx', '0deg')
+    cardRef.current?.style.setProperty('--ry', '0deg')
+  }
 
   return (
-    <div className="nc-plans" id="tarifs">
-      {PACKAGES.map((pkg, index) => {
-        const price = formatPackagePrice(pkg.price, lang)
-        const from = index === 0 ? 'left' : index === PACKAGES.length - 1 ? 'right' : 'up'
-        return (
-          <Rise key={pkg.id} className="h-full" delay={index * 140} from={from}>
-            <article className={`nc-plan ${pkg.popular ? 'is-feat' : ''}`}>
-              {pkg.popular && <span className="nc-plan-badge">{t('tarifs.recommended')}</span>}
-              <div className="nc-plan-top">
-                <span className="nc-plan-tag">{pkg.days} {lang === 'fr' ? 'jours' : 'days'}</span>
-                <WireGem active={Boolean(pkg.popular)} />
-              </div>
-              <h3>{t(pkg.nameKey)}</h3>
-              <p className="nc-plan-price">{price}</p>
-              <p className="nc-plan-desc">{t(pkg.taglineKey)}</p>
-              <p className="nc-plan-label">{t('tarifs.includedTitle')}</p>
-              <ul>
-                {pkg.featureKeys.map((key) => (
-                  <li key={key}><Check aria-hidden="true" /><span>{t(key)}</span></li>
-                ))}
-              </ul>
-              <Link to={`/options?formule=${pkg.id}`} className="nc-plan-btn">
-                <i />
-                <span>{t('tarifs.cta')}</span>
-                <ArrowRight aria-hidden="true" />
-              </Link>
-            </article>
-          </Rise>
-        )
-      })}
+    <Rise className="h-full" delay={index * 140} from={from}>
+      <article
+        ref={cardRef}
+        className={`nc-plan ${pkg.popular ? 'is-feat' : ''}`}
+        onPointerEnter={(event) => { if (event.pointerType === 'mouse') setHovered(true) }}
+        onPointerMove={tilt}
+        onPointerLeave={reset}
+      >
+        {badge && <span className="nc-plan-badge">{badge}</span>}
+        <div className="nc-plan-top">
+          <span className="nc-plan-tag">{pkg.days} {lang === 'fr' ? 'jours' : 'days'}</span>
+          <WireGem active={Boolean(pkg.popular)} hovered={hovered} />
+        </div>
+        <h3>{name}</h3>
+        <PlanPrice amount={packageAmount(pkg, currency)} currency={currency} lang={lang} />
+        <p className="nc-plan-desc">{tagline}</p>
+        <p className="nc-plan-label">{included}</p>
+        <ul>
+          {features.map((feature) => (
+            <li key={feature}><Check aria-hidden="true" /><span>{feature}</span></li>
+          ))}
+        </ul>
+        <Link to={`/options?formule=${pkg.id}`} className="nc-plan-btn">
+          <i />
+          <span>{cta}</span>
+          <ArrowRight aria-hidden="true" />
+        </Link>
+      </article>
+    </Rise>
+  )
+}
+
+export function GlassPlans() {
+  const { t, lang } = useLang()
+  const [currency, setCurrency] = useState<Currency>('eur')
+
+  return (
+    <div id="tarifs">
+      <div className="nc-fx" role="group" aria-label={lang === 'fr' ? 'Devise' : 'Currency'}>
+        {(['eur', 'xaf'] as const).map((code) => (
+          <button
+            key={code}
+            type="button"
+            aria-pressed={currency === code}
+            onClick={() => setCurrency(code)}
+          >
+            {code === 'eur' ? 'EUR' : 'FCFA'}
+          </button>
+        ))}
+      </div>
+      <div className="nc-plans">
+        {PACKAGES.map((pkg, index) => (
+          <PlanCard
+            key={pkg.id}
+            pkg={pkg}
+            index={index}
+            currency={currency}
+            lang={lang}
+            name={t(pkg.nameKey)}
+            tagline={t(pkg.taglineKey)}
+            included={t('tarifs.includedTitle')}
+            features={pkg.featureKeys.map((key) => t(key))}
+            cta={t('tarifs.cta')}
+            badge={pkg.popular ? t('tarifs.recommended') : undefined}
+          />
+        ))}
+      </div>
     </div>
   )
 }

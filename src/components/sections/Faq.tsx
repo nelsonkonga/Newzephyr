@@ -34,7 +34,7 @@ export function Faq() {
             <p className="nc-kicker">{t('faq.eyebrow')}</p>
             <h2><Emphasis text={t('faq.title')} /></h2>
             <p>{t('studio.stillLead')}</p>
-            <Link to="/appel" className="nc-pill is-solid" onPointerDown={warmCalendly}>
+            <Link to="/appel" className="nc-pill is-solid nc-cta" onPointerDown={warmCalendly}>
               {t('cta.book')}
             </Link>
           </header>

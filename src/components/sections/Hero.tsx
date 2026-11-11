@@ -12,6 +12,9 @@ export function Hero() {
           <span className="is-thin">{t('studio.line3')}</span>
         </h1>
         <p className="nc-lead">{t('hero.subtitle')}</p>
+        <figure className="nc-hero-shot">
+          <img src="/studio/hero-desk.jpg" alt={t('hero.visual.alt')} />
+        </figure>
       </div>
     </section>
   )

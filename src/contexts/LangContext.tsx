@@ -203,12 +203,12 @@ const translations: Record<string, Record<Lang, string>> = {
     en: 'The published texts and photos describe what we saw on site.',
   },
   'tarifs.visit.yaounde': {
-    fr: 'À Yaoundé, la venue est dans le prix affiché.',
-    en: 'In Yaoundé, the visit is included in the listed price.',
+    fr: 'Si une venue est prévue, elle est annoncée avant l’acompte.',
+    en: 'If a visit is planned, it is stated before the deposit.',
   },
   'tarifs.visit.outside': {
-    fr: 'Hors Yaoundé, le déplacement se chiffre à part, avant l’acompte.',
-    en: 'Outside Yaoundé, travel is quoted separately, before the deposit.',
+    fr: 'Un déplacement, s’il a lieu, se chiffre à part, avant l’acompte.',
+    en: 'Travel, if it happens, is quoted separately, before the deposit.',
   },
   'tarifs.pkg.decouverte.name': { fr: 'Découverte', en: 'Discovery' },
   'tarifs.pkg.decouverte.tagline': {
@@ -315,7 +315,7 @@ const translations: Record<string, Record<Lang, string>> = {
   'about.eyebrow': { fr: 'À propos', en: 'About' },
   'about.title': { fr: 'Newzephyr', en: 'Newzephyr' },
   'about.role': { fr: 'Création de site web', en: 'Website creation' },
-  'about.location': { fr: 'Nelson, à Yaoundé', en: 'Nelson, in Yaoundé' },
+  'about.location': { fr: 'Création de site web', en: 'Website creation' },
   'about.bio': {
     fr: 'Je fais la création de site web pour toute activité, en 7, 21 ou 30 jours. Une personne. Vous envoyez les textes et les photos. Ce qui est publié décrit ce qui a été reçu. L’appel de 20 minutes sert à choisir la formule.',
     en: 'I create websites for any activity, in 7, 21 or 30 days. One person. You send the texts and the photos. What is published describes what was received. The 20-minute call is for choosing the package.',
@@ -442,7 +442,7 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'options.brief.name': { fr: 'Votre nom', en: 'Your name' },
   'options.brief.city': { fr: 'Ville', en: 'City' },
-  'options.brief.city.placeholder': { fr: 'Yaoundé', en: 'Yaoundé' },
+  'options.brief.city.placeholder': { fr: 'Votre ville', en: 'Your city' },
   'options.brief.rooms': { fr: 'Activité', en: 'Activity' },
   'options.brief.rooms.placeholder': { fr: 'Salon, restaurant, hôtel…', en: 'Salon, restaurant, hotel…' },
   'options.brief.notes': { fr: 'Précisions', en: 'Notes' },
@@ -492,9 +492,13 @@ const translations: Record<string, Record<Lang, string>> = {
   'studio.menu': { fr: 'Menu', en: 'Menu' },
   'studio.close': { fr: 'Fermer', en: 'Close' },
   'studio.mail': { fr: 'nelo.engineering@hotmail.com', en: 'nelo.engineering@hotmail.com' },
-  'studio.line1': { fr: 'Le site qui', en: 'The site that' },
-  'studio.line2': { fr: 'reçoit', en: 'receives' },
-  'studio.line3': { fr: 'la demande', en: 'the request' },
+  'studio.line1': { fr: 'Obtenez', en: 'Get' },
+  'studio.line2': { fr: 'le site qui', en: 'the site that' },
+  'studio.line3': { fr: 'reçoit la demande', en: 'receives the request' },
+  'hero.visual.alt': {
+    fr: 'Un site affiché sur un ordinateur portable, dans un bureau.',
+    en: 'A website shown on a laptop, in an office.',
+  },
   'studio.scroll': { fr: 'Défiler', en: 'Scroll' },
   'studio.examples': { fr: 'Trois situations', en: 'Three situations' },
   'studio.examplesNote': {

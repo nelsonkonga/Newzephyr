@@ -1,8 +1,13 @@
 export type PackageId = 'decouverte' | 'essentiel' | 'complet'
 
+export type Currency = 'eur' | 'xaf'
+
+export const EUR_TO_FCFA = 655.957
+
 export interface PackageDef {
   id: PackageId
   price: string
+  priceEur: number
   visitPrice: string
   days: number
   popular?: boolean
@@ -17,6 +22,7 @@ export const PACKAGES: PackageDef[] = [
   {
     id: 'decouverte',
     price: '449 €',
+    priceEur: 449,
     visitPrice: '649 €',
     days: 7,
     nameKey: 'tarifs.pkg.decouverte.name',
@@ -31,6 +37,7 @@ export const PACKAGES: PackageDef[] = [
   {
     id: 'essentiel',
     price: '990 €',
+    priceEur: 990,
     visitPrice: '1 490 €',
     days: 21,
     popular: true,
@@ -46,6 +53,7 @@ export const PACKAGES: PackageDef[] = [
   {
     id: 'complet',
     price: '2 990 €',
+    priceEur: 2990,
     visitPrice: '3 990 €',
     days: 30,
     nameKey: 'tarifs.pkg.complet.name',
@@ -57,6 +65,16 @@ export const PACKAGES: PackageDef[] = [
     ],
   },
 ]
+
+export function packageAmount(pkg: PackageDef, currency: Currency) {
+  return currency === 'eur' ? pkg.priceEur : Math.round(pkg.priceEur * EUR_TO_FCFA)
+}
+
+export function formatAmount(value: number, currency: Currency, lang: 'fr' | 'en') {
+  const grouped = value.toLocaleString(lang === 'fr' ? 'fr-FR' : 'en-US')
+  if (currency === 'eur') return lang === 'fr' ? `${grouped} €` : `€${grouped}`
+  return `${grouped} FCFA`
+}
 
 export function formatPackagePrice(price: string, lang: 'fr' | 'en') {
   if (lang === 'fr') return price

@@ -19,7 +19,7 @@ export function MentionsLegales() {
           </h2>
           <p>
             Ce site est édité par <strong className="text-foreground">Newzephyr</strong>,
-            qui livre des sites web professionnels pour toutes les activités, basé à Yaoundé, Cameroun.
+            qui livre des sites web professionnels pour toutes les activités.
           </p>
           <p>
             Email :{' '}
