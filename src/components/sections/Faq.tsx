@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Rise } from '@/components/motion/Rise'
 import { Emphasis } from '@/components/ui/Emphasis'
@@ -25,42 +25,9 @@ function Plus() {
 export function Faq() {
   const { t } = useLang()
   const [open, setOpen] = useState(0)
-  const listRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const list = listRef.current
-    if (!list) return
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const coarse = window.matchMedia('(pointer: coarse)').matches
-    if (reduced || coarse) return
-    const move = (event: PointerEvent) => {
-      const slab = (event.target as HTMLElement | null)?.closest<HTMLElement>('.nc-faq-slab')
-      if (!slab || event.pointerType === 'touch') return
-      const box = slab.getBoundingClientRect()
-      const px = (event.clientX - box.left) / box.width - 0.5
-      const py = (event.clientY - box.top) / box.height - 0.5
-      slab.style.setProperty('--ry', `${(px * 10).toFixed(1)}deg`)
-      slab.style.setProperty('--rx', `${(-py * 7).toFixed(1)}deg`)
-    }
-    const leave = (event: PointerEvent) => {
-      const slab = (event.target as HTMLElement | null)?.closest<HTMLElement>('.nc-faq-slab')
-      if (!slab) return
-      slab.style.setProperty('--ry', '0deg')
-      slab.style.setProperty('--rx', '0deg')
-    }
-    list.addEventListener('pointermove', move)
-    list.addEventListener('pointerout', leave)
-    return () => {
-      list.removeEventListener('pointermove', move)
-      list.removeEventListener('pointerout', leave)
-    }
-  }, [])
 
   return (
     <section id="faq" className="nc-faq">
-      <i className="nc-faq-orb is-a" />
-      <i className="nc-faq-orb is-b" />
-      <i className="nc-faq-orb is-c" />
       <div className="nc-faq-page">
         <Rise>
           <header className="nc-faq-head">
@@ -72,14 +39,14 @@ export function Faq() {
             </Link>
           </header>
         </Rise>
-        <div ref={listRef}>
+        <div>
           {ITEMS.map(([question, answer], index) => {
             const shown = open === index
             const right = index % 2 === 1
             return (
               <Rise key={question} delay={index * 60}>
                 <article className={`nc-faq-item${right ? ' is-right' : ''}${shown ? ' is-open' : ''}`}>
-                  <div className="nc-faq-col nc-faq-float" style={{ animationDelay: `${(index % 4) * 0.5}s` }}>
+                  <div className="nc-faq-col">
                     <button
                       type="button"
                       className="nc-faq-slab"

@@ -21,8 +21,6 @@ import { OptionsPayment } from '@/pages/OptionsPayment'
 import { OptionsBrief } from '@/pages/OptionsBrief'
 import { BookCall } from '@/pages/BookCall'
 import { Octobre } from '@/pages/Octobre'
-import { ReliefBackground } from '@/components/motion/ReliefBackground'
-import { CustomCursor } from '@/components/motion/CustomCursor'
 import { warmCalendly } from '@/lib/calendly'
 import './index.css'
 
@@ -41,8 +39,6 @@ function WarmCalendly() {
 function Frame({ children }: { children: ReactNode }) {
   return (
     <div className="nc-shell min-h-screen flex flex-col">
-      <ReliefBackground />
-      <CustomCursor />
       <div className="nc-page">{children}</div>
     </div>
   )

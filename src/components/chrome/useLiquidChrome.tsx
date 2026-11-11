@@ -4,36 +4,11 @@ export function useLiquidChrome(ref: RefObject<HTMLElement | null>, gradientId?:
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const grad = gradientId ? el.querySelector<SVGLinearGradientElement>(`#${gradientId}`) : null
-    let t = 1.4
-    let last = 0
-    let raf = 0
-    const paint = () => {
-      el.style.setProperty('--orb-phase', `${t * 46 - 85}deg`)
-      el.style.setProperty('--orb-counter', `${-t * 31 + 75}deg`)
-      el.style.setProperty('--orb-pool-x', `${50 + Math.sin(t * 0.73) * 12}%`)
-      el.style.setProperty('--orb-pool-y', `${50 + Math.cos(t * 0.57) * 16.5}%`)
-      el.style.setProperty('--orb-light-x', `${50 + Math.cos(t * 0.91) * 48}%`)
-      el.style.setProperty('--orb-light-y', `${50 + Math.sin(t * 0.91) * 48}%`)
-      ;(['top', 'right', 'bottom', 'left'] as const).forEach((name, index) => {
-        el.style.setProperty(
-          `--orb-edge-${name}`,
-          `${2.6 * (1 + Math.sin(t * 1.13 + (index * Math.PI) / 2) * 0.21)}px`,
-        )
-      })
-      grad?.setAttribute('gradientTransform', `rotate(${45 + Math.sin(t * 0.8) * 15.75} 12 12)`)
-    }
-    const loop = (now: number) => {
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60
-      last = now
-      t += dt * 0.8
-      paint()
-      raf = requestAnimationFrame(loop)
-    }
-    paint()
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) raf = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(raf)
-  }, [gradientId])
+    el.style.setProperty('--orb-phase', '-40deg')
+    el.style.setProperty('--orb-counter', '40deg')
+    if (!gradientId) return
+    el.querySelector(`#${gradientId}`)?.setAttribute('gradientTransform', 'rotate(45 12 12)')
+  }, [ref, gradientId])
 }
 
 export function ChromeGradient({ id }: { id: string }) {

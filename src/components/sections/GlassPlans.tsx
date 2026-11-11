@@ -28,15 +28,13 @@ function WireGem({ active }: { active: boolean }) {
       [2, 11], [2, 10], [2, 6], [2, 4], [2, 3], [3, 8], [3, 9], [3, 4], [3, 6],
       [4, 5], [4, 9], [5, 11], [6, 7], [6, 10], [7, 8], [8, 9], [10, 11],
     ]
-    let rx = 0.6
-    let ry = 0.4
-    let frame = 0
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const rx = active ? 0.7 : 0.6
+    const ry = 0.4
     const draw = () => {
       ctx.clearRect(0, 0, 168, 168)
       ctx.strokeStyle = getComputedStyle(canvas).color
       ctx.fillStyle = ctx.strokeStyle
-      ctx.lineWidth = 2
+      ctx.lineWidth = active ? 2.2 : 1.6
       const cX = Math.cos(rx)
       const sX = Math.sin(rx)
       const cY = Math.cos(ry)
@@ -62,15 +60,7 @@ function WireGem({ active }: { active: boolean }) {
         ctx.fill()
       })
     }
-    const loop = () => {
-      ry += active ? 0.02 : 0.008
-      rx += active ? 0.012 : 0.005
-      draw()
-      frame = requestAnimationFrame(loop)
-    }
     draw()
-    if (!reduced) frame = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(frame)
   }, [active])
 
   return <canvas ref={ref} className="nc-plan-gem" width={168} height={168} aria-hidden="true" />
@@ -86,22 +76,7 @@ export function GlassPlans() {
         const from = index === 0 ? 'left' : index === PACKAGES.length - 1 ? 'right' : 'up'
         return (
           <Rise key={pkg.id} className="h-full" delay={index * 140} from={from}>
-            <article
-              className={`nc-plan ${pkg.popular ? 'is-feat' : ''}`}
-              onPointerMove={(event) => {
-                if (event.pointerType === 'touch') return
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-                const rect = event.currentTarget.getBoundingClientRect()
-                const px = (event.clientX - rect.left) / rect.width - 0.5
-                const py = (event.clientY - rect.top) / rect.height - 0.5
-                event.currentTarget.style.setProperty('--ry', `${(px * 5).toFixed(2)}deg`)
-                event.currentTarget.style.setProperty('--rx', `${(-py * 4).toFixed(2)}deg`)
-              }}
-              onPointerLeave={(event) => {
-                event.currentTarget.style.setProperty('--rx', '0deg')
-                event.currentTarget.style.setProperty('--ry', '0deg')
-              }}
-            >
+            <article className={`nc-plan ${pkg.popular ? 'is-feat' : ''}`}>
               {pkg.popular && <span className="nc-plan-badge">{t('tarifs.recommended')}</span>}
               <div className="nc-plan-top">
                 <span className="nc-plan-tag">{pkg.days} {lang === 'fr' ? 'jours' : 'days'}</span>

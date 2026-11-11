@@ -55,20 +55,13 @@ export function GlassCompare() {
     const bw = beforeRef.current
     const dv = divRef.current
     const hd = handleRef.current
-    const grad = gradRef.current
-    if (!root || !wrap || !card || !stage || !bw || !dv || !hd || !grad) return
+    if (!root || !wrap || !card || !stage || !bw || !dv || !hd) return
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const coarse = window.matchMedia('(pointer: coarse)')
-    const rest = { rx: 0, ry: 0, gx: 50, gy: 50 }
     let split = 50
     let splitTarget = 50
-    const current = { ...rest }
-    let target = { ...rest }
     let drag = false
     let shown = 50
-    let time = 1.4
-    let last = 0
     let frame = 0
     let idle = 0
     let mode: 'follow' | 'return' = 'follow'
@@ -76,7 +69,6 @@ export function GlassCompare() {
     let returnAt = 0
     let lastX = -1
     let lastY = -1
-    const tiltOn = () => !reduced.matches && !coarse.matches
 
     const startReturn = () => {
       if (mode === 'return') return
@@ -104,19 +96,12 @@ export function GlassCompare() {
       if (!force && Math.abs(event.clientX - lastX) + Math.abs(event.clientY - lastY) < 3) return
       lastX = event.clientX
       lastY = event.clientY
-      const wrapBox = wrap.getBoundingClientRect()
       const stageBox = stage.getBoundingClientRect()
-      if (tiltOn()) {
-        const nx = clamp((event.clientX - wrapBox.left) / wrapBox.width, 0, 1)
-        const ny = clamp((event.clientY - wrapBox.top) / wrapBox.height, 0, 1)
-        target = { rx: (0.5 - ny) * 12, ry: (nx - 0.5) * 12, gx: nx * 100, gy: ny * 100 }
-      }
       if (event.pointerType === 'mouse' || drag) setSplit(((event.clientX - stageBox.left) / stageBox.width) * 100)
     }
 
     const leave = () => {
       if (drag) return
-      target = { ...rest }
       startReturn()
     }
     const down = (event: PointerEvent) => {
@@ -129,7 +114,6 @@ export function GlassCompare() {
       if (!drag) return
       drag = false
       try { stage.releasePointerCapture(event.pointerId) } catch { /* already released */ }
-      target = { ...rest }
       startReturn()
     }
     const key = (event: KeyboardEvent) => {
@@ -153,36 +137,7 @@ export function GlassCompare() {
     stage.addEventListener('pointercancel', end)
     dv.addEventListener('keydown', key)
 
-    const paint = () => {
-      root.style.setProperty('--orb-phase', `${time * 46 - 85}deg`)
-      root.style.setProperty('--orb-counter', `${-time * 31 + 75}deg`)
-      root.style.setProperty('--orb-pool-x', `${50 + Math.sin(time * 0.73) * 12}%`)
-      root.style.setProperty('--orb-pool-y', `${50 + Math.cos(time * 0.57) * 16.5}%`)
-      root.style.setProperty('--orb-light-x', `${50 + Math.cos(time * 0.91) * 48}%`)
-      root.style.setProperty('--orb-light-y', `${50 + Math.sin(time * 0.91) * 48}%`)
-      ;(['top', 'right', 'bottom', 'left'] as const).forEach((name, index) => {
-        root.style.setProperty(
-          `--orb-edge-${name}`,
-          `${2.5 * (1 + Math.sin(time * 1.13 + (index * Math.PI) / 2) * 0.21)}px`,
-        )
-      })
-      grad.setAttribute('gradientTransform', `rotate(${45 + Math.sin(time * 0.8) * 15.75} 12 12)`)
-    }
-
     const tick = (now: number) => {
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60
-      last = now
-      if (!reduced.matches) {
-        time += dt * 0.8
-        paint()
-      }
-      current.rx += (target.rx - current.rx) * 0.12
-      current.ry += (target.ry - current.ry) * 0.12
-      current.gx += (target.gx - current.gx) * 0.12
-      current.gy += (target.gy - current.gy) * 0.12
-      card.style.transform = `perspective(900px) rotateX(${current.rx.toFixed(3)}deg) rotateY(${current.ry.toFixed(3)}deg)`
-      card.style.setProperty('--glare-x', `${current.gx.toFixed(1)}%`)
-      card.style.setProperty('--glare-y', `${current.gy.toFixed(1)}%`)
       if (mode === 'return') {
         const elapsed = clamp((now - returnAt) / 5000, 0, 1)
         const eased = elapsed * elapsed * (3 - 2 * elapsed)
@@ -202,7 +157,6 @@ export function GlassCompare() {
       frame = requestAnimationFrame(tick)
     }
 
-    paint()
     frame = requestAnimationFrame(tick)
     return () => {
       cancelAnimationFrame(frame)
