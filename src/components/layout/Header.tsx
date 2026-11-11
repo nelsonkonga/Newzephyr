@@ -39,12 +39,11 @@ export function Header() {
   }, [location.pathname, location.hash])
 
   useEffect(() => {
-    if (!home) return
-    const onScroll = () => setCompact(window.scrollY > 60)
+    const onScroll = () => setCompact(window.scrollY > 80)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [home])
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -61,7 +60,7 @@ export function Header() {
   }
 
   return (
-    <header ref={rootRef} className={`nc-nav ${solid ? 'is-solid' : ''} ${menuOpen ? 'is-open' : ''}`}>
+    <header ref={rootRef} className={`nc-nav ${solid ? 'is-solid' : ''} ${compact && !menuOpen ? 'is-compact' : ''} ${menuOpen ? 'is-open' : ''}`}>
       <ChromeGradient id="nc-chrome-nav" />
       <div className="nc-nav-pill">
         <span className="nc-nav-fill" />
