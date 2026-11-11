@@ -1475,8 +1475,31 @@ body:has(.nc-shell) { background: #ffffff; }
   font-weight: 500;
   letter-spacing: -0.03em;
 }
+.nc-plan-was {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  color: var(--nc-muted);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+.nc-plan-was s { text-decoration-thickness: 1.5px; }
+.nc-plan-off {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #c4a15a;
+  color: #1c1406;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
 .nc-plan-price {
-  margin: 12px 0 0;
+  margin: 8px 0 0;
   color: var(--nc-ink);
   font-variant-numeric: tabular-nums;
   font-size: clamp(32px, 2.8vw, 45px);

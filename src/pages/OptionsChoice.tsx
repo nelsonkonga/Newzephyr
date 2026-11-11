@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
 import { FunnelStepper } from '@/components/options/FunnelStepper'
 import { Button } from '@/components/ui/button'
 import { useLang } from '@/contexts/LangContext'
-import { PACKAGES, formatPackagePrice } from '@/data/packages'
+import { SaleSummary } from '@/components/pricing/FormerPrice'
+import { PACKAGES, salePhrase } from '@/data/packages'
 import { readLeadDraft, storeLead, updateLeadDraft } from '@/lib/lead'
 
 export function OptionsChoice() {
@@ -23,7 +24,7 @@ export function OptionsChoice() {
   const lead = draft
   const selected = pkg
   const name = t(selected.nameKey)
-  const price = formatPackagePrice(selected.price, lang)
+  const price = salePhrase(selected, lang)
   const modeLabel = t('options.mode.supplied')
 
   async function continueToPay() {
@@ -60,7 +61,7 @@ export function OptionsChoice() {
                   <span className="block font-semibold">{t('options.mode.supplied')}</span>
                   <span className="block text-sm text-muted-foreground mt-1">{t('options.mode.supplied.desc')}</span>
                 </span>
-                <span className="font-semibold shrink-0">{price}</span>
+                <span className="shrink-0 text-right"><SaleSummary pkg={selected} lang={lang} /></span>
               </span>
             </div>
 
@@ -79,7 +80,7 @@ export function OptionsChoice() {
             <p className="font-semibold mb-1">{name}</p>
             <p className="text-sm text-muted-foreground mb-4">{modeLabel}</p>
             <p className="text-sm text-muted-foreground">{t('options.total')}</p>
-            <p className="text-3xl font-semibold tracking-tight mb-5">{price}</p>
+            <div className="mb-5"><SaleSummary pkg={selected} lang={lang} /></div>
             <Button type="button" className="w-full rounded-full h-12" onClick={continueToPay} disabled={status === 'loading'}>
               {status === 'loading' && <Loader2 className="h-4 w-4 animate-spin" />}
               {t('options.choice.continue')}

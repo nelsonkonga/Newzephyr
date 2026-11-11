@@ -11,7 +11,7 @@ export function BeforeAfter() {
     <section className="nd-dark" aria-labelledby="compare-title">
       <Marquee
         tone="light"
-        items={[t('compare.before'), t('compare.after'), '3 000 €', '449 €', t('compare.b2'), t('compare.a2')]}
+        items={[t('compare.before'), t('compare.after'), '3 000 €', '153 €', t('compare.b2'), t('compare.a2')]}
       />
       <div className="nd-dark-inner">
         <div>

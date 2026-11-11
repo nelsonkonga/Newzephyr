@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Check } from 'lucide-react'
 import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
+import { FormerPrice } from '@/components/pricing/FormerPrice'
 import { PACKAGES, formatAmount, packageAmount, type Currency, type PackageDef } from '@/data/packages'
 
 function useSpringNumber(target: number) {
@@ -181,6 +182,7 @@ function PlanCard({
           <WireGem active={Boolean(pkg.popular)} hovered={hovered} />
         </div>
         <h3>{name}</h3>
+        <FormerPrice pkg={pkg} currency={currency} lang={lang} />
         <PlanPrice amount={packageAmount(pkg, currency)} currency={currency} lang={lang} />
         <p className="nc-plan-desc">{tagline}</p>
         <p className="nc-plan-label">{included}</p>

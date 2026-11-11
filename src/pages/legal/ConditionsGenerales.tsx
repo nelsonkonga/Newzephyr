@@ -1,6 +1,15 @@
+import { PACKAGES, formatPackagePrice, reductionPercent } from '@/data/packages'
 import { LegalLayout } from './LegalLayout'
 
+const FORMULA_NAMES = { decouverte: 'Découverte', essentiel: 'Essentiel', complet: 'Complet' } as const
+
 export function ConditionsGenerales() {
+  const prices = PACKAGES.map((pkg) => {
+    const now = formatPackagePrice(pkg.price, 'fr')
+    const was = formatPackagePrice(pkg.wasPrice, 'fr')
+    return `${FORMULA_NAMES[pkg.id]} (${now} au lieu de ${was}, −${reductionPercent(pkg)} %, ${pkg.days} jours)`
+  }).join(', ')
+
   return (
     <LegalLayout>
       <div>
@@ -14,8 +23,7 @@ export function ConditionsGenerales() {
           <p>
             Les présentes conditions régissent la création d’un site web pour une activité,
             vendu par Newzephyr sous l’une des trois formules. Le client envoie les textes
-            et les photos : Découverte (449 €, 7 jours), Essentiel (990 €, 21 jours), Complet
-            (2 990 €, 30 jours). Un hôtel, un restaurant ou un salon suivent la même formule.
+            et les photos : {prices}. Un hôtel, un restaurant ou un salon suivent la même formule.
           </p>
         </section>
 

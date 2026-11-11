@@ -1,7 +1,8 @@
+// Sale prices: 153, 229 and 763 EUR. FCFA = round(eur * 655.957).
 const AMOUNTS_XAF = {
-  decouverte: { send: 297900, visit: 425900 },
-  essentiel: { send: 649900, visit: 977900 },
-  complet: { send: 1961900, visit: 2617900 },
+  decouverte: { send: 100361, visit: 425900 },
+  essentiel: { send: 150214, visit: 977900 },
+  complet: { send: 500495, visit: 2617900 },
 }
 
 const MOMO_CAP_XAF = 500000

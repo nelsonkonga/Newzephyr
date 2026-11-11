@@ -1,7 +1,15 @@
+import { PACKAGES, packageAmount, type PackageId } from './packages'
+
+function sendAmount(id: PackageId) {
+  const pkg = PACKAGES.find((item) => item.id === id)
+  if (!pkg) throw new Error(id)
+  return packageAmount(pkg, 'xaf')
+}
+
 const AMOUNTS_XAF = {
-  decouverte: { send: 297900, visit: 425900 },
-  essentiel: { send: 649900, visit: 977900 },
-  complet: { send: 1961900, visit: 2617900 },
+  decouverte: { send: sendAmount('decouverte'), visit: 425900 },
+  essentiel: { send: sendAmount('essentiel'), visit: 977900 },
+  complet: { send: sendAmount('complet'), visit: 2617900 },
 } as const
 
 export function momoAmountXaf(formule: string, visit: boolean) {
