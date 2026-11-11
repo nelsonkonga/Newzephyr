@@ -26,8 +26,8 @@ const translations: Record<string, Record<Lang, string>> = {
     en: 'This call is for choosing the package. Nothing to pay on this page.',
   },
   'call.missing': {
-    fr: 'Les créneaux ne sont pas encore ouverts. Écrivez à nelo.engineering@hotmail.com pour fixer l’appel.',
-    en: 'The time slots are not open yet. Write to nelo.engineering@hotmail.com to set the call.',
+    fr: 'Les créneaux ne sont pas encore ouverts. Écrivez à nelo.engineering\u200b@hotmail.com pour fixer l’appel.',
+    en: 'The time slots are not open yet. Write to nelo.engineering\u200b@hotmail.com to set the call.',
   },
   'cta.instagram': { fr: 'Instagram', en: 'Instagram' },
   'cta.linkedin': { fr: 'LinkedIn', en: 'LinkedIn' },

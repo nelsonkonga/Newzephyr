@@ -47,7 +47,7 @@ export function Confidentialite() {
               href="mailto:nelo.engineering@hotmail.com"
               className="text-gold hover:underline"
             >
-              nelo.engineering@hotmail.com
+              nelo.engineering<wbr />@hotmail.com
             </a>
             .
           </p>

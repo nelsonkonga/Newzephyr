@@ -17,7 +17,7 @@ export function LegalLayout({ children }: { children: React.ReactNode }) {
           {lang === 'fr' ? 'Retour à l\'accueil' : 'Back to home'}
         </Link>
         <Rise>
-          <div className="space-y-8">{children}</div>
+          <div className="nc-legal space-y-8">{children}</div>
         </Rise>
       </div>
     </div>
