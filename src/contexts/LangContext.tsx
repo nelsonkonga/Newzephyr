@@ -192,6 +192,8 @@ const translations: Record<string, Record<Lang, string>> = {
   'tarifs.revisions': { fr: '2 retouches incluses', en: '2 revisions included' },
   'tarifs.includedTitle': { fr: 'Inclus', en: 'Included' },
   'tarifs.cta': { fr: 'Voir les options', en: 'View options' },
+  'tarifs.recommended': { fr: 'Recommandé', en: 'Recommended' },
+  'studio.soon': { fr: 'À venir', en: 'Coming soon' },
   'tarifs.mode.label': { fr: 'Qui prépare les textes et les photos', en: 'Who prepares the texts and photos' },
   'tarifs.mode.supplied': { fr: 'Vous envoyez les contenus', en: 'You send the content' },
   'tarifs.mode.visit': { fr: 'Nous venons sur place', en: 'We come on site' },

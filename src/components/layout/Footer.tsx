@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
+import { SocialDock } from '@/components/chrome/SocialDock'
 import { FitText } from '@/components/motion/FitText'
 import { Rise } from '@/components/motion/Rise'
 import { useLang } from '@/contexts/LangContext'
-import { SOCIAL } from '@/lib/links'
 
 const NAV_ITEMS = [
   { key: 'nav.offer', href: '#offre' },
@@ -16,15 +16,7 @@ const LEGAL_LINKS = [
   { key: 'footer.legal', path: '/mentions-legales' },
   { key: 'footer.privacy', path: '/confidentialite' },
   { key: 'footer.cgu', path: '/conditions-generales' },
-]
-
-const SOCIAL_LINKS = [
-  { href: SOCIAL.linkedin, label: 'LinkedIn' },
-  { href: SOCIAL.instagram, label: 'Instagram' },
-  { href: SOCIAL.facebook, label: 'Facebook' },
-  { href: SOCIAL.github, label: 'GitHub' },
-  { href: SOCIAL.x, label: 'X' },
-]
+] as const
 
 export function Footer() {
   const { t } = useLang()
@@ -32,6 +24,7 @@ export function Footer() {
   return (
     <footer className="nd-foot">
       <Rise>
+      <SocialDock />
       <div className="nd-foot-links">
         <nav>
           {NAV_ITEMS.map((item) => (
@@ -39,9 +32,6 @@ export function Footer() {
           ))}
           {LEGAL_LINKS.map((item) => (
             <Link key={item.key} to={item.path}>{t(item.key)}</Link>
-          ))}
-          {SOCIAL_LINKS.map((item) => (
-            <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
           ))}
         </nav>
         <div className="nd-legal">

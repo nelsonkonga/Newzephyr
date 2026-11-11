@@ -1,11 +1,8 @@
 export const WHATSAPP_NUMBER = '237659300327'
 
 export const SOCIAL = {
-  instagram: 'https://www.instagram.com/the.king.nelson',
-  linkedin: 'https://www.linkedin.com/in/evrard-kamdem-946625236',
-  facebook: 'https://web.facebook.com/the.king.nelo',
-  github: 'https://github.com/nelsonkonga',
-  x: 'https://x.com/the_king_nelo',
+  instagram: 'https://www.instagram.com/newzephyr.co',
+  facebook: 'https://web.facebook.com/newzephyr.co',
 } as const
 
 export function whatsappUrl(text: string) {
