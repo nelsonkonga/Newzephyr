@@ -21,11 +21,9 @@ export function Methodology() {
         <Rise delay={150}>
           <p className="nc-lead" style={{ textAlign: 'left', margin: '14px 0 8px' }}>{t('method.subtitle')}</p>
         </Rise>
-      </div>
-      <MethodTunnel />
-      <div className="nc-wrap">
+        <MethodTunnel />
         <Rise delay={80}>
-          <p className="nc-kicker" style={{ marginTop: 36 }}>{t('offer.forWho.value')}</p>
+          <p className="nc-kicker" style={{ marginTop: 28 }}>{t('offer.forWho.value')}</p>
         </Rise>
         <div className="nc-marquee" aria-hidden="true">
           <div className="nc-marquee-track">

@@ -21,7 +21,7 @@ const ITEMS = [
   { title: 'Pinterest', href: '', icon: PinterestIcon },
 ] as const
 
-export function SocialDock() {
+export function SocialDock({ className = '' }: { className?: string }) {
   const { t } = useLang()
   const outerRef = useRef<HTMLDivElement>(null)
   const nodes = useRef<Array<HTMLAnchorElement | HTMLButtonElement | null>>([])
@@ -53,7 +53,7 @@ export function SocialDock() {
   return (
     <div
       ref={outerRef}
-      className="nc-dock"
+      className={`nc-dock ${className}`.trim()}
       onMouseMove={(event) => { mouse.current = event.pageX }}
       onMouseLeave={() => { mouse.current = Number.POSITIVE_INFINITY }}
     >

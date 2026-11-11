@@ -19,30 +19,33 @@ export function Faq() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section id="faq" className="nc-faq nc-wrap">
-      <Rise>
-        <p className="nc-kicker">{t('faq.eyebrow')}</p>
-        <h2><Emphasis text={t('faq.title')} /></h2>
-        <p className="nc-lead" style={{ textAlign: 'left', marginTop: 16 }}>{t('studio.stillLead')}</p>
-        <Link to="/appel" className="nc-pill is-solid" style={{ marginTop: 18 }} onPointerDown={warmCalendly}>
-          {t('cta.book')}
-        </Link>
-      </Rise>
-      <div>
-        {ITEMS.map(([question, answer], index) => {
-          const shown = open === index
-          return (
-            <Rise key={question} delay={index * 70}>
-            <div className="nc-faq-row">
-              <button type="button" aria-expanded={shown} onClick={() => setOpen(shown ? -1 : index)}>
-                <span>0{index + 1} — {t(question)}</span>
-                <span>{shown ? '–' : '+'}</span>
-              </button>
-              <p hidden={!shown}>{t(answer)}</p>
-            </div>
-            </Rise>
-          )
-        })}
+    <section id="faq" className="nc-ask nc-wrap">
+      <div className="nc-ask-grid">
+        <Rise>
+          <p className="nc-kicker">{t('faq.eyebrow')}</p>
+          <h2><Emphasis text={t('faq.title')} /></h2>
+          <p className="nc-lead" style={{ textAlign: 'left', marginTop: 16 }}>{t('studio.stillLead')}</p>
+          <Link to="/appel" className="nc-pill is-solid" style={{ marginTop: 18 }} onPointerDown={warmCalendly}>
+            {t('cta.book')}
+          </Link>
+        </Rise>
+        <div className="nc-ask-list">
+          {ITEMS.map(([question, answer], index) => {
+            const shown = open === index
+            return (
+              <Rise key={question} delay={index * 70}>
+                <article className={`nc-ask-card ${shown ? 'is-open' : ''}`}>
+                  <button type="button" aria-expanded={shown} onClick={() => setOpen(shown ? -1 : index)}>
+                    <b>0{index + 1}</b>
+                    <span>{t(question)}</span>
+                    <i>{shown ? '–' : '+'}</i>
+                  </button>
+                  <p hidden={!shown}>{t(answer)}</p>
+                </article>
+              </Rise>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

@@ -98,13 +98,16 @@ export function MethodTunnel() {
         ctx.stroke()
       }
       ctx.globalAlpha = 1
+      let nearest = 0
+      STEPS.forEach((step, index) => {
+        if (Math.abs(progress - step.at) < Math.abs(progress - STEPS[nearest].at)) nearest = index
+      })
       cardsRef.current.forEach((card, index) => {
         if (!card) return
-        const delta = progress - STEPS[index].at
-        const distance = Math.abs(delta)
-        const visible = distance < 0.07 ? 1 : Math.max(0, 1 - (distance - 0.07) / 0.12)
-        card.style.opacity = visible.toFixed(3)
-        card.style.transform = `translate3d(-50%, calc(-50% + ${delta * -70}px), 0) scale(${(0.9 + visible * 0.1).toFixed(3)})`
+        const on = index === nearest
+        card.style.opacity = on ? '1' : '0'
+        card.style.zIndex = on ? '3' : '1'
+        card.style.transform = 'translate3d(-50%, -50%, 0)'
       })
       dotsRef.current.forEach((dot, index) => dot?.classList.toggle('is-on', progress >= STEPS[index].at - 0.08))
       railRef.current?.style.setProperty('--p', progress.toFixed(3))
