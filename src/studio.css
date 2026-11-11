@@ -26,7 +26,7 @@
   --nc-accent: #3b6cf6;
   background: var(--nc-bg);
   color: var(--nc-ink);
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .nc-relief {
@@ -126,7 +126,7 @@ body {
 .nc-scroll,
 .nd-foot a,
 .nc-switch button {
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .nd-top nav a,
@@ -340,7 +340,7 @@ body {
   max-width: 100%;
   overflow: hidden;
   contain: inline-size;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.88;
@@ -451,7 +451,7 @@ body {
 
 .nc-display,
 .nc-close h2 {
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .nc-display,
@@ -465,7 +465,7 @@ body {
 
 .nc-reveal {
   margin: 0;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: clamp(28px, 4.58vw, 66px);
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -641,37 +641,86 @@ body {
 }
 
 .nc-steps { padding: 40px 0 10px; }
-.nc-timeline {
-  width: min(920px, calc(100% - 48px));
-  margin: 28px auto 8px;
-  padding: 0;
-  list-style: none;
+.nc-kicker,
+.nc-meta,
+.nc-plan-badge,
+.nc-plan-tag,
+.nc-plan-label,
+.nc-plan-price,
+.nc-foot-grid b,
+.nc-tl-side h3,
+.nc-tl-title-sm {
+  font-family: "Geist Mono", ui-monospace, monospace;
 }
-.nc-timeline li {
+.nc-tl { width: min(1100px, calc(100% - 48px)); margin: 12px auto 8px; }
+.nc-tl-list { position: relative; }
+.nc-tl-row {
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: minmax(140px, 280px) 1fr;
+  gap: 28px;
+  padding: 28px 0 56px;
+}
+.nc-tl-side {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+  display: flex;
+  align-items: center;
   gap: 16px;
-  padding: 28px 0;
-  border-top: 1px solid var(--nc-line);
+  z-index: 2;
 }
-.nc-timeline span {
-  color: var(--nc-accent);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.nc-tl-dot {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 1px solid var(--nc-line-strong);
+  border-radius: 50%;
+  background: var(--nc-bg);
+  box-shadow: 0 0 0 6px var(--nc-bg);
 }
-.nc-timeline h3 {
+.nc-tl-side h3,
+.nc-tl-title-sm {
   margin: 0;
-  font-size: clamp(1.7rem, 3vw, 2.3rem);
-  font-weight: 700;
+  color: var(--nc-faint);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.nc-tl-title-sm { display: none; margin-bottom: 12px; }
+.nc-tl-copy h4 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  font-weight: 600;
   letter-spacing: -0.03em;
 }
-.nc-timeline p {
-  margin: 10px 0 0;
+.nc-tl-copy p {
+  margin: 12px 0 0;
   max-width: 36rem;
   color: var(--nc-muted);
   font-size: 32px;
   line-height: 1.4;
+}
+.nc-tl-copy img {
+  display: block;
+  width: min(100%, 560px);
+  height: 280px;
+  margin-top: 22px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 16px 40px rgba(22, 23, 28, 0.08);
+}
+.nc-tl-track {
+  position: absolute;
+  top: 0;
+  left: 7px;
+  width: 2px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, transparent, var(--nc-line) 12%, var(--nc-line) 88%, transparent);
+}
+.nc-tl-track i {
+  display: block;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent, var(--nc-accent));
 }
 
 .nc-step {
@@ -834,7 +883,16 @@ body:has(.nc-shell) { background: #ffffff; }
 .nc-reveal { text-wrap: pretty; }
 .nc-reveal [data-ch] { white-space: pre-wrap; }
 .nc-reveal .is-em { color: var(--nc-accent); }
-.nc-caret { display: none; }
+.nc-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.82em;
+  margin-left: 3px;
+  background: var(--nc-accent);
+  vertical-align: -0.08em;
+  animation: nc-blink 1s steps(1) infinite;
+}
+@keyframes nc-blink { 50% { opacity: 0; } }
 
 @keyframes nc-rise-in {
   from { opacity: 0; transform: translateY(14px); }
@@ -1035,7 +1093,7 @@ body:has(.nc-shell) { background: #ffffff; }
   border: 0;
   background: transparent;
   color: inherit;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -1147,7 +1205,7 @@ body:has(.nc-shell) { background: #ffffff; }
   border-radius: 6px;
   background: #ffffff;
   color: #16171c;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 12px;
   white-space: nowrap;
   opacity: 0;
@@ -1247,7 +1305,7 @@ body:has(.nc-shell) { background: #ffffff; }
   border-radius: 999px;
   background: #d7b15a;
   color: #070910;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1257,7 +1315,7 @@ body:has(.nc-shell) { background: #ffffff; }
 .nc-plan-tag {
   padding-top: 8px;
   color: #d7b15a;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1286,7 +1344,7 @@ body:has(.nc-shell) { background: #ffffff; }
 .nc-plan-label {
   margin: 0 0 8px;
   color: var(--nc-faint);
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1735,7 +1793,7 @@ button.nc-faq-slab { cursor: pointer; }
   display: block;
   margin-bottom: 10px;
   color: #d7b15a;
-  font-family: Manrope, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1965,8 +2023,14 @@ button.nc-faq-slab { cursor: pointer; }
   .nc-hero-inner,
   .nc-faq-page,
   .nc-foot,
-  .nc-timeline { width: min(1240px, calc(100% - 28px)); }
-  .nc-timeline li { grid-template-columns: 42px 1fr; gap: 10px; }
+  .nc-tl { width: min(1240px, calc(100% - 28px)); }
+  .nc-tl-row { grid-template-columns: 28px 1fr; gap: 8px; }
+  .nc-tl-side { position: relative; top: 8px; }
+  .nc-tl-side h3 { display: none; }
+  .nc-tl-title-sm { display: block; }
+  .nc-tl-track { left: 7px; }
+  .nc-tl-copy img { height: 180px; }
+  .nc-tl-copy p { font-size: 28px; }
   .nc-faq-col,
   .nc-faq-ans,
   .nc-faq-item,

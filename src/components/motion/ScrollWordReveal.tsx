@@ -19,11 +19,52 @@ export function ScrollWordReveal({ text }: { text: string }) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    el.querySelectorAll<HTMLElement>('[data-ch]').forEach((node) => {
-      node.hidden = false
-    })
-    const mark = el.querySelector<HTMLElement>('.nc-caret')
-    if (mark) mark.hidden = true
+    const nodes = () => [...el.querySelectorAll<HTMLElement>('[data-ch]')]
+    const caret = () => el.querySelector<HTMLElement>('.nc-caret')
+    const paint = (count: number) => {
+      nodes().forEach((node, index) => {
+        node.hidden = index >= count
+      })
+      const mark = caret()
+      if (mark) mark.hidden = count >= glyphs.length
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      paint(glyphs.length)
+      return
+    }
+    let shown = 0
+    let raf = 0
+    let last = performance.now()
+    const target = () => {
+      const rect = el.getBoundingClientRect()
+      const view = window.innerHeight
+      const progress = (view * 0.9 - rect.top) / (view * 0.55)
+      return Math.max(0, Math.min(glyphs.length, Math.floor(progress * glyphs.length)))
+    }
+    const frame = (now: number) => {
+      const goal = target()
+      const steps = Math.max(1, Math.floor((now - last) / 32))
+      last = now
+      if (shown < goal) shown = Math.min(goal, shown + steps)
+      else if (shown > goal) shown = goal
+      paint(shown)
+      if (shown !== glyphs.length || goal !== glyphs.length) raf = requestAnimationFrame(frame)
+      else raf = 0
+    }
+    const wake = () => {
+      if (!raf) {
+        last = performance.now()
+        raf = requestAnimationFrame(frame)
+      }
+    }
+    wake()
+    window.addEventListener('scroll', wake, { passive: true })
+    window.addEventListener('resize', wake)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', wake)
+      window.removeEventListener('resize', wake)
+    }
   }, [glyphs])
 
   return (
