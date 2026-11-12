@@ -2189,13 +2189,9 @@ button.nc-faq-slab { cursor: pointer; }
   background: #1e4ed8;
   color: #ffffff;
 }
-.dark .nc-split-lbl {
-  background: #f4f1ea;
-  color: #12141a;
-}
-.dark .nc-split-lbl.is-after {
-  background: #dbe4ff;
-  color: #10204a;
+.dark .nc-split-lbl:not(.is-after) {
+  background: #ffffff;
+  color: #000000;
 }
 .nc-split-lbl svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 .nc-split-div {

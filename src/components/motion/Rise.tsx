@@ -23,17 +23,29 @@ export function Rise({
       show()
       return
     }
-    const failsafe = window.setTimeout(show, 900)
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry?.isIntersecting) return
-      show()
-      window.clearTimeout(failsafe)
-      observer.disconnect()
-    }, { threshold: 0.01, rootMargin: '80px 0px' })
-    observer.observe(node)
+    let frame = 0
+    let observer: IntersectionObserver | null = null
+    const visibleNow = () => {
+      const rect = node.getBoundingClientRect()
+      return rect.top < window.innerHeight * 0.92 && rect.bottom > 0
+    }
+    frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(() => {
+        observer = new IntersectionObserver(([entry]) => {
+          if (!entry?.isIntersecting) return
+          show()
+          observer?.disconnect()
+        }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' })
+        observer.observe(node)
+      })
+    })
+    const failsafe = window.setTimeout(() => {
+      if (!node.classList.contains('is-in') && visibleNow()) show()
+    }, 1400)
     return () => {
+      cancelAnimationFrame(frame)
       window.clearTimeout(failsafe)
-      observer.disconnect()
+      observer?.disconnect()
     }
   }, [])
 
