@@ -206,13 +206,17 @@ body,
 
 .nc-pill.is-solid {
   border: 0;
-  background: #3b6cf6;
-  color: #070910;
+  background: #1e4ed8;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .nc-pill.is-solid:hover {
-  background: #3b6cf6;
-  filter: brightness(1.04);
+  background: #1a45c4;
+  color: #ffffff;
+  filter: none;
 }
 
 .nc-magnetic {
@@ -1597,6 +1601,19 @@ body:has(.nc-shell) { background: #ffffff; }
 .dark .nc-nav.is-solid .nc-nav-links a:hover,
 .dark .nc-nav.is-open .nc-nav-list a:hover,
 .dark .nc-nav.is-open .nc-nav-list button:hover { color: #8eb0ff; }
+a.nc-pill.is-solid,
+.nc-nav-list a.nc-pill.is-solid,
+.nc-nav-list a.nc-pill.is-solid:hover,
+.nc-nav.is-open .nc-nav-list a.nc-pill.is-solid,
+.nc-nav.is-open .nc-nav-list a.nc-pill.is-solid:hover,
+.dark a.nc-pill.is-solid,
+.dark .nc-nav-list a.nc-pill.is-solid,
+.dark .nc-nav-list a.nc-pill.is-solid:hover,
+.dark .nc-nav.is-open .nc-nav-list a.nc-pill.is-solid,
+.dark .nc-nav.is-open .nc-nav-list a.nc-pill.is-solid:hover {
+  background: #1e4ed8;
+  color: #ffffff;
+}
 .dark .nc-dock-bar { background: #12151c; color: #edebe6; }
 .dark .nc-dock-face svg { stroke: url(#nc-chrome-dock); }
 .dark .nc-dock-tip {
@@ -2157,19 +2174,30 @@ button.nc-faq-slab { cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 12px;
-  border: 1px solid var(--split-line);
+  padding: 8px 14px;
+  border: 0;
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  color: var(--split-gold);
-  font-size: 12px;
-  font-weight: 650;
+  background: #16171c;
+  color: #f7f4ec;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   pointer-events: none;
-  backdrop-filter: blur(10px);
 }
-.nc-split-lbl svg { width: 14px; height: 14px; fill: none; stroke: #3b6cf6; stroke-width: 2; }
-.dark .nc-split-lbl svg { stroke: url(#nc-chrome-compare); }
+.nc-split-lbl.is-after {
+  background: #1e4ed8;
+  color: #ffffff;
+}
+.dark .nc-split-lbl {
+  background: #f4f1ea;
+  color: #12141a;
+}
+.dark .nc-split-lbl.is-after {
+  background: #dbe4ff;
+  color: #10204a;
+}
+.nc-split-lbl svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 .nc-split-div {
   position: absolute;
   top: 0;
