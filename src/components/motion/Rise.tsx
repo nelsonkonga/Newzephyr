@@ -18,25 +18,22 @@ export function Rise({
   useEffect(() => {
     const node = ref.current
     if (!node) return
+    const show = () => node.classList.add('is-in')
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      node.classList.add('is-in')
+      show()
       return
     }
-    let frame = 0
-    let observer: IntersectionObserver | null = null
-    frame = requestAnimationFrame(() => {
-      frame = requestAnimationFrame(() => {
-        observer = new IntersectionObserver(([entry]) => {
-          if (!entry?.isIntersecting) return
-          node.classList.add('is-in')
-          observer?.disconnect()
-        }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' })
-        observer.observe(node)
-      })
-    })
+    const failsafe = window.setTimeout(show, 900)
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return
+      show()
+      window.clearTimeout(failsafe)
+      observer.disconnect()
+    }, { threshold: 0.01, rootMargin: '80px 0px' })
+    observer.observe(node)
     return () => {
-      cancelAnimationFrame(frame)
-      observer?.disconnect()
+      window.clearTimeout(failsafe)
+      observer.disconnect()
     }
   }, [])
 

@@ -63,9 +63,14 @@
   min-height: 100vh;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 html,
-body {
-  overflow-x: clip;
+body,
+#root {
+  max-width: 100%;
 }
 .nc-legal p { font-size: 20px; line-height: 1.5; overflow-wrap: break-word; }
 .nc-legal a { overflow-wrap: break-word; }
@@ -73,7 +78,7 @@ body {
   position: relative;
   background: transparent;
   color: var(--nc-ink);
-  overflow-x: clip;
+  max-width: 100%;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -348,8 +353,8 @@ body {
 .nc-hero-shot {
   position: relative;
   margin: 0;
-  overflow: hidden;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 86% 96%, 70% 98.4%, 58% 99.6%, 50% 100%, 42% 99.6%, 30% 98.4%, 14% 96%, 0% 94%);
+  min-height: 560px;
+  background: #10141c;
 }
 .nc-hero-shot img {
   display: block;
@@ -357,6 +362,7 @@ body {
   height: clamp(560px, 58vw, 780px);
   object-fit: cover;
   object-position: 68% center;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 86% 96%, 70% 98.4%, 58% 99.6%, 50% 100%, 42% 99.6%, 30% 98.4%, 14% 96%, 0% 94%);
 }
 .nc-hero-scrim {
   position: absolute;
@@ -374,8 +380,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: min(760px, 58vw);
-  padding: 36px 40px 36px max(28px, calc((100vw - 1240px) / 2));
+  width: min(760px, 58%);
+  padding: 36px 40px 36px max(28px, calc((100% - 1240px) / 2));
   color: #f6f3ec;
 }
 .nc-hero-copy h1,
@@ -402,6 +408,7 @@ body {
   max-width: 100%;
   overflow: hidden;
   contain: inline-size;
+  font-size: 64px;
   font-family: Inter, sans-serif;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -1992,7 +1999,8 @@ button.nc-faq-slab { cursor: pointer; }
   padding-bottom: 28px;
   color: #c4beb2;
   line-height: 0.92;
-  overflow: visible;
+  max-width: 100%;
+  overflow: hidden;
 }
 .dark .nc-foot .nd-wordmark { color: rgba(237, 235, 230, 0.16); }
 
@@ -2247,7 +2255,7 @@ button.nc-faq-slab { cursor: pointer; }
   .nc-split-vig,
   .nc-split-glare { display: none; }
   .nc-tunnel-card {
-    width: min(540px, calc(100vw - 28px));
+    width: min(540px, calc(100% - 28px));
     min-height: 0;
     padding: 22px;
   }
@@ -2262,7 +2270,8 @@ button.nc-faq-slab { cursor: pointer; }
   .nc-nav.is-compact .nc-nav-pill { width: calc(100% - 28px); border-radius: 999px; transform: translateY(8px); }
   .nc-nav.is-open .nc-nav-pill { width: 100%; border-radius: 0; transform: none; }
   .nc-hero-inner { width: 100%; }
-  .nc-hero-shot img { height: 640px; object-position: 72% 42%; }
+  .nc-hero-shot { min-height: 640px; }
+  .nc-hero-shot img { height: 640px; object-position: 72% 42%; clip-path: none; }
   .nc-hero-scrim {
     background: linear-gradient(180deg, rgba(8, 10, 16, 0.84) 0%, rgba(8, 10, 16, 0.7) 26%, rgba(8, 10, 16, 0.22) 46%, rgba(8, 10, 16, 0) 60%);
   }
