@@ -8,6 +8,8 @@ export interface PackageDef {
   id: PackageId
   price: string
   priceEur: number
+  wasPrice: string
+  wasPriceEur: number
   visitPrice: string
   days: number
   popular?: boolean
@@ -21,8 +23,10 @@ export interface PackageDef {
 export const PACKAGES: PackageDef[] = [
   {
     id: 'decouverte',
-    price: '449 €',
-    priceEur: 449,
+    price: '153 €',
+    priceEur: 153,
+    wasPrice: '449 €',
+    wasPriceEur: 449,
     visitPrice: '649 €',
     days: 7,
     nameKey: 'tarifs.pkg.decouverte.name',
@@ -36,8 +40,10 @@ export const PACKAGES: PackageDef[] = [
   },
   {
     id: 'essentiel',
-    price: '990 €',
-    priceEur: 990,
+    price: '229 €',
+    priceEur: 229,
+    wasPrice: '990 €',
+    wasPriceEur: 990,
     visitPrice: '1 490 €',
     days: 21,
     popular: true,
@@ -52,8 +58,10 @@ export const PACKAGES: PackageDef[] = [
   },
   {
     id: 'complet',
-    price: '2 990 €',
-    priceEur: 2990,
+    price: '763 €',
+    priceEur: 763,
+    wasPrice: '2 990 €',
+    wasPriceEur: 2990,
     visitPrice: '3 990 €',
     days: 30,
     nameKey: 'tarifs.pkg.complet.name',
@@ -68,6 +76,24 @@ export const PACKAGES: PackageDef[] = [
 
 export function packageAmount(pkg: PackageDef, currency: Currency) {
   return currency === 'eur' ? pkg.priceEur : Math.round(pkg.priceEur * EUR_TO_FCFA)
+}
+
+export function packageWasAmount(pkg: PackageDef, currency: Currency) {
+  return currency === 'eur' ? pkg.wasPriceEur : Math.round(pkg.wasPriceEur * EUR_TO_FCFA)
+}
+
+export function reductionPercent(pkg: PackageDef) {
+  return Math.round((1 - pkg.priceEur / pkg.wasPriceEur) * 100)
+}
+
+export function salePhrase(pkg: PackageDef, lang: 'fr' | 'en') {
+  const now = formatPackagePrice(pkg.price, lang)
+  const was = formatPackagePrice(pkg.wasPrice, lang)
+  const off = reductionPercent(pkg)
+  const xaf = formatAmount(packageAmount(pkg, 'xaf'), 'xaf', lang)
+  const wasXaf = formatAmount(packageWasAmount(pkg, 'xaf'), 'xaf', lang)
+  if (lang === 'fr') return `${now} au lieu de ${was} (−${off} %), soit ${xaf} au lieu de ${wasXaf}`
+  return `${now} instead of ${was} (−${off}%), that is ${xaf} instead of ${wasXaf}`
 }
 
 export function formatAmount(value: number, currency: Currency, lang: 'fr' | 'en') {

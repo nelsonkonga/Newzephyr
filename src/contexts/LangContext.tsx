@@ -35,8 +35,8 @@ const translations: Record<string, Record<Lang, string>> = {
 
   'hero.badge': { fr: 'Toutes les activités', en: 'Every activity' },
   'hero.title': {
-    fr: 'Création de site web, {em}une semaine{/em} dès 449\u00A0€.',
-    en: 'Website creation, {em}in one week{/em} from €449.',
+    fr: 'Création de site web, {em}une semaine{/em} dès 153\u00A0€, au lieu de 449\u00A0€.',
+    en: 'Website creation, {em}in one week{/em} from €153, instead of €449.',
   },
   'hero.subtitle': {
     fr: 'Un site pour toute activité qui reçoit des clients. Le prix et le délai sont écrits plus bas. Vous envoyez les textes et les photos.',
@@ -58,7 +58,7 @@ const translations: Record<string, Record<Lang, string>> = {
   'hero.visual.site': { fr: 'Sur votre site', en: 'On your site' },
   'hero.visual.delay': { fr: 'Une semaine', en: 'One week' },
   'hero.visual.delayValue': { fr: '7 jours', en: '7 days' },
-  'hero.visual.from': { fr: 'dès 449 €', en: 'from €449' },
+  'hero.visual.from': { fr: 'dès 153 €, au lieu de 449 €', en: 'from €153, instead of €449' },
   'hero.visual.fuzzy': { fr: 'Délai flou', en: 'A fuzzy deadline' },
 
   'problem.eyebrow': { fr: 'Le constat', en: 'The picture' },
@@ -95,7 +95,7 @@ const translations: Record<string, Record<Lang, string>> = {
   'compare.b2': { fr: 'Délai flou, souvent 3 à 4 semaines.', en: 'A fuzzy deadline, often 3 to 4 weeks.' },
   'compare.a2': { fr: '7, 21 ou 30 jours, écrits.', en: '7, 21 or 30 days, written down.' },
   'compare.b3': { fr: 'Dès 3 000 €.', en: 'From €3,000.' },
-  'compare.a3': { fr: 'Dès 449 €.', en: 'From €449.' },
+  'compare.a3': { fr: 'Dès 153 €, au lieu de 449 €.', en: 'From €153, instead of €449.' },
   'compare.b4': { fr: 'Pas d’endroit pour envoyer une demande.', en: 'Nowhere to send a request.' },
   'compare.a4': { fr: 'Un formulaire reçoit la demande.', en: 'A form receives the request.' },
 
@@ -128,8 +128,8 @@ const translations: Record<string, Record<Lang, string>> = {
   },
   'offer.b4.title': { fr: 'Le prix est sur cette page', en: 'The price is on this page' },
   'offer.b4.desc': {
-    fr: '449 €, 990 € ou 2 990 €. Le prix est écrit avant l’appel.',
-    en: '€449, €990 or €2,990. The price is written before the call.',
+    fr: '153 €, 229 € ou 763 €, au lieu de 449 €, 990 € et 2 990 €. Le prix est écrit avant l’appel.',
+    en: '€153, €229 or €763, instead of €449, €990 and €2,990. The price is written before the call.',
   },
 
   'method.eyebrow': { fr: 'Déroulement', en: 'Process' },
@@ -488,7 +488,7 @@ const translations: Record<string, Record<Lang, string>> = {
     fr: 'L’appel de 20 minutes sert à choisir la formule.',
     en: 'The 20-minute call is for choosing the package.',
   },
-  'studio.dock': { fr: 'Dès 449 €', en: 'From €449' },
+  'studio.dock': { fr: 'Dès 153 €, au lieu de 449 €', en: 'From €153, instead of €449' },
   'studio.menu': { fr: 'Menu', en: 'Menu' },
   'studio.close': { fr: 'Fermer', en: 'Close' },
   'studio.mail': { fr: 'nelo.engineering@hotmail.com', en: 'nelo.engineering@hotmail.com' },

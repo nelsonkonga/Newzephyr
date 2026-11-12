@@ -8,7 +8,8 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useLang } from '@/contexts/LangContext'
 import { formatMomoAmount, momoAmountXaf, momoParts } from '@/data/momoAmounts'
-import { PACKAGES, formatPackagePrice } from '@/data/packages'
+import { SaleSummary } from '@/components/pricing/FormerPrice'
+import { PACKAGES, salePhrase } from '@/data/packages'
 import { readLeadDraft, storeLead, updateLeadDraft } from '@/lib/lead'
 
 export function OptionsBrief() {
@@ -34,7 +35,7 @@ export function OptionsBrief() {
   const lead = draft
   const formulaName = t(pkg.nameKey)
   const modeLabel = t('options.mode.supplied')
-  const euro = formatPackagePrice(pkg.price, lang)
+  const euro = salePhrase(pkg, lang)
   const xaf = momoAmountXaf(lead.formule, false)
   const parts = xaf == null ? [] : momoParts(xaf)
   const total = xaf == null ? euro : formatMomoAmount(xaf, lang)
@@ -85,7 +86,8 @@ export function OptionsBrief() {
 
           <div className="rounded-2xl bg-muted/60 px-4 py-3 mb-6 text-sm">
             <p className="font-semibold">{formulaName}</p>
-            <p className="text-muted-foreground">{modeLabel} · {total}</p>
+            <p className="text-muted-foreground">{modeLabel}</p>
+            <SaleSummary pkg={pkg} lang={lang} />
           </div>
 
           <div className="space-y-4">

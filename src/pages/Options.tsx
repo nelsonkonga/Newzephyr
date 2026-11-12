@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useLang } from '@/contexts/LangContext'
-import { PACKAGES, formatPackagePrice } from '@/data/packages'
+import { SaleSummary } from '@/components/pricing/FormerPrice'
+import { PACKAGES, salePhrase } from '@/data/packages'
 import { readLeadDraft, saveLeadDraft, storeLead } from '@/lib/lead'
 
 function validEmail(value: string) {
@@ -25,7 +26,7 @@ export function Options() {
   const same = existing?.formule === activeId
 
   const name = t(pkg.nameKey)
-  const fromPrice = formatPackagePrice(pkg.price, lang)
+  const fromPrice = salePhrase(pkg, lang)
 
   const [hotel, setHotel] = useState(same && existing ? existing.hotel : '')
   const [email, setEmail] = useState(same && existing ? existing.email : '')
@@ -69,9 +70,8 @@ export function Options() {
           <div className="rounded-2xl bg-primary/10 px-4 py-3 mb-6 flex items-center justify-between gap-3">
             <div>
               <p className="text-xs text-muted-foreground">{t('options.package')}</p>
-              <p className="text-sm font-semibold">
-                {`${name} · ${t('options.from')} ${fromPrice}`}
-              </p>
+              <p className="text-sm font-semibold">{name}</p>
+              <SaleSummary pkg={pkg} lang={lang} />
             </div>
             <button type="button" className="text-sm font-semibold text-primary" onClick={() => setChanging((open) => !open)}>
               {t('options.change')}
@@ -86,7 +86,7 @@ export function Options() {
                   className={`rounded-xl border px-3 py-2 text-sm ${item.id === activeId ? 'border-primary text-primary' : 'border-border'}`}
                   onClick={() => setChanging(false)}
                 >
-                  {t(item.nameKey)} · {t('options.from')} {formatPackagePrice(item.price, lang)}
+                  {t(item.nameKey)} · <SaleSummary pkg={item} lang={lang} />
                 </Link>
               ))}
             </div>

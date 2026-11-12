@@ -19,7 +19,7 @@ export function Offer() {
         <p>{t(BENEFITS[0][1])}</p>
       </article>
       <article className="nd-fact is-ink">
-        <strong><Count to={449} on={seen} /> €</strong>
+        <strong><Count to={153} on={seen} /> €</strong>
         <p>{t('hero.visual.from')}</p>
       </article>
       <article className="nd-fact is-blue">

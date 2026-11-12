@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useLang } from '@/contexts/LangContext'
 import { formatMomoAmount, momoAmountXaf, momoParts } from '@/data/momoAmounts'
+import { SaleSummary } from '@/components/pricing/FormerPrice'
 import { PACKAGES, formatPackagePrice } from '@/data/packages'
 import { momoNumber, openCheckout, personalMomoMethods } from '@/lib/checkout'
 import { readLeadDraft, updateLeadDraft, type PaymentMethod } from '@/lib/lead'
@@ -35,11 +36,10 @@ export function OptionsPayment() {
   const lead = draft
   const name = t(pkg.nameKey)
   const modeLabel = t('options.mode.supplied')
-  const euro = formatPackagePrice(pkg.price, lang)
   const xaf = momoAmountXaf(lead.formule, false)
   const parts = xaf == null ? [] : momoParts(xaf)
   const due = parts[0] ?? null
-  const total = xaf == null ? euro : formatMomoAmount(xaf, lang)
+  const total = xaf == null ? formatPackagePrice(pkg.price, lang) : formatMomoAmount(xaf, lang)
   const dueLabel = due == null ? total : formatMomoAmount(due, lang)
   const balance = parts.slice(1)
   const number = momoNumber(method)
@@ -114,17 +114,11 @@ export function OptionsPayment() {
             <p className="text-xs text-muted-foreground mb-1">{t('options.summary')}</p>
             <p className="font-semibold mb-1">{name}</p>
             <p className="text-sm text-muted-foreground mb-4">{modeLabel}</p>
+            <SaleSummary pkg={pkg} lang={lang} />
             {balance.length > 0 && (
               <>
-                <p className="text-sm text-muted-foreground">{t('options.total')}</p>
-                <p className="text-2xl font-semibold tracking-tight">{total}</p>
-                {xaf != null && <p className="text-sm text-muted-foreground mt-1 mb-4">{euro}</p>}
-              </>
-            )}
-            <p className="text-sm text-muted-foreground">{t('options.pay.due')}</p>
-            <p className="text-3xl font-semibold tracking-tight">{dueLabel}</p>
-            {xaf != null && balance.length === 0 && <p className="text-sm text-muted-foreground mt-1">{euro}</p>}
-            {balance.length > 0 && (
+                <p className="text-sm text-muted-foreground mt-4">{t('options.pay.due')}</p>
+                <p className="text-3xl font-semibold tracking-tight">{dueLabel}</p>
               <div className="mt-4">
                 <p className="text-sm text-muted-foreground">{t('options.pay.cap')}</p>
                 <p className="text-sm font-medium mt-3">{t('options.pay.balance')}</p>
@@ -136,6 +130,7 @@ export function OptionsPayment() {
                   ))}
                 </ul>
               </div>
+              </>
             )}
             <Button type="button" className="w-full rounded-full h-auto min-h-12 whitespace-normal text-center leading-tight mt-5" onClick={pay} disabled={status === 'loading'}>
               {status === 'loading' && <Loader2 className="h-4 w-4 animate-spin" />}

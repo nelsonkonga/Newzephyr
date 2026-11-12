@@ -29,7 +29,12 @@ function WarmCalendly() {
 
   useEffect(() => {
     if (pathname === '/appel') return
-    const id = window.requestIdleCallback(() => warmCalendly(), { timeout: 1500 })
+    const idle = window.requestIdleCallback
+    if (typeof idle !== 'function') {
+      const id = window.setTimeout(warmCalendly, 300)
+      return () => window.clearTimeout(id)
+    }
+    const id = idle(() => warmCalendly(), { timeout: 1500 })
     return () => window.cancelIdleCallback(id)
   }, [pathname])
 

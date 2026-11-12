@@ -20,9 +20,10 @@ export function FitText({
     const measure = measureRef.current
     if (!box || !measure) return
     const fit = () => {
-      const w = box.offsetWidth
-      const mw = measure.offsetWidth
-      if (w > 0 && mw > 0) setSize(Math.max(16, (w / mw) * 100 * 0.995))
+      const parent = box.parentElement?.clientWidth ?? box.clientWidth
+      const w = Math.min(box.clientWidth || parent, parent, window.innerWidth)
+      const mw = measure.getBoundingClientRect().width
+      if (w > 8 && mw > 0) setSize(Math.max(16, Math.min(240, (w / mw) * 100 * 0.98)))
     }
     fit()
     const ro = new ResizeObserver(fit)
