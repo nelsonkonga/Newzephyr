@@ -21,6 +21,7 @@ import { OptionsPayment } from '@/pages/OptionsPayment'
 import { OptionsBrief } from '@/pages/OptionsBrief'
 import { BookCall } from '@/pages/BookCall'
 import { Octobre } from '@/pages/Octobre'
+import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { warmCalendly } from '@/lib/calendly'
 import './index.css'
 
@@ -68,6 +69,7 @@ function App() {
       <LangProvider>
         <BrowserRouter>
           <DocumentMeta />
+          <MetaPixel />
           <WarmCalendly />
           <Frame>
             <Header />

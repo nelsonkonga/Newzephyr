@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly VITE_MTN_MOMO_NUMBER?: string
   readonly VITE_ORANGE_MONEY_NUMBER?: string
   readonly VITE_CALENDLY_URL?: string
+  readonly VITE_META_PIXEL_ID?: string
 }
 
 interface ImportMeta {
